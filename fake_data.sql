@@ -25,21 +25,27 @@ VALUES ('pjmullz', 'stouffer4lyfe', 'mulletsonmullets@paul.paul', 'Paul Mullet',
 -- Destinations --
 ------------------
 INSERT INTO Media (mid, type, privacy) VALUES (1, 'Destination', 'Everyone');
-
-INSERT INTO Media (mid, type, privacy) VALUES (2, 'Destination', 'Everyone');
-
-INSERT INTO Media (mid, type, privacy) VALUES (3, 'Destination', 'Everyone');
-
-INSERT INTO Media (mid, type, privacy) VALUES (4, 'Destination', 'Everyone');
-
-INSERT INTO Media (mid, type, privacy) VALUES (5, 'Destination', 'Everyone');
-
 INSERT INTO Destination (did, name) VALUES (1, 'Paris, Kentucky');
 
+INSERT INTO Media (mid, type, privacy) VALUES (2, 'Destination', 'Everyone');
 INSERT INTO Destination (did, name) VALUES (2, 'Chili''s');
 
+INSERT INTO Media (mid, type, privacy) VALUES (3, 'Destination', 'Everyone');
 INSERT INTO Destination (did, name) VALUES (3, 'Guam');
 
+INSERT INTO Media (mid, type, privacy) VALUES (4, 'Destination', 'Everyone');
 INSERT INTO Destination (did, name) VALUES (4, 'The Blind Pig');
 
+INSERT INTO Media (mid, type, privacy) VALUES (5, 'Destination', 'Everyone');
 INSERT INTO Destination (did, name) VALUES (5, 'Starbucks');
+
+-----------
+-- Trips --
+-----------
+INSERT INTO MEDIA (id, type, privacy) VALUES (1, 'Trip', 'Everyone');
+INSERT INTO Trip (tid, packing_list, expenses) VALUES (1,
+    'Tequila and Croissants', 'About tree fiddy');
+-- TODO: add an album
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Trip');
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 5, 1); -- Starbucks
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 2, 2); -- Chili's
