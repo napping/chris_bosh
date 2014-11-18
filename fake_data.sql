@@ -156,10 +156,10 @@ INSERT INTO Photo (pid, url) VALUES (8, 'http://i.imgur.com/jnXMXxs.jpg');
 INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 8, 'Photo');
 INSERT INTO InAlbum (aid, mid, type) VALUES (2, 8, 'Photo');
 
-INSERT INTO Media (mid, type, privacy) VALUES (14, 'Photo', 'Everyone');
-INSERT INTO Photo (pid, url) VALUES (14, 'http://www.kathyloperevents.com/kilimanjaro/images/v031108.jpg');
-INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 14, 'Photo');
-INSERT INTO InAlbum (aid, mid, type) VALUES (2, 14, 'Photo');
+INSERT INTO Media (mid, type, privacy) VALUES (9, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (9, 'http://www.kathyloperevents.com/kilimanjaro/images/v031108.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 9, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 9, 'Photo');
 
 INSERT INTO Media (mid, type, privacy) VALUES (10, 'Photo', 'Everyone');
 INSERT INTO Photo (pid, url) VALUES (10, 'http://upload.wikimedia.org/wikipedia/commons/a/ae/Apra_Harbor.jpg');
