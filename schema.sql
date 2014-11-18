@@ -184,7 +184,7 @@ CREATE TABLE InAlbum
     FOREIGN KEY (aid) REFERENCES Album(aid),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT pk_inalbum PRIMARY KEY (aid, mid),
-    CONSTRAINT type_enum_owns CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
+    CONSTRAINT type_enum_inalbum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
 
 CREATE TABLE AlbumOfTrip
