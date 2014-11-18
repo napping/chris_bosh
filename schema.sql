@@ -8,11 +8,14 @@ CREATE TABLE Users
     interests       VARCHAR(256)
 );
 
-CREATE TABLE Trip 
+CREATE TABLE Trip2
 (
     tid             INT PRIMARY KEY NOT NULL,
     packing_list    VARCHAR(256),
-    expenses        VARCHAR(256)
+    expenses        VARCHAR(256),
+    type            VARCHAR(20) DEFAULT 'Trip',
+    CONSTRAINT type_trip CHECK (type = 'Trip'),
+    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Destination 
