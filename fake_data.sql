@@ -42,6 +42,8 @@ INSERT INTO Destination (did, name) VALUES (5, 'Starbucks');
 -----------
 -- Trips --
 -----------
+
+--| trip 1
 INSERT INTO MEDIA (mid, type, privacy) VALUES (1, 'Trip', 'Everyone');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (1,
     'Tequila and Croissants', 'About tree fiddy');
@@ -50,6 +52,7 @@ INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Trip');
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 5, 1); -- Starbucks
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 2, 2); -- Chili's
 
+--| trip 2
 INSERT INTO MEDIA (mid, type, privacy) VALUES (2, 'Trip', 'Everyone');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (2,
     'Sunblock, more sunblock', 'Sunburn Treatment');
@@ -58,3 +61,12 @@ INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 2, 'Trip');
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 3, 1); -- Guam
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 4, 2); -- The Blind Pig
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 3, 3); -- Guam
+
+--| trip 3
+INSERT INTO MEDIA (mid, type, privacy) VALUES (3, 'Trip', 'Only Friends');
+INSERT INTO Trip (tid, packing_list, expenses) VALUES (3,
+    'A guitar', 'I can''t convert into Guamanian currency ):');
+-- TODO: add an album
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 3, 'Trip');
+INSERT INTO GoesOn (username, tid) VALUES ('PGCB', 3);
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (3, 3, 1); -- Guam
