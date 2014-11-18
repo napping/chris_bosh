@@ -44,7 +44,7 @@ INSERT INTO Destination (did, name) VALUES (5, 'Starbucks');
 -----------
 
 --| trip 1
-INSERT INTO MEDIA (mid, type, privacy) VALUES (1, 'Trip', 'Everyone');
+INSERT INTO Media (mid, type, privacy) VALUES (1, 'Trip', 'Everyone');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (1,
     'Tequila and Croissants', 'About tree fiddy');
 INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Trip');
@@ -54,7 +54,7 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 5, 1);
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 2, 2); 
 
 --| trip 2
-INSERT INTO MEDIA (mid, type, privacy) VALUES (2, 'Trip', 'Everyone');
+INSERT INTO Media (mid, type, privacy) VALUES (2, 'Trip', 'Everyone');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (2,
     'Sunblock, more sunblock', 'Sunburn Treatment');
 INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 2, 'Trip');
@@ -66,7 +66,7 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (2, 4, 2);
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (2, 3, 3); 
 
 --| trip 3
-INSERT INTO MEDIA (mid, type, privacy) VALUES (3, 'Trip', 'Only Friends');
+INSERT INTO Media (mid, type, privacy) VALUES (3, 'Trip', 'Only Friends');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (3,
     'A guitar', 'I can''t convert into Guamanian currency ):');
 INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 3, 'Trip');
@@ -86,3 +86,19 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 5, 2);
 -- Guam
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 3, 3);
 
+--| trip 5
+INSERT INTO Media (mid, type, privacy) VALUES (5, 'Trip', 'Everyone');
+INSERT INTO Trip (tid, packing_list, expenses) VALUES (5,
+    'I''ve got my red dress on tonight', '$600');
+-- TODO: add an album
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 5, 'Trip');
+-- | Starbucks
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 5, 1);
+-- | Starbucks again
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 5, 2);
+-- | Starbucks a third time
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 5, 3);
+-- | Quick detour to Guam
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 3, 4);
+-- | And time to check out Paris, Kentucky
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 1, 5);
