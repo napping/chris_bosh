@@ -1,8 +1,11 @@
 CREATE TABLE Users 
 (
-    userid          INT PRIMARY KEY NOT NULL,
-    username        VARCHAR(20),
-    password        VARCHAR(20)
+    username        VARCHAR(20) UNIQUE NOT NULL,
+    password        VARCHAR(256),
+    email           VARCHAR(256),
+    full_name       VARCHAR(256),
+    affiliation     VARCHAR(256),
+    interests       VARCHAR(256)
 );
 
 CREATE TABLE Trip 
@@ -63,25 +66,25 @@ CREATE TABLE Video
 CREATE TABLE NotifiedOf 
 (
     nid             INT,
-    userid          INT,
+    username        VARCHAR(20),
     FOREIGN KEY (nid) REFERENCES Notification(nid),
-    FOREIGN KEY (userid) REFERENCES Users(userid)
+    FOREIGN KEY (username) REFERENCES Users(username)
 );
     
 
 CREATE TABLE Friendship 
 (
-    userid1            INT,
-    userid2            INT,
-    FOREIGN KEY (userid1) REFERENCES Users(userid),
-    FOREIGN KEY (userid2) REFERENCES Users(userid)
+    username1            VARCHAR(20),
+    username2            VARCHAR(20),
+    FOREIGN KEY (username1) REFERENCES Users(username),
+    FOREIGN KEY (username2) REFERENCES Users(username)
 );
 
 CREATE TABLE GoesOn 
 (
-    userid          INT,
+    username        VARCHAR(20),
     tid             INT,
-    FOREIGN KEY (userid) REFERENCES Users(userid),
+    FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (tid) REFERENCES Trip(tid)    
 );
 
@@ -106,32 +109,32 @@ CREATE TABLE Describes
 
 CREATE TABLE Owns 
 (
-    userid          INT,
+    username        VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    FOREIGN KEY (userid) REFERENCES Users(userid),
+    FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_owns CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
 
 CREATE TABLE Comments
 (
-    userid          INT,
+    username        VARCHAR(20),
     comment_text    VARCHAR(256),
     mid             INT,
     type            VARCHAR(20),
-    FOREIGN KEY (userid) REFERENCES Users(userid),
+    FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_comment CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
 
 CREATE TABLE Rating 
 (
-    userid          INT,
+    username        VARCHAR(20),
     rating          VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    FOREIGN KEY (userid) REFERENCES Users(userid),
+    FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_rating CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
     CONSTRAINT rating_enum CHECK (rating in ('Like', 'Dislike'))
@@ -139,10 +142,10 @@ CREATE TABLE Rating
 
 CREATE TABLE Likes
 (
-    userid          INT,
+    username        VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    FOREIGN KEY (userid) REFERENCES Users(userid),
+    FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_like CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
