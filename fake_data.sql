@@ -73,3 +73,16 @@ INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 3, 'Trip');
 INSERT INTO GoesOn (username, tid) VALUES ('PGCB', 3);
 -- Guam
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (3, 3, 1); 
+
+--| trip 4
+INSERT INTO Media (mid, type, privacy) VALUES (4, 'Trip', 'Everyone');
+INSERT INTO Trip (tid, packing_list, expenses) VALUES (4, 'Banjo, Overalls',
+	'Practically none');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 4, 'Trip');
+-- Paris, Kentucky
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 1, 1);
+-- Starbucks
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 5, 2);
+-- Guam
+INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 3, 3);
+
