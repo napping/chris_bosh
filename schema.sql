@@ -144,16 +144,6 @@ CREATE TABLE Rating
     CONSTRAINT rating_enum CHECK (rating >= 1 AND rating <= 5)
 );
 
-CREATE TABLE DestinationTrip 
-(
-    did             INT,
-    mid             INT,
-    type            VARCHAR(20),
-    FOREIGN KEY (did) REFERENCES Destination(did),
-    FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
-    CONSTRAINT type_enum_destinationtrip CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
-);
-
 CREATE TABLE RequestTrip
 (
     username        VARCHAR(20),
