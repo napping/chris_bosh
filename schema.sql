@@ -180,6 +180,7 @@ CREATE TABLE InAlbum
 (
     aid             INT,
     mid             INT,
+    type            VARCHAR(20),
     FOREIGN KEY (aid) REFERENCES Album(aid),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT pk_inalbum PRIMARY KEY (aid, mid),
