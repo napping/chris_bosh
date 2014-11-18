@@ -90,6 +90,7 @@ CREATE TABLE Friendship
 (
     username1            VARCHAR(20),
     username2            VARCHAR(20),
+    CONSTRAINT pk PRIMARY KEY (username1, username2),
     FOREIGN KEY (username1) REFERENCES Users(username),
     FOREIGN KEY (username2) REFERENCES Users(username)
 );
