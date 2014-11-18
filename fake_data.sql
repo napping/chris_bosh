@@ -90,7 +90,6 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 3, 3);
 INSERT INTO Media (mid, type, privacy) VALUES (5, 'Trip', 'Everyone');
 INSERT INTO Trip (tid, packing_list, expenses) VALUES (5,
     'I''ve got my red dress on tonight', '$600');
--- TODO: add an album
 INSERT INTO Owns (username, mid, type) VALUES ('masonje', 5, 'Trip');
 -- | Starbucks
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 5, 1);
@@ -102,3 +101,37 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 5, 3);
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 3, 4);
 -- | And time to check out Paris, Kentucky
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (5, 1, 5);
+
+------------
+-- Albums --
+------------
+
+--| album for the first trip
+INSERT INTO Album (aid, name, privacy) VALUES (1, 'The Life of TFP',
+    'Everyone');
+INSERT INTO AlbumOfTrip (aid, tid) VALUES (1, 1);
+
+INSERT INTO Media (mid, type, privacy) VALUES (1, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (1, 'http://www.brinker.com/images/ourstory/Presidente+Margarita+thumb.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (1, 1, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (2, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (2, 'http://img.groundspeak.com/waymarking/display/204eb7bd-9cd6-4995-8360-837cc573f818.JPG');
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 2, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (1, 2, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (3, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (3, 'http://s3-media1.fl.yelpcdn.com/bphoto/ahfqXk0wJ5bph2N73RBs4Q/ls.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 3, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (1, 3, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (4, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (4, 'http://www.blogcdn.com/www.dailyfinance.com/media/2013/01/starbucks--435cs013013.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 4, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (1, 4, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (5, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (5, 'http://i.imgur.com/ZlJMPm0.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('tfp', 5, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (1, 5, 'Photo');
