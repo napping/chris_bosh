@@ -166,6 +166,14 @@ CREATE TABLE RequestTrip
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );
 
+CREATE TABLE InviteTrip
+(
+    username        VARCHAR(20),
+    tid             INT,
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (tid) REFERENCES Trip(tid)
+);
+
 CREATE TABLE InAlbum
 (
     aid             INT,
