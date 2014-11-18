@@ -23,8 +23,8 @@ CREATE TABLE Destination
     did             INT PRIMARY KEY NOT NULL,
     name            VARCHAR(20),
     type            VARCHAR(20) DEFAULT 'Destination',
-    CONSTRAINT type_trip CHECK (type = 'Destination'),
-    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
+    CONSTRAINT type_destination CHECK (type = 'Destination'),
+    FOREIGN KEY (did, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Notification 
@@ -56,8 +56,8 @@ CREATE TABLE Link
     lid             INT PRIMARY KEY NOT NULL,
     url             VARCHAR(20),
     type            VARCHAR(20) DEFAULT 'Link',
-    CONSTRAINT type_trip CHECK (type = 'Link'),
-    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
+    CONSTRAINT type_link CHECK (type = 'Link'),
+    FOREIGN KEY (lid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Photo 
@@ -65,17 +65,17 @@ CREATE TABLE Photo
     pid             INT PRIMARY KEY NOT NULL,
     url             VARCHAR(20),
     type            VARCHAR(20) DEFAULT 'Photo',
-    CONSTRAINT type_trip CHECK (type = 'Photo'),
-    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
+    CONSTRAINT type_photo CHECK (type = 'Photo'),
+    FOREIGN KEY (pid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Video 
 (
-    pid             INT PRIMARY KEY NOT NULL,
+    vid             INT PRIMARY KEY NOT NULL,
     url             VARCHAR(20),
     type            VARCHAR(20) DEFAULT 'Video',
-    CONSTRAINT type_trip CHECK (type = 'Video'),
-    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
+    CONSTRAINT type_video CHECK (type = 'Video'),
+    FOREIGN KEY (vid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE NotifiedOf 
