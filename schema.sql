@@ -1,8 +1,8 @@
 CREATE TABLE Users 
 (
     username        VARCHAR(20) UNIQUE NOT NULL,
-    password        VARCHAR(256),
-    email           VARCHAR(256),
+    password        VARCHAR(256) NOT NULL,
+    email           VARCHAR(256) UNIQUE NOT NULL,
     full_name       VARCHAR(256),
     affiliation     VARCHAR(256),
     interests       VARCHAR(256)
@@ -85,7 +85,6 @@ CREATE TABLE NotifiedOf
     FOREIGN KEY (nid) REFERENCES Notification(nid),
     FOREIGN KEY (username) REFERENCES Users(username)
 );
-    
 
 CREATE TABLE Friendship 
 (
@@ -132,37 +131,17 @@ CREATE TABLE Owns
     CONSTRAINT type_enum_owns CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
 
-CREATE TABLE Comments
-(
-    username        VARCHAR(20),
-    comment_text    VARCHAR(256),
-    mid             INT,
-    type            VARCHAR(20),
-    FOREIGN KEY (username) REFERENCES Users(username),
-    FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
-    CONSTRAINT type_enum_comment CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
-);
-
 CREATE TABLE Rating 
 (
     username        VARCHAR(20),
-    rating          VARCHAR(20),
+    rating          INT,
     mid             INT,
     type            VARCHAR(20),
+    review          VARCHAR(4000),
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_rating CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
-    CONSTRAINT rating_enum CHECK (rating in ('Like', 'Dislike'))
-);
-
-CREATE TABLE Likes
-(
-    username        VARCHAR(20),
-    mid             INT,
-    type            VARCHAR(20),
-    FOREIGN KEY (username) REFERENCES Users(username),
-    FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
-    CONSTRAINT type_enum_like CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
+    CONSTRAINT rating_enum CHECK (rating >= 1 AND rating <= 5)
 );
 
 CREATE TABLE DestinationTrip 
