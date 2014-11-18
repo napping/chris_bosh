@@ -6,7 +6,7 @@ VALUES ('PGCB', 'come_on_eileen', 'ted.guenin@gmail.com',
     'Penn Guamanian Cooking Brigade', 'PAC', 'Going to Tanzania!');
 
 INSERT INTO Users (username, password, email, full_name, affiliation, interests)
-VALUES ('tfp', 'copabanana', 'tpeterson993@gmail.com', 'University Toppah',
+VALUES ('tfp', 'copabanana', 'tpeterson14143@gmail.com', 'University Toppah',
     'Chicago', 'Going to Chili''s!');
 
 INSERT INTO Users (username, password, email, full_name, affiliation, interests)
@@ -117,7 +117,7 @@ INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Photo');
 INSERT INTO InAlbum (aid, mid, type) VALUES (1, 1, 'Photo');
 
 INSERT INTO Media (mid, type, privacy) VALUES (2, 'Photo', 'Everyone');
-INSERT INTO Photo (pid, url) VALUES (2, 'http://img.groundspeak.com/waymarking/display/204eb7bd-9cd6-4995-8360-837cc573f818.JPG');
+INSERT INTO Photo (pid, url) VALUES (2, 'http://img.groundspeak.com/waymarking/display/204eb7bd-14cd6-414145-8360-837cc573f818.JPG');
 INSERT INTO Owns (username, mid, type) VALUES ('tfp', 2, 'Photo');
 INSERT INTO InAlbum (aid, mid, type) VALUES (1, 2, 'Photo');
 
@@ -135,3 +135,123 @@ INSERT INTO Media (mid, type, privacy) VALUES (5, 'Photo', 'Everyone');
 INSERT INTO Photo (pid, url) VALUES (5, 'http://i.imgur.com/ZlJMPm0.jpg');
 INSERT INTO Owns (username, mid, type) VALUES ('tfp', 5, 'Photo');
 INSERT INTO InAlbum (aid, mid, type) VALUES (1, 5, 'Photo');
+
+--| album for the second trip
+INSERT INTO Album (aid, name, privacy) VALUES (2, 'PGCB on Tour',
+    'Everyone');
+INSERT INTO AlbumOfTrip (aid, tid) VALUES (2, 2);
+
+INSERT INTO Media (mid, type, privacy) VALUES (6, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (6, 'http://www.ocfrealty.com/wp-content/uploads/2011/06/BlindPig1-560x350.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 6, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 6, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (7, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (7, 'http://www.qatar.northwestern.edu/images/carousels/C-Doha.png');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 7, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 7, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (8, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (8, 'http://i.imgur.com/jnXMXxs.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 8, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 8, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (14, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (14, 'http://www.kathyloperevents.com/kilimanjaro/images/v031108.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 14, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 14, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (10, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (10, 'http://upload.wikimedia.org/wikipedia/commons/a/ae/Apra_Harbor.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 10, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (2, 10, 'Photo');
+
+--| album for the third trip
+INSERT INTO Album (aid, name, privacy) VALUES (3, 'Nord''s Guamanian Adventures',
+    'Everyone');
+INSERT INTO AlbumOfTrip (aid, tid) VALUES (3, 3);
+
+INSERT INTO Media (mid, type, privacy) VALUES (11, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (11, 'https://militarytravelexchange.com/blog/wp-content/uploads/2014/03/Guam-Beach.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 11, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (3, 11, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (12, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (12, 'http://www.destination360.com/australia-south-pacific/guam/images/s/guam-overview.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 12, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (3, 12, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (13, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (13, 'http://farm3.static.flickr.com/2271/2334042433_78daa1ebcb.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 13, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (3, 13, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (14, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (14, 'http://i.imgur.com/zk9Oalh.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 14, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (3, 14, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (15, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (15, 'http://i.imgur.com/1nkEy2p.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 15, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (3, 15, 'Photo');
+
+--| album for the fourth trip
+INSERT INTO Album (aid, name, privacy) VALUES (4, 'Stouffer''s Travels',
+    'Everyone');
+INSERT INTO AlbumOfTrip (aid, tid) VALUES (4, 4);
+
+INSERT INTO Media (mid, type, privacy) VALUES (16, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (16, 'http://s3-media4.fl.yelpcdn.com/bphoto/JWQNaj0AYDmmoNCdxyoA1g/ls.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 16, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (4, 16, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (17, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (17, 'http://cdn.phillymag.com/wp-content/uploads/2014/06/wawa-robbed-sandwiches-philadelphia.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 17, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (4, 17, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (18, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (18, 'http://www.facilities.upenn.edu/sites/default/files/styles/maplocation_640x400px/public/bi0555.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 18, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (4, 18, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (19, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (19, 'http://pennpunch.files.wordpress.com/2011/11/wawa-11.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 19, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (4, 19, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (20, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (20, 'http://news.regis.org/wp-content/uploads/2013/06/Regis_Graduation.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 20, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (4, 20, 'Photo');
+
+--| album for the fifth trip
+INSERT INTO Album (aid, name, privacy) VALUES (5, 'Stouffer''s Travels',
+    'Everyone');
+INSERT INTO AlbumOfTrip (aid, tid) VALUES (5, 5);
+
+INSERT INTO Media (mid, type, privacy) VALUES (21, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (21, 'http://farm1.static.flickr.com/56/151382996_52a5033111_m.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 21, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (5, 21, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (22, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (22, 'http://www.lambdachiwjc.org/pictures/lca_house.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 22, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (5, 22, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (23, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (23, 'http://upload.wikimedia.org/wikipedia/commons/6/66/Baristas_first_starbucks.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 23, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (5, 23, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (24, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (24, 'http://momdoesreviews.katsmediaandmore.netdna-cdn.com/wp-content/uploads/2014/02/chilis_large.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 24, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (5, 24, 'Photo');
+
+INSERT INTO Media (mid, type, privacy) VALUES (25, 'Photo', 'Everyone');
+INSERT INTO Photo (pid, url) VALUES (25, 'http://www.kyforward.com/wp-content/uploads/2013/07/Paris-Antiques-Gallery-District-by-Bobby-Shiflet_DSC0714-LR_440.jpg');
+INSERT INTO Owns (username, mid, type) VALUES ('masonje', 25, 'Photo');
+INSERT INTO InAlbum (aid, mid, type) VALUES (5, 25, 'Photo');

@@ -61,7 +61,7 @@ CREATE TABLE Album
 CREATE TABLE Link 
 (
     lid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20),
+    url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Link',
     CONSTRAINT type_link CHECK (type = 'Link'),
     FOREIGN KEY (lid, type) REFERENCES Media(mid, type)
@@ -70,7 +70,7 @@ CREATE TABLE Link
 CREATE TABLE Photo 
 (
     pid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20),
+    url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Photo',
     CONSTRAINT type_photo CHECK (type = 'Photo'),
     FOREIGN KEY (pid, type) REFERENCES Media(mid, type)
@@ -79,7 +79,7 @@ CREATE TABLE Photo
 CREATE TABLE Video 
 (
     vid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20),
+    url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Video',
     CONSTRAINT type_video CHECK (type = 'Video'),
     FOREIGN KEY (vid, type) REFERENCES Media(mid, type)
