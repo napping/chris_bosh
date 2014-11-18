@@ -51,7 +51,6 @@ CREATE TABLE Hashtag
     tag             VARCHAR(20)
 );
 
-
 CREATE TABLE Album
 (
     aid             INT PRIMARY KEY NOT NULL,
