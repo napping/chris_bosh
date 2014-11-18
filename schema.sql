@@ -153,3 +153,11 @@ CREATE TABLE DestinationTrip
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_destinationtrip CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
+
+CREATE TABLE RequestTrip
+(
+    username        VARCHAR(20),
+    tid             INT,
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (tid) REFERENCES Trip(tid)
+);
