@@ -8,7 +8,7 @@ CREATE TABLE Users
     interests       VARCHAR(256)
 );
 
-CREATE TABLE Trip2
+CREATE TABLE Trip
 (
     tid             INT PRIMARY KEY NOT NULL,
     packing_list    VARCHAR(256),
@@ -21,7 +21,10 @@ CREATE TABLE Trip2
 CREATE TABLE Destination 
 (
     did             INT PRIMARY KEY NOT NULL,
-    name            VARCHAR(20)
+    name            VARCHAR(20),
+    type            VARCHAR(20) DEFAULT 'Destination',
+    CONSTRAINT type_trip CHECK (type = 'Destination'),
+    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Notification 
@@ -51,19 +54,28 @@ CREATE TABLE Media
 CREATE TABLE Link 
 (
     lid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20) 
+    url             VARCHAR(20),
+    type            VARCHAR(20) DEFAULT 'Link',
+    CONSTRAINT type_trip CHECK (type = 'Link'),
+    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Photo 
 (
     pid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20)
+    url             VARCHAR(20),
+    type            VARCHAR(20) DEFAULT 'Photo',
+    CONSTRAINT type_trip CHECK (type = 'Photo'),
+    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE Video 
 (
     pid             INT PRIMARY KEY NOT NULL,
-    url             VARCHAR(20)
+    url             VARCHAR(20),
+    type            VARCHAR(20) DEFAULT 'Video',
+    CONSTRAINT type_trip CHECK (type = 'Video'),
+    FOREIGN KEY (tid, type) REFERENCES Media(mid, type)
 );
 
 CREATE TABLE NotifiedOf 
