@@ -8,6 +8,16 @@ CREATE TABLE Users
     interests       VARCHAR(256)
 );
 
+CREATE TABLE Media 
+(
+    mid             INT,
+    type            VARCHAR(20),
+    privacy         VARCHAR(20),
+    CONSTRAINT pk PRIMARY KEY (mid, type),
+    CONSTRAINT type_enum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
+    CONSTRAINT privacy_enum CHECK (privacy in ('Only Me','Only Friends','Everyone'))
+);
+
 CREATE TABLE Trip
 (
     tid             INT PRIMARY KEY NOT NULL,
@@ -41,15 +51,6 @@ CREATE TABLE Hashtag
     tag             VARCHAR(20)
 );
 
-CREATE TABLE Media 
-(
-    mid             INT,
-    type            VARCHAR(20),
-    privacy         VARCHAR(20),
-    CONSTRAINT pk PRIMARY KEY (mid, type),
-    CONSTRAINT type_enum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
-    CONSTRAINT privacy_enum CHECK (privacy in ('Only Me','Only Friends','Everyone'))
-);
 
 CREATE TABLE Album
 (
@@ -189,7 +190,7 @@ CREATE TABLE AlbumOfTrip
 (
     aid             INT,
     tid             INT,
-    CONSTRAINT pk_albumoftrip PRIMARY KEY (aid, tid),
+    CONSTRAINT pk_albumoftripg PRIMARY KEY (aid, tid),
     FOREIGN KEY (aid) REFERENCES Album(aid),
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );
