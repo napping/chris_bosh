@@ -24,11 +24,21 @@ VALUES ('pjmullz', 'stouffer4lyfe', 'mulletsonmullets@paul.paul', 'Paul Mullet',
 ------------------
 -- Destinations --
 ------------------
-INSERT INTO Destination (did, name) VALUES (1, "Paris, Kentucky");
+INSERT INTO Media (mid, type, privacy) VALUES (1, 'Destination', 'Everyone');
 
-INSERT INTO Destination (did, name) VALUES (2, "Chili''s");
+INSERT INTO Media (mid, type, privacy) VALUES (2, 'Destination', 'Everyone');
 
-INSERT INTO Destination (did, name) VALUES (3, "Guam");
+INSERT INTO Media (mid, type, privacy) VALUES (3, 'Destination', 'Everyone');
+
+INSERT INTO Media (mid, type, privacy) VALUES (4, 'Destination', 'Everyone');
+
+INSERT INTO Media (mid, type, privacy) VALUES (5, 'Destination', 'Everyone');
+
+INSERT INTO Destination (did, name) VALUES (1, 'Paris, Kentucky');
+
+INSERT INTO Destination (did, name) VALUES (2, 'Chili''s');
+
+INSERT INTO Destination (did, name) VALUES (3, 'Guam');
 
 INSERT INTO Destination (did, name) VALUES (4, 'The Blind Pig');
 
