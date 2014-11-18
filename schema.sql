@@ -1,6 +1,6 @@
 CREATE TABLE Users 
 (
-    username        VARCHAR(20) UNIQUE NOT NULL,
+    username        VARCHAR(20) PRIMARY KEY NOT NULL,
     password        VARCHAR(256) NOT NULL,
     email           VARCHAR(256) UNIQUE NOT NULL,
     full_name       VARCHAR(256),
@@ -49,6 +49,13 @@ CREATE TABLE Media
     CONSTRAINT pk PRIMARY KEY (mid, type),
     CONSTRAINT type_enum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
     CONSTRAINT privacy_enum CHECK (privacy in ('Only Me','Only Friends','Everyone'))
+);
+
+CREATE TABLE Album
+(
+    aid             INT PRIMARY KEY NOT NULL,
+    name            VARCHAR(20),
+    privacy         VARCHAR(20)
 );
 
 CREATE TABLE Link 
@@ -150,5 +157,22 @@ CREATE TABLE RequestTrip
     username        VARCHAR(20),
     tid             INT,
     FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (tid) REFERENCES Trip(tid)
+);
+
+CREATE TABLE InAlbum
+(
+    aid             INT,
+    mid             INT,
+    FOREIGN KEY (aid) REFERENCES Album(aid),
+    FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
+    CONSTRAINT type_enum_owns CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
+);
+
+CREATE TABLE AlbumOfTrip
+(
+    aid             INT,
+    tid             INT,
+    FOREIGN KEY (aid) REFERENCES Album(aid),
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );
