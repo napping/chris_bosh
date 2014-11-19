@@ -263,6 +263,7 @@ INSERT INTO Friendship (username1, username2) VALUES ('tfp', 'PGCB');
 INSERT INTO Friendship (username1, username2) VALUES ('pjmullz', 'PGCB');
 INSERT INTO Friendship (username1, username2) VALUES ('necordgren', 'pjmullz');
 INSERT INTO Friendship (username1, username2) VALUES ('necordgren', 'tfp');
+INSERT INTO Friendship (username1, username2) VALUES ('masonje', 'necordgren');
 
 --------------
 -- Hashtags --
