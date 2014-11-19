@@ -45,8 +45,8 @@ INSERT INTO Destination (did, name) VALUES (5, 'Starbucks');
 
 --| trip 1
 INSERT INTO Media (mid, type, privacy) VALUES (1, 'Trip', 'Everyone');
-INSERT INTO Trip (tid, packing_list, expenses) VALUES (1,
-    'Tequila and Croissants', 'About tree fiddy');
+INSERT INTO Trip (tid, name, packing_list, expenses) VALUES (1,
+    'Director''s Choice', 'Tequila and Croissants', 'About tree fiddy');
 INSERT INTO Owns (username, mid, type) VALUES ('tfp', 1, 'Trip');
 -- Starbucks
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 5, 1);
@@ -55,7 +55,7 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (1, 2, 2);
 
 --| trip 2
 INSERT INTO Media (mid, type, privacy) VALUES (2, 'Trip', 'Everyone');
-INSERT INTO Trip (tid, packing_list, expenses) VALUES (2,
+INSERT INTO Trip (tid, name, packing_list, expenses) VALUES (2, 'Tand Brip',
     'Sunblock, more sunblock', 'Sunburn Treatment');
 INSERT INTO Owns (username, mid, type) VALUES ('PGCB', 2, 'Trip');
 -- Guam
@@ -67,7 +67,7 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (2, 3, 3);
 
 --| trip 3
 INSERT INTO Media (mid, type, privacy) VALUES (3, 'Trip', 'Only Friends');
-INSERT INTO Trip (tid, packing_list, expenses) VALUES (3,
+INSERT INTO Trip (tid, name, packing_list, expenses) VALUES (3, 'Hoo Hah!',
     'A guitar', 'I can''t convert into Guamanian currency ):');
 INSERT INTO Owns (username, mid, type) VALUES ('necordgren', 3, 'Trip');
 INSERT INTO GoesOn (username, tid) VALUES ('PGCB', 3);
@@ -76,8 +76,8 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (3, 3, 1);
 
 --| trip 4
 INSERT INTO Media (mid, type, privacy) VALUES (4, 'Trip', 'Everyone');
-INSERT INTO Trip (tid, packing_list, expenses) VALUES (4, 'Banjo, Overalls',
-	'Practically none');
+INSERT INTO Trip (tid, name, packing_list, expenses) VALUES (4,
+    'Stouffer Jaunt', 'Banjo, Overalls', 'Practically none');
 INSERT INTO Owns (username, mid, type) VALUES ('pjmullz', 4, 'Trip');
 -- Paris, Kentucky
 INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 1, 1);
@@ -88,7 +88,7 @@ INSERT INTO PartOf (tid, did, order_in_trip) VALUES (4, 3, 3);
 
 --| trip 5
 INSERT INTO Media (mid, type, privacy) VALUES (5, 'Trip', 'Everyone');
-INSERT INTO Trip (tid, packing_list, expenses) VALUES (5,
+INSERT INTO Trip (tid, name, packing_list, expenses) VALUES (5, 'LXA',
     'I''ve got my red dress on tonight', '$600');
 INSERT INTO Owns (username, mid, type) VALUES ('masonje', 5, 'Trip');
 -- | Starbucks

@@ -21,6 +21,7 @@ CREATE TABLE Media
 CREATE TABLE Trip
 (
     tid             INT PRIMARY KEY NOT NULL,
+    name            VARCHAR(50) NOT NULL,
     packing_list    VARCHAR(256),
     expenses        VARCHAR(256),
     type            VARCHAR(20) DEFAULT 'Trip',
@@ -31,7 +32,7 @@ CREATE TABLE Trip
 CREATE TABLE Destination 
 (
     did             INT PRIMARY KEY NOT NULL,
-    name            VARCHAR(20),
+    name            VARCHAR(20) NOT NULL,
     type            VARCHAR(20) DEFAULT 'Destination',
     CONSTRAINT type_destination CHECK (type = 'Destination'),
     FOREIGN KEY (did, type) REFERENCES Media(mid, type)
@@ -183,7 +184,7 @@ CREATE TABLE InAlbum
     FOREIGN KEY (aid) REFERENCES Album(aid),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT pk_inalbum PRIMARY KEY (aid, mid),
-    CONSTRAINT type_enum_inalbum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
+    CONSTRAINT type_enum_inalbum CHECK (type in ('Photo', 'Video'))
 );
 
 CREATE TABLE AlbumOfTrip
