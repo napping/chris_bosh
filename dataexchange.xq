@@ -34,7 +34,7 @@ for $root in doc ("export.xml")
 							<trip>
 								<id>{$trip/TID/text()}</id>
 								<name>{$trip/NAME/text()}</name>
-								   
+								<feature>
 								   {
 									   	for $hashtag in $root/database/HASHTAG/tuple
 									   		for $describes in $root/database/DESCRIBES/tuple
@@ -43,9 +43,10 @@ for $root in doc ("export.xml")
 									   			where $describes/MID/text() = $media/MID/text()
 									   			and $media/TYPE/text() = 'Trip'
 									   			and $trip/TID/text() = $media/MID/text()
-									   				return <feature>{$hashtag/TAG/text()}</feature>
+									   				return {$hashtag/TAG/text()} 
 
 								   }
+								</feature>
 								   {
 								   		for $media in $root/database/MEDIA/tuple
 								   		where $media/TYPE/text() = 'Trip'
