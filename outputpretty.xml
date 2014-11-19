@@ -63,6 +63,10 @@
         <type>Destination</type>
       </location>
     </trip>
+    <request>
+      <tripid>5</tripid>
+      <status>pending</status>
+    </request>
   </user>
   <user>
     <login>tfp</login>
@@ -123,13 +127,13 @@
     </trip>
     <rateTrip>
       <tripid>5</tripid>
-      <score/>
+      <score>5</score>
       <comment>Quite Guamanian!</comment>
     </rateTrip>
     <rateContent>
       <contentid>20</contentid>
       <contentSource>group20</contentSource>
-      <score/>
+      <score>5</score>
       <comment>Stouffer-Mayer is a very cool place to live.</comment>
     </rateContent>
   </user>
@@ -200,6 +204,11 @@
         <type>Destination</type>
       </location>
     </trip>
+    <invite>
+      <tripid>5</tripid>
+      <friendid>necordgren</friendid>
+      <status>pending</status>
+    </invite>
   </user>
   <user>
     <login>necordgren</login>
