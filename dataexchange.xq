@@ -140,17 +140,17 @@ for $root in doc ("export.xml")
 						for $request in $root/REQUESTTRIP/tuple
 						where $request/USERNAME/text() = $u_tuple/USERNAME/text()
 							return  <request>
-												<tripid> { $request/TID/text() } </tripid>
-												<status> pending </status>
+												<tripid>{ $request/TID/text() }</tripid>
+												<status>pending</status>
 										  </request>
 					} 
 					{
 						for $invite in $root/INVITETRIP/tuple
-						where $invite/USERNAME/text() = $u_tuple/USERNAME/text()
+						where $invite/USERNAME1/text() = $u_tuple/USERNAME/text()
 							return  <invite>
-												<tripid> { $invite/TID/text() } </tripid>
-												<friendid> { $invite/USERNAME2/text() } </friendid>
-												<status> pending </status>
+												<tripid>{ $invite/TID/text() }</tripid>
+												<friendid>{ $invite/USERNAME2/text() }</friendid>
+												<status>pending</status>
 										  </invite>
 					} 
 

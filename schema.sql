@@ -49,7 +49,7 @@ CREATE TABLE Notification
 CREATE TABLE Hashtag 
 (
     hid             INT PRIMARY KEY NOT NULL,
-    tag             VARCHAR(20)
+    tag             VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE Album
@@ -169,11 +169,11 @@ CREATE TABLE RequestTrip
 
 CREATE TABLE InviteTrip
 (
-    username        VARCHAR(20),
+    username1        VARCHAR(20),
     username2       VARCHAR(20),
     tid             INT,
-    CONSTRAINT pk_invitetrip PRIMARY KEY (username, tid),
-    FOREIGN KEY (username) REFERENCES Users(username),
+    CONSTRAINT pk_invitetrip PRIMARY KEY (username1, username2, tid),
+    FOREIGN KEY (username1) REFERENCES Users(username),
     FOREIGN KEY (username2) REFERENCES Users(username),
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );

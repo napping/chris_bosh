@@ -255,3 +255,44 @@ INSERT INTO Media (mid, type, privacy) VALUES (25, 'Photo', 'Everyone');
 INSERT INTO Photo (pid, url) VALUES (25, 'http://www.kyforward.com/wp-content/uploads/2013/07/Paris-Antiques-Gallery-District-by-Bobby-Shiflet_DSC0714-LR_440.jpg');
 INSERT INTO Owns (username, mid, type) VALUES ('masonje', 25, 'Photo');
 INSERT INTO InAlbum (aid, mid, type) VALUES (5, 25, 'Photo');
+
+-----------------
+-- Friendships --
+-----------------
+INSERT INTO Friendship (username1, username2) VALUES ('tfp', 'PGCB');
+INSERT INTO Friendship (username1, username2) VALUES ('pjmullz', 'PGCB');
+INSERT INTO Friendship (username1, username2) VALUES ('necordgren', 'pjmullz');
+INSERT INTO Friendship (username1, username2) VALUES ('necordgren', 'tfp');
+
+--------------
+-- Hashtags --
+--------------
+INSERT INTO Hashtag (hid, tag) VALUES (1, '#Guamanian');
+INSERT INTO Hashtag (hid, tag) VALUES (2, '#getaway');
+
+INSERT INTO Describes (hid, mid, type) VALUES (1, 2, 'Trip');
+INSERT INTO Describes (hid, mid, type) VALUES (1, 5, 'Trip');
+INSERT INTO Describes (hid, mid, type) VALUES (2, 5, 'Trip');
+
+------------------
+-- Trip ratings --
+------------------
+INSERT INTO Rating (username, rating, mid, type, review) VALUES ('tfp', 5, 5,
+    'Trip', 'Quite Guamanian!');
+
+-------------------
+-- Photo ratings --
+-------------------
+INSERT INTO Rating (username, rating, mid, type, review) VALUES ('tfp', 5, 20,
+    'Photo', 'Stouffer-Mayer is a very cool place to live.');
+
+--------------
+-- Requests --
+--------------
+INSERT INTO RequestTrip (username, tid) VALUES ('PGCB', 5);
+
+-------------
+-- Invites --
+-------------
+INSERT INTO InviteTrip (username1, username2, tid) VALUES ('masonje',
+    'necordgren', 5);
