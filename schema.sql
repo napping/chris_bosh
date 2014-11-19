@@ -174,7 +174,7 @@ CREATE TABLE InviteTrip
     tid             INT,
     CONSTRAINT pk_invitetrip PRIMARY KEY (username, tid),
     FOREIGN KEY (username) REFERENCES Users(username),
-    FOREIGN KEY (username2) REFERENCES Users(username2),
+    FOREIGN KEY (username2) REFERENCES Users(username),
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );
 
