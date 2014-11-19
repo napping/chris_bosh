@@ -137,7 +137,7 @@ for $root in doc ("export.xml")
 										 </rateContent>
 					}
 					{
-						for $request in $root/REQUESTTRIP/tuple
+						for $request in $root/database/REQUESTTRIP/tuple
 						where $request/USERNAME/text() = $u_tuple/USERNAME/text()
 							return  <request>
 												<tripid>{ $request/TID/text() }</tripid>
@@ -145,7 +145,7 @@ for $root in doc ("export.xml")
 										  </request>
 					} 
 					{
-						for $invite in $root/INVITETRIP/tuple
+						for $invite in $root/database/INVITETRIP/tuple
 						where $invite/USERNAME1/text() = $u_tuple/USERNAME/text()
 							return  <invite>
 												<tripid>{ $invite/TID/text() }</tripid>
