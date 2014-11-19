@@ -110,7 +110,7 @@ for $root in doc ("export.xml")
 						and $rating/USERNAME/text() = $u_tuple/USERNAME/text()
 							return <rateTrip>
 											 <tripid>{ $rating/MID/text() }</tripid>
-											 <score>{ $rating/SCORE/text() }</score>
+											 <score>{ $rating/RATING/text() }</score>
 											 <comment>{ $rating/REVIEW/text() }</comment>
 										 </rateTrip>
 					}
@@ -121,7 +121,7 @@ for $root in doc ("export.xml")
 							return <rateContent>
 											 <contentid>{ $rating/MID/text() }</contentid>
 											 <contentSource>group20</contentSource>
-											 <score>{ $rating/SCORE/text() }</score>
+											 <score>{ $rating/RATING/text() }</score>
 											 <comment>{ $rating/REVIEW/text() }</comment>
 										 </rateContent>
 					}
