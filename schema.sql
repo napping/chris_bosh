@@ -170,9 +170,11 @@ CREATE TABLE RequestTrip
 CREATE TABLE InviteTrip
 (
     username        VARCHAR(20),
+    username2       VARCHAR(20),
     tid             INT,
     CONSTRAINT pk_invitetrip PRIMARY KEY (username, tid),
     FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (username2) REFERENCES Users(username2),
     FOREIGN KEY (tid) REFERENCES Trip(tid)
 );
 
