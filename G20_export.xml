@@ -14,11 +14,11 @@
       <id>2</id>
       <name>Tand Brip</name>
       <feature>#Guamanian</feature>
-      <privacyFlag>Everyone</privacyFlag>
+      <privacyFlag>public</privacyFlag>
       <album>
         <id>2</id>
         <name>PGCB on Tour</name>
-        <privacyFlag>Everyone</privacyFlag>
+        <privacyFlag>public</privacyFlag>
         <content>
           <id>6</id>
           <source>group20</source>
@@ -80,11 +80,11 @@
       <id>1</id>
       <name>Director's Choice</name>
       <feature/>
-      <privacyFlag>Everyone</privacyFlag>
+      <privacyFlag>public</privacyFlag>
       <album>
         <id>1</id>
         <name>The Life of TFP</name>
-        <privacyFlag>Everyone</privacyFlag>
+        <privacyFlag>public</privacyFlag>
         <content>
           <id>1</id>
           <source>group20</source>
@@ -147,11 +147,11 @@
       <id>5</id>
       <name>LXA</name>
       <feature>#Guamanian #getaway</feature>
-      <privacyFlag>Everyone</privacyFlag>
+      <privacyFlag>public</privacyFlag>
       <album>
         <id>5</id>
         <name>Stouffer's Travels</name>
-        <privacyFlag>Everyone</privacyFlag>
+        <privacyFlag>public</privacyFlag>
         <content>
           <id>21</id>
           <source>group20</source>
@@ -222,11 +222,11 @@
       <id>3</id>
       <name>Hoo Hah!</name>
       <feature/>
-      <privacyFlag>Only Friends</privacyFlag>
+      <privacyFlag>sharedWithTripMembers</privacyFlag>
       <album>
         <id>3</id>
         <name>Nord's Guamanian Adventures</name>
-        <privacyFlag>Everyone</privacyFlag>
+        <privacyFlag>public</privacyFlag>
         <content>
           <id>11</id>
           <source>group20</source>
@@ -276,11 +276,11 @@
       <id>4</id>
       <name>Stouffer Jaunt</name>
       <feature/>
-      <privacyFlag>Everyone</privacyFlag>
+      <privacyFlag>public</privacyFlag>
       <album>
         <id>4</id>
         <name>Stouffer's Travels</name>
-        <privacyFlag>Everyone</privacyFlag>
+        <privacyFlag>public</privacyFlag>
         <content>
           <id>16</id>
           <source>group20</source>

@@ -15,7 +15,7 @@ CREATE TABLE Media
     privacy         VARCHAR(20),
     CONSTRAINT pk PRIMARY KEY (mid, type),
     CONSTRAINT type_enum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
-    CONSTRAINT privacy_enum CHECK (privacy in ('Only Me','Only Friends','Everyone'))
+    CONSTRAINT privacy_enum CHECK (privacy in ('private','sharedWithTripMembers','public'))
 );
 
 CREATE TABLE Trip
