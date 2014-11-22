@@ -268,12 +268,12 @@ INSERT INTO Friendship (username1, username2) VALUES ('masonje', 'necordgren');
 --------------
 -- Hashtags --
 --------------
-INSERT INTO Hashtag (hid, tag) VALUES (1, '#Guamanian');
-INSERT INTO Hashtag (hid, tag) VALUES (2, '#getaway');
+INSERT INTO Hashtag (tag) VALUES ('#Guamanian');
+INSERT INTO Hashtag (tag) VALUES ('#getaway');
 
-INSERT INTO Describes (hid, mid, type) VALUES (1, 2, 'Trip');
-INSERT INTO Describes (hid, mid, type) VALUES (1, 5, 'Trip');
-INSERT INTO Describes (hid, mid, type) VALUES (2, 5, 'Trip');
+INSERT INTO Describes (tag, mid, type) VALUES ('#Guamanian', 2, 'Trip');
+INSERT INTO Describes (tag, mid, type) VALUES ('#Guamanian', 5, 'Trip');
+INSERT INTO Describes (tag, mid, type) VALUES ('#getaway', 5, 'Trip');
 
 ------------------
 -- Trip ratings --

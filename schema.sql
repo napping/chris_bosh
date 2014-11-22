@@ -48,8 +48,7 @@ CREATE TABLE Notification
 
 CREATE TABLE Hashtag 
 (
-    hid             INT PRIMARY KEY NOT NULL,
-    tag             VARCHAR(20) NOT NULL
+    tag             VARCHAR(20) PRIMARY KEY NOT NULL
 );
 
 CREATE TABLE Album
@@ -124,11 +123,11 @@ CREATE TABLE PartOf
 
 CREATE TABLE Describes 
 (
-    hid             INT,
+    tag             VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    CONSTRAINT pk_describes PRIMARY KEY (hid, mid, type),
-    FOREIGN KEY (hid) REFERENCES Hashtag(hid),
+    CONSTRAINT pk_describes PRIMARY KEY (tag, mid, type),
+    FOREIGN KEY (tag) REFERENCES Hashtag(tag),
     FOREIGN KEY (mid, type) REFERENCES Media(mid, type),
     CONSTRAINT type_enum_describes CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination'))
 );
