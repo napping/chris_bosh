@@ -29,7 +29,7 @@ CREATE TABLE Trip
     type            VARCHAR(20) DEFAULT 'Trip',
     CONSTRAINT pk_trip PRIMARY KEY (tid, source),
     CONSTRAINT type_trip CHECK (type = 'Trip'),
-    FOREIGN KEY (tid, source, type) REFERENCES Media(mid, sourcetype)
+    FOREIGN KEY (tid, source, type) REFERENCES Media(mid, source, type)
 );
 
 CREATE TABLE Destination 
