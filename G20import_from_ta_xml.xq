@@ -1,3 +1,12 @@
+declare namespace functx = "http://www.functx.com";
+declare function functx:index-of-node
+  ( $nodes as node()* ,
+    $nodeToFind as node() )  as xs:integer* {
+
+  for $seq in (1 to count($nodes))
+  return $seq[$nodes[$seq] is $nodeToFind]
+ } ;
+
 for $root in doc("project_data.xml")
   return <database>
     <USERS> {
@@ -20,15 +29,16 @@ for $root in doc("project_data.xml")
             <MID>{$trip/id/text()}</MID>
             <TYPE>Trip</TYPE>
             <PRIVACY>{$trip/privacyFlag/text()}</PRIVACY>
+            <SOURCE>{$trip/album/content[1]/source/text()}</SOURCE>
           </tuple>,
-      for $trip in $root/tripster/user/trip
-        for $destination at $i in $trip/location
-          return
-            <tuple>
-              <MID>{$i}</MID>
-              <TYPE>Destination</TYPE>
-              <PRIVACY>public</PRIVACY>
-            </tuple>,
+      for $destination at $i in $root/tripster/user/trip/location
+        return
+          <tuple>
+            <MID>{$i}</MID>
+            <TYPE>Destination</TYPE>
+            <PRIVACY>public</PRIVACY>
+            <SOURCE>{$destination/../album/content[1]/source/text()}</SOURCE>
+          </tuple>,
       for $trip in $root/tripster/user/trip
         for $album in $trip/album
           for $content in $album/content
@@ -37,18 +47,19 @@ for $root in doc("project_data.xml")
                 <MID>{$content/id/text()}</MID>
                 <TYPE>{if ($content/type/text() = "photo") then "Photo" else "Video"}</TYPE>
                 <PRIVACY>public</PRIVACY>
+                <SOURCE>{$content/source/text()}</SOURCE>
               </tuple>
     }</MEDIA>
 
     <DESTINATION>{
-      for $trip in $root/tripster/user/trip
-        for $destination at $i in $trip/location
-          return
-            <tuple>
-              <DID>{$i}</DID>
-              <NAME>{$destination/name/text()}</NAME>
-              <TYPE>{$destination/type/text()}</TYPE>
-            </tuple>
+      for $destination at $i in $root/tripster/user/trip/location
+        return
+          <tuple>
+            <DID>{$i}</DID>
+            <NAME>{$destination/name/text()}</NAME>
+            <TYPE>{$destination/type/text()}</TYPE>
+            <SOURCE>{$destination/../album/content[1]/source/text()}</SOURCE>
+          </tuple>
     }</DESTINATION>
 
     <TRIP>{
@@ -57,6 +68,7 @@ for $root in doc("project_data.xml")
           <tuple>
             <TID>{$trip/id/text()}</TID>
             <NAME>{$trip/name/text()}</NAME>
+            <SOURCE>{$trip/album/content[1]/source/text()}</SOURCE>
           </tuple>
     }</TRIP>
 
@@ -68,6 +80,7 @@ for $root in doc("project_data.xml")
               <USERNAME>{$user/login/text()}</USERNAME>
               <MID>{$trip/id/text()}</MID>
               <TYPE>Trip</TYPE>
+              <SOURCE>{$trip/album/content[1]/source/text()}</SOURCE>
             </tuple>,
       for $user in $root/tripster/user
         for $trip in $user/trip
@@ -78,18 +91,19 @@ for $root in doc("project_data.xml")
                   <USERNAME>{$user/login/text()}</USERNAME>
                   <MID>{$content/id/text()}</MID>
                   <TYPE>{if ($content/type/text() = "photo") then "Photo" else "Video"}</TYPE>
+                  <SOURCE>{$content/source/text()}</SOURCE>
                 </tuple>
     }</OWNS>
 
     <PARTOF>{
-      for $trip in $root/tripster/user/trip
-        for $destination at $i in $trip/location
-          return
-            <tuple>
-              <TID>{$trip/id/text()}</TID>
-              <DID>{$i}</DID>
-              <ORDER_IN_TRIP>{$i}</ORDER_IN_TRIP>
-            </tuple>
+      for $destination at $i in $root/tripster/user/trip/location
+        return
+          <tuple>
+            <TID>{$destination/../id/text()}</TID>
+            <DID>{$i}</DID>
+            <ORDER_IN_TRIP>{functx:index-of-node($destination/../location, $destination)}</ORDER_IN_TRIP>
+            <SOURCE>{$destination/../album/content[1]/source/text()}</SOURCE>
+          </tuple>
     }</PARTOF>
 
     <ALBUM>{
@@ -99,6 +113,7 @@ for $root in doc("project_data.xml")
             <AID>{$album/id/text()}</AID>
             <NAME>{$album/name/text()}</NAME>
             <PRIVACY>{$album/privacyFlag/text()}</PRIVACY>
+            <SOURCE>{$album/content[1]/source/text()}</SOURCE>
           </tuple>
     }</ALBUM>
 
@@ -109,6 +124,7 @@ for $root in doc("project_data.xml")
             <tuple>
               <AID>{$album/id/text()}</AID>
               <TID>{$trip/id/text()}</TID>
+              <SOURCE>{$album/content[1]/source/text()}</SOURCE>
             </tuple>
     }</ALBUMOFTRIP>
 
@@ -119,6 +135,7 @@ for $root in doc("project_data.xml")
             <PID>{$photo/id/text()}</PID>
             <URL>{$photo/url/text()}</URL>
             <TYPE>Photo</TYPE>
+            <SOURCE>{$photo/source/text()}</SOURCE>
           </tuple>
           else ''
     }</PHOTO>
@@ -131,6 +148,7 @@ for $root in doc("project_data.xml")
               <AID>{$album/id/text()}</AID>
               <MID>{$content/id/text()}</MID>
               <TYPE>{if ($content/type/text() = "photo") then "Photo" else "Video"}</TYPE>
+              <SOURCE>{$content/source/text()}</SOURCE>
             </tuple>
     }</INALBUM>
 
@@ -162,6 +180,7 @@ for $root in doc("project_data.xml")
                 <TAG>{$hashtag}</TAG>
                 <MID>{$trip/id/text()}</MID>
                 <TYPE>Trip</TYPE>
+                <SOURCE>{$trip/album/content[1]/source/text()}</SOURCE>
               </tuple>
     }</DESCRIBES>
 
@@ -175,6 +194,7 @@ for $root in doc("project_data.xml")
               <MID>{$rating/tripid/text()}</MID>
               <TYPE>Trip</TYPE>
               <REVIEW>{$rating/comment/text()}</REVIEW>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>,
       for $user in $root/tripster/user
         for $rating in $user/rateContent
@@ -185,6 +205,7 @@ for $root in doc("project_data.xml")
               <MID>{$rating/contentid/text()}</MID>
               <TYPE>Photo</TYPE>
               <REVIEW>{$rating/comment/text()}</REVIEW>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>,
       (: Duplicating photo and video since we can't disambiguate the type here. :)
       for $user in $root/tripster/user
@@ -196,6 +217,7 @@ for $root in doc("project_data.xml")
               <MID>{$rating/contentid/text()}</MID>
               <TYPE>Video</TYPE>
               <REVIEW>{$rating/comment/text()}</REVIEW>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>
     }</RATING>
 
@@ -206,6 +228,7 @@ for $root in doc("project_data.xml")
             <tuple>
               <USERNAME>{$user/login/text()}</USERNAME>
               <TID>{$request/tripid/text()}</TID>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>
           else ''
     }</REQUESTTRIP>
@@ -218,6 +241,7 @@ for $root in doc("project_data.xml")
               <USERNAME1>{$user/login/text()}</USERNAME1>
               <USERNAME2>{$invite/friendid/text()}</USERNAME2>
               <TID>{$invite/tripid/text()}</TID>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>
           else ''
     }</INVITETRIP>
@@ -229,6 +253,7 @@ for $root in doc("project_data.xml")
             <VID>{$video/id/text()}</VID>
             <URL>{$video/url/text()}</URL>
             <TYPE>Video</TYPE>
+            <SOURCE>{$video/source/text()}</SOURCE>
           </tuple>
           else ''
     }</VIDEO>
@@ -240,6 +265,7 @@ for $root in doc("project_data.xml")
             <tuple>
               <USERNAME>{$user/login/text()}</USERNAME>
               <TID>{$request/tripid/text()}</TID>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>
           else '',
       for $user in $root/tripster/user
@@ -248,6 +274,7 @@ for $root in doc("project_data.xml")
             <tuple>
               <USERNAME>{$invite/friendid/text()}</USERNAME>
               <TID>{$invite/tripid/text()}</TID>
+              <SOURCE>{$user/trip/album/content[1]/source/text()}</SOURCE>
             </tuple>
           else ''
     }</GOESON>
