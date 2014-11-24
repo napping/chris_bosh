@@ -40,7 +40,7 @@ CREATE TABLE Destination
     type            VARCHAR(20) DEFAULT 'Destination',
     CONSTRAINT pk_destination PRIMARY KEY (did, source),
     CONSTRAINT type_destination CHECK (type = 'Destination'),
-    FOREIGN KEY (did, source, type) REFERENCES Media(mid, gropu, type)
+    FOREIGN KEY (did, source, type) REFERENCES Media(mid, source, type)
 );
 
 CREATE TABLE Notification 
@@ -180,7 +180,7 @@ CREATE TABLE RequestTrip
     username        VARCHAR(20),
     tid             INT,
     source          VARCHAR(20) DEFAULT 'default',
-    CONSTRAINT pk_requesttrip PRIMARY KEY (username, tid, source,
+    CONSTRAINT pk_requesttrip PRIMARY KEY (username, tid, source),
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source)
 );
