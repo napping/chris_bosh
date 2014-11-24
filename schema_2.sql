@@ -13,7 +13,7 @@ CREATE TABLE Media
     mid             INT NOT NULL,
     source          VARCHAR(20) DEFAULT 'default',
     type            VARCHAR(20),
-    privacy         VARCHAR(20),
+    privacy         VARCHAR(40),
     CONSTRAINT pk PRIMARY KEY (mid, source, type),
     CONSTRAINT type_enum CHECK (type in ('Link', 'Photo', 'Video', 'Trip', 'Destination')),
     CONSTRAINT privacy_enum CHECK (privacy in ('private','sharedWithTripMembers','public'))
@@ -61,8 +61,9 @@ CREATE TABLE Album
     aid             INT NOT NULL,
     source          VARCHAR(20) DEFAULT 'default',
     name            VARCHAR(50),
-    privacy         VARCHAR(20),
-    CONSTRAINT pk_album PRIMARY KEY (aid, source)
+    privacy         VARCHAR(40),
+    CONSTRAINT pk_album PRIMARY KEY (aid, source),
+    CONSTRAINT privacy_enum_album CHECK (privacy in ('private','sharedWithTripMembers','public'))
 );
 
 CREATE TABLE Link 
