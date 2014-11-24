@@ -11,7 +11,7 @@ CREATE TABLE Users
 CREATE TABLE Media 
 (
     mid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     type            VARCHAR(20),
     privacy         VARCHAR(20),
     CONSTRAINT pk PRIMARY KEY (mid, source, type),
@@ -22,7 +22,7 @@ CREATE TABLE Media
 CREATE TABLE Trip
 (
     tid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     name            VARCHAR(50) NOT NULL,
     packing_list    VARCHAR(256),
     expenses        VARCHAR(256),
@@ -35,7 +35,7 @@ CREATE TABLE Trip
 CREATE TABLE Destination 
 (
     did             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     name            VARCHAR(20) NOT NULL,
     type            VARCHAR(20) DEFAULT 'Destination',
     CONSTRAINT pk_destination PRIMARY KEY (did, source),
@@ -59,7 +59,7 @@ CREATE TABLE Hashtag
 CREATE TABLE Album
 (
     aid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     name            VARCHAR(50),
     privacy         VARCHAR(20),
     CONSTRAINT pk_album PRIMARY KEY (aid, source)
@@ -68,7 +68,7 @@ CREATE TABLE Album
 CREATE TABLE Link 
 (
     lid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Link',
     CONSTRAINT pk_link PRIMARY KEY (lid, source),
@@ -79,7 +79,7 @@ CREATE TABLE Link
 CREATE TABLE Photo 
 (
     pid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Photo',
     CONSTRAINT pk_photo PRIMARY KEY (pid, source),
@@ -90,7 +90,7 @@ CREATE TABLE Photo
 CREATE TABLE Video 
 (
     vid             INT NOT NULL,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     url             VARCHAR(512),
     type            VARCHAR(20) DEFAULT 'Video',
     CONSTRAINT pk_video PRIMARY KEY (vid, source),
@@ -119,7 +119,7 @@ CREATE TABLE GoesOn
 (
     username        VARCHAR(20),
     tid             INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_goeson PRIMARY KEY (username, tid, source),
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source)    
@@ -130,7 +130,7 @@ CREATE TABLE PartOf
     tid             INT,
     did             INT,
     order_in_trip   INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_partof PRIMARY KEY (tid, order_in_trip, source),
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source),
     FOREIGN KEY (did, source) REFERENCES Destination(did, source)
@@ -141,7 +141,7 @@ CREATE TABLE Describes
     tag             VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_describes PRIMARY KEY (tag, mid, source, type),
     FOREIGN KEY (tag) REFERENCES Hashtag(tag),
     FOREIGN KEY (mid, source, type) REFERENCES Media(mid, source, type),
@@ -153,7 +153,7 @@ CREATE TABLE Owns
     username        VARCHAR(20),
     mid             INT,
     type            VARCHAR(20),
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (mid, source, type) REFERENCES Media(mid, source, type),
     CONSTRAINT pk_owns PRIMARY KEY (mid, source, type),
@@ -165,7 +165,7 @@ CREATE TABLE Rating
     username        VARCHAR(20),
     rating          INT,
     mid             INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     type            VARCHAR(20),
     review          VARCHAR(4000),
     FOREIGN KEY (username) REFERENCES Users(username),
@@ -179,7 +179,7 @@ CREATE TABLE RequestTrip
 (
     username        VARCHAR(20),
     tid             INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_requesttrip PRIMARY KEY (username, tid, source,
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source)
@@ -190,7 +190,7 @@ CREATE TABLE InviteTrip
     username1       VARCHAR(20),
     username2       VARCHAR(20),
     tid             INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_invitetrip PRIMARY KEY (username1, username2, tid, source),
     FOREIGN KEY (username1) REFERENCES Users(username),
     FOREIGN KEY (username2) REFERENCES Users(username),
@@ -202,7 +202,7 @@ CREATE TABLE InAlbum
     aid             INT,
     mid             INT,
     type            VARCHAR(20),
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     FOREIGN KEY (aid, source) REFERENCES Album(aid, source),
     FOREIGN KEY (mid, source, type) REFERENCES Media(mid, source, type),
     CONSTRAINT pk_inalbum PRIMARY KEY (aid, mid, source),
@@ -213,7 +213,7 @@ CREATE TABLE AlbumOfTrip
 (
     aid             INT,
     tid             INT,
-    source          VARCHAR(20) NOT NULL DEFAULT 'default',
+    source          VARCHAR(20) DEFAULT 'default',
     CONSTRAINT pk_albumoftrip PRIMARY KEY (aid, tid, source),
     FOREIGN KEY (aid, source) REFERENCES Album(aid, source),
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source)
