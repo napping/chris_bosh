@@ -1,110 +1,110 @@
-1,GOOD PHOTOS,private,default
-4,WE ARE HAPPY,private,default
-2,FIRST WEEK,private,default
-3,LAST DAY,private,default
-5,NO VIEW,private,default
-1,japan photos,sharedWithTripMembers,group30
-4,SF photos,private,group30
-5,Hawaii photos,private,group30
-3,china photos,private,group30
-2,mexico photos,sharedWithTripMembers,group30
-4,At the beach,public,group6
-5,Selfies/pics of food,public,group6
-1,People of Walmart,public,group6
-2,Boring museums,public,
+1|GOOD PHOTOS|private|default
+4|WE ARE HAPPY|private|default
+2|FIRST WEEK|private|default
+3|LAST DAY|private|default
+5|NO VIEW|private|default
+1|japan photos|sharedWithTripMembers|group30
+4|SF photos|private|group30
+5|Hawaii photos|private|group30
+3|china photos|private|group30
+2|mexico photos|sharedWithTripMembers|group30
+4|At the beach|public|group6
+5|Selfies/pics of food|public|group6
+1|People of Walmart|public|group6
+2|Boring museums|public|
       
-3,NSFW,public,
+3|NSFW|public|
       
-1,Cool Pics,private,G05
-3,Pictures,private,G05
-2,Trip pics,private,G05
-5,Scenic,private,G05
-4,Pics,private,G05
-1,Best Trip Yet,private,G25
-2,Philly Is The Best,sharedWithTripMembers,G25
-3,AA Freezing Trip,private,G25
-4,NJ Is The Worst,sharedWithTripMembers,G25
-5,The World Captured,sharedWithTripMembers,G25
-1,Album1,public,G22
-2,My Fun Album,public,G22
-3,A Cool Trip,public,G22
-4,Fun Trip,public,G22
-5,This trip sucked,public,G22
-4,Eiffel Tower/,public,G00
-1,The Golden City/,public,G00
-5,Spring Break B**tch/,private,G00
-1,The Golden City/,public,G00
-5,Spring Break B**tch/,private,G00
-5,Spring Break B**tch/,private,G00
-5,Spring Break B**tch/,private,G00
-5,Spring Break B**tch/,private,G00
-1,FUN_AT_MONTREAL,public,G23
-2,ROCKING_AT_NYC,private,G23
-3,GOING_DESI,sharedWithTripMembers,G23
-4,TRIP_TO_TURKEY,sharedWithTripMembers,G23
-5,ICEBERGGY_TRIP,sharedWithTripMembers,G23
-1,trip1 album,public,G28
-2,trip2 album,public,G28
-3,trip3 album,public,G28
-4,trip4 album,private,G28
-5,trip4 album,private,G28
-1,First Week,private,group1
-2,Last Week,private,group1
-3,Tokyo Story,private,group1
-4,In Bruges,private,group1
-5,Yee-Haw,private,group1
-1,
-      ,private,group3
-2,
-      ,public,group3
-3,
-      ,private,group3
-4,
-      ,public,group3
-5,
-      ,private,group3
-2,PGCB on Tour,public,group20
-1,The Life of TFP,public,group20
-5,Stouffer's Travels,public,group20
-3,Nord's Guamanian Adventures,public,group20
-4,Stouffer's Travels,public,group20
-22,Crazy Adventures,public,G12
-55,Super Duper Times in Scotland,public,G12
-11,Amazing Trip,public,G12
-44,Euphoria in Europe,public,G12
-33,Amazing Week in Paradise,public,G12
-2,The Golden Temple,private,group09
-4,Roma,private,group09
-5,La Dolce Vita,private,group09
-3,Das Boot,private,group09
-1,Is this the real Caesars Palace?,private,group09
-0,Forgot My Sunglasses,private,group09
-5,Anh Birthday,public,G11
-4,Boys Vacation,public,G11
-3,Anniversary,public,
+1|Cool Pics|private|G05
+3|Pictures|private|G05
+2|Trip pics|private|G05
+5|Scenic|private|G05
+4|Pics|private|G05
+1|Best Trip Yet|private|G25
+2|Philly Is The Best|sharedWithTripMembers|G25
+3|AA Freezing Trip|private|G25
+4|NJ Is The Worst|sharedWithTripMembers|G25
+5|The World Captured|sharedWithTripMembers|G25
+1|Album1|public|G22
+2|My Fun Album|public|G22
+3|A Cool Trip|public|G22
+4|Fun Trip|public|G22
+5|This trip sucked|public|G22
+4|Eiffel Tower/|public|G00
+1|The Golden City/|public|G00
+5|Spring Break B**tch/|private|G00
+1|The Golden City/|public|G00
+5|Spring Break B**tch/|private|G00
+5|Spring Break B**tch/|private|G00
+5|Spring Break B**tch/|private|G00
+5|Spring Break B**tch/|private|G00
+1|FUN_AT_MONTREAL|public|G23
+2|ROCKING_AT_NYC|private|G23
+3|GOING_DESI|sharedWithTripMembers|G23
+4|TRIP_TO_TURKEY|sharedWithTripMembers|G23
+5|ICEBERGGY_TRIP|sharedWithTripMembers|G23
+1|trip1 album|public|G28
+2|trip2 album|public|G28
+3|trip3 album|public|G28
+4|trip4 album|private|G28
+5|trip4 album|private|G28
+1|First Week|private|group1
+2|Last Week|private|group1
+3|Tokyo Story|private|group1
+4|In Bruges|private|group1
+5|Yee-Haw|private|group1
+1|
+      |private|group3
+2|
+      |public|group3
+3|
+      |private|group3
+4|
+      |public|group3
+5|
+      |private|group3
+2|PGCB on Tour|public|group20
+1|The Life of TFP|public|group20
+5|Stouffer's Travels|public|group20
+3|Nord's Guamanian Adventures|public|group20
+4|Stouffer's Travels|public|group20
+22|Crazy Adventures|public|G12
+55|Super Duper Times in Scotland|public|G12
+11|Amazing Trip|public|G12
+44|Euphoria in Europe|public|G12
+33|Amazing Week in Paradise|public|G12
+2|The Golden Temple|private|group09
+4|Roma|private|group09
+5|La Dolce Vita|private|group09
+3|Das Boot|private|group09
+1|Is this the real Caesars Palace?|private|group09
+0|Forgot My Sunglasses|private|group09
+5|Anh Birthday|public|G11
+4|Boys Vacation|public|G11
+3|Anniversary|public|
       
-1,What stays in Vegas,public,G14
-2,Hawaii, jk Canada,public,G14
-3,Cali Heyyy,public,G14
-4,The Lone Star State,public,G14
-5,Road Trip-2013,public,G14
-1,Philly,public,group15
-5,Winterfell,public,group15
-2,New York,public,group15
-4,Bay Harbor Islands,public,group15
-3,Mordor,public,group15
-2,alb,public,G17
-1,seattlealb,public,G17
-3,alb,public,G17
-4,alb,public,G17
-5,alb,public,G17
-1,Surfing!,private,group19
-4,Camping and stuff,public,group19
-2,Poconos,private,group19
-5,School :(,public,group19
-3,Friends!,private,group19
-1,Album1,public,G22
-2,My Fun Album,public,G22
-3,A Cool Trip,public,G22
-4,Fun Trip,public,G22
-5,This trip sucked,public,G22
+1|What stays in Vegas|public|G14
+2|Hawaii, jk Canada|public|G14
+3|Cali Heyyy|public|G14
+4|The Lone Star State|public|G14
+5|Road Trip-2013|public|G14
+1|Philly|public|group15
+5|Winterfell|public|group15
+2|New York|public|group15
+4|Bay Harbor Islands|public|group15
+3|Mordor|public|group15
+2|alb|public|G17
+1|seattlealb|public|G17
+3|alb|public|G17
+4|alb|public|G17
+5|alb|public|G17
+1|Surfing!|private|group19
+4|Camping and stuff|public|group19
+2|Poconos|private|group19
+5|School :(|public|group19
+3|Friends!|private|group19
+1|Album1|public|G22
+2|My Fun Album|public|G22
+3|A Cool Trip|public|G22
+4|Fun Trip|public|G22
+5|This trip sucked|public|G22

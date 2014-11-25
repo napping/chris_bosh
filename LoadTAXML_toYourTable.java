@@ -73,7 +73,7 @@ public class LoadTAXML_toYourTable {
 				System.out.println("Read and exported table " + currentTable);
 				return true;
 			} else if (currentLevel == Level.TUPLE) {
-				currentTuple.append(((column++ == 0) ? "" : ",") + currentValue);
+				currentTuple.append(((column++ == 0) ? "" : "|") + currentValue);
 			}
 
 			break;

@@ -1,101 +1,101 @@
-1,A COOL TRIP,default
-4,SWIMMING,default
-2,NO GOOD,default
-3,LET'S GO,default
-5,DIVE,default
-100,Japan Trip,group30
-400,Hawaii Trip,group30
-500,San Francisco,group30
-301,China Trip,group30
-208,Mexico Trip,group30
-307,Christmas in France,group6group6
-110,East Coast Trip,group6
-211,Asia Trip,
+1|A COOL TRIP|default
+4|SWIMMING|default
+2|NO GOOD|default
+3|LET'S GO|default
+5|DIVE|default
+100|Japan Trip|group30
+400|Hawaii Trip|group30
+500|San Francisco|group30
+301|China Trip|group30
+208|Mexico Trip|group30
+307|Christmas in France|group6group6
+110|East Coast Trip|group6
+211|Asia Trip|
       
-4001,Goa,G05
-4003,NewZealand,G05
-4002,Singapore,G05
-4005,Goa,G05
-5004,Switzerland,G05
-109,European,G25
-27,Philadelphia Tour,G25
-35,Ann Arbor,G25
-41,New Jersey advent,G25
-15,World Tour,G25
-11,TripA,G22
-32,TripB,G22
-53,TripC,G22
-44,TripD,G22
-55,TripE,G22
-91,First Time to Paris,G00
-203,Tours of Prague,G00
-5350,Spring Breakers,G00
-28,Tours of Prague,G00
-57,Spring Breakers,G00
-59,Spring Breakers,G00
-555,Spring Breakers,G00
-503,Spring Breakers,G00
-105,Montreal_Summer_2014,G23
-217,New_York_Winter_2013,G23
-309,India_Fall_2012,G23
-415,Istanbul_Spring_2011,G23
-535,Antarctica_Summer_2010,G23
-147,Awesome Trip!,G28
-286,Fantastic Trip!,G28
-38,Happy Trip!,G28
-49,Where to go?,G28
-50,Hevean Trip,G28
-142,foo name,group1
-26,foo name,group1
-36,foo name,group1
-412,foo name,group1
-509,foo name,group1
-133,Trip 1,group3
-9211,Trip 2,group3
-369,Trip 3,group3
-407,Trip 4,group3
-765,Trip 5,group3
-290,Tand Brip,group20
-112,Director's Choice,group20
-511,LXA,group20
-333,Hoo Hah!,group20
-77,Stouffer Jaunt,group20
-86,trip_name,G12
-90,trip_name,G12
-991,trip_name,G12
-95,trip_name,G12
-94,trip_name,G12
-92,Tokyo Fun,group09
-71,Italia - Roma,group09group09
-73,Oktoberfest,group09
-70,Las Vegas Baby,group09
-64,Fun in the Sun,group09
-65,Anh Birthday,G11
-154,Boys Vacation,G11
-83,Anniversary,
+4001|Goa|G05
+4003|NewZealand|G05
+4002|Singapore|G05
+4005|Goa|G05
+5004|Switzerland|G05
+109|European|G25
+27|Philadelphia Tour|G25
+35|Ann Arbor|G25
+41|New Jersey advent|G25
+15|World Tour|G25
+11|TripA|G22
+32|TripB|G22
+53|TripC|G22
+44|TripD|G22
+55|TripE|G22
+91|First Time to Paris|G00
+203|Tours of Prague|G00
+5350|Spring Breakers|G00
+28|Tours of Prague|G00
+57|Spring Breakers|G00
+59|Spring Breakers|G00
+555|Spring Breakers|G00
+503|Spring Breakers|G00
+105|Montreal_Summer_2014|G23
+217|New_York_Winter_2013|G23
+309|India_Fall_2012|G23
+415|Istanbul_Spring_2011|G23
+535|Antarctica_Summer_2010|G23
+147|Awesome Trip!|G28
+286|Fantastic Trip!|G28
+38|Happy Trip!|G28
+49|Where to go?|G28
+50|Hevean Trip|G28
+142|foo name|group1
+26|foo name|group1
+36|foo name|group1
+412|foo name|group1
+509|foo name|group1
+133|Trip 1|group3
+9211|Trip 2|group3
+369|Trip 3|group3
+407|Trip 4|group3
+765|Trip 5|group3
+290|Tand Brip|group20
+112|Director's Choice|group20
+511|LXA|group20
+333|Hoo Hah!|group20
+77|Stouffer Jaunt|group20
+86|trip_name|G12
+90|trip_name|G12
+991|trip_name|G12
+95|trip_name|G12
+94|trip_name|G12
+92|Tokyo Fun|group09
+71|Italia - Roma|group09group09
+73|Oktoberfest|group09
+70|Las Vegas Baby|group09
+64|Fun in the Sun|group09
+65|Anh Birthday|G11
+154|Boys Vacation|G11
+83|Anniversary|
       
-61,default name,G14
-832,default name,G14
-391,default name,G14
-414,default name,G14
-541,default name,G14
-1001,Philly,group15
-1005,Winterfell,group15
-1002,New York,group15
-1004,Bay Harbor Islands,group15
-1003,Mordor,group15
-11002,New York,G17
-2001,Seatle,G17
-377,Philadelphia,G17
-498,Miami,G17
-574,Los Angeles,G17
-11511,Beach Trip 2015,group19
-502,Camping,group19
-673,Snow Boarding Trip 2015,group19
-634,Study Abroad 2014,group19
-2005,Visiting my friends!!!,group19
-3001,TripA,G22
-3002,TripB,G22
-3003,TripC,G22
-3004,TripD,G22
-3005,TripE,G22
+61|default name|G14
+832|default name|G14
+391|default name|G14
+414|default name|G14
+541|default name|G14
+1001|Philly|group15
+1005|Winterfell|group15
+1002|New York|group15
+1004|Bay Harbor Islands|group15
+1003|Mordor|group15
+11002|New York|G17
+2001|Seatle|G17
+377|Philadelphia|G17
+498|Miami|G17
+574|Los Angeles|G17
+11511|Beach Trip 2015|group19
+502|Camping|group19
+673|Snow Boarding Trip 2015|group19
+634|Study Abroad 2014|group19
+2005|Visiting my friends!!!|group19
+3001|TripA|G22
+3002|TripB|G22
+3003|TripC|G22
+3004|TripD|G22
+3005|TripE|G22
