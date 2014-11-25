@@ -39,7 +39,7 @@ CREATE TABLE Destination
     name            VARCHAR(64) NOT NULL,
     type            VARCHAR(64) DEFAULT 'Destination',
     CONSTRAINT pk_destination PRIMARY KEY (did, source),
-    FOREIGN KEY (did, source, type) REFERENCES Media(mid, source, type)
+    FOREIGN KEY (did, source, 'Destination') REFERENCES Media(mid, source, type)
 );
 
 CREATE TABLE Notification 
