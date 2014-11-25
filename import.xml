@@ -4988,319 +4988,319 @@
     <tuple>
       <DID>1</DID>
       <NAME>center city</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>default</SOURCE>
     </tuple>
     <tuple>
       <DID>2</DID>
       <NAME>San Jose</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>default</SOURCE>
     </tuple>
     <tuple>
       <DID>3</DID>
       <NAME>university city</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>default</SOURCE>
     </tuple>
     <tuple>
       <DID>4</DID>
       <NAME>calabash mountain</NAME>
-      <TYPE>Mountains</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>default</SOURCE>
     </tuple>
     <tuple>
       <DID>5</DID>
       <NAME>Raleigh</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>default</SOURCE>
     </tuple>
     <tuple>
       <DID>6</DID>
       <NAME>Kyoto</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>7</DID>
       <NAME>Tokyo</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>8</DID>
       <NAME>Hawaii</NAME>
-      <TYPE>sea</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>9</DID>
       <NAME>San Francisco</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>10</DID>
       <NAME>Beijing</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>11</DID>
       <NAME>Mexico City</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group30</SOURCE>
     </tuple>
     <tuple>
       <DID>12</DID>
       <NAME>France</NAME>
-      <TYPE>France</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group6group6</SOURCE>
     </tuple>
     <tuple>
       <DID>13</DID>
       <NAME>Philadelphia</NAME>
-      <TYPE>Philadelphia</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group6</SOURCE>
     </tuple>
     <tuple>
       <DID>14</DID>
       <NAME>New York</NAME>
-      <TYPE>New York</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group6</SOURCE>
     </tuple>
     <tuple>
       <DID>15</DID>
       <NAME>Boston</NAME>
-      <TYPE>Boston</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group6</SOURCE>
     </tuple>
     <tuple>
       <DID>16</DID>
       <NAME>India</NAME>
-      <TYPE>India</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE/>
     </tuple>
     <tuple>
       <DID>17</DID>
       <NAME>Goa</NAME>
-      <TYPE>NULL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G05</SOURCE>
     </tuple>
     <tuple>
       <DID>18</DID>
       <NAME>NewZealand</NAME>
-      <TYPE>NULL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G05</SOURCE>
     </tuple>
     <tuple>
       <DID>19</DID>
       <NAME>Singapore</NAME>
-      <TYPE>NULL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G05</SOURCE>
     </tuple>
     <tuple>
       <DID>20</DID>
       <NAME>Switzerland</NAME>
-      <TYPE>NULL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G05</SOURCE>
     </tuple>
     <tuple>
       <DID>21</DID>
       <NAME>europe</NAME>
-      <TYPE>NULL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G05</SOURCE>
     </tuple>
     <tuple>
       <DID>22</DID>
       <NAME>philly</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G25</SOURCE>
     </tuple>
     <tuple>
       <DID>23</DID>
       <NAME>London</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>24</DID>
       <NAME>Paris</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>25</DID>
       <NAME>NY</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>26</DID>
       <NAME>SFO</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>27</DID>
       <NAME>Chicago</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>28</DID>
       <NAME>Paris, France</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G00</SOURCE>
     </tuple>
     <tuple>
       <DID>29</DID>
       <NAME>Paris of France</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G00</SOURCE>
     </tuple>
     <tuple>
       <DID>30</DID>
       <NAME>Versailles, France</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G00</SOURCE>
     </tuple>
     <tuple>
       <DID>31</DID>
       <NAME>Prague, Czech Republic</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G00</SOURCE>
     </tuple>
     <tuple>
       <DID>32</DID>
       <NAME>Prague of Czech Republic</NAME>
-      <TYPE>City</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G00</SOURCE>
     </tuple>
     <tuple>
       <DID>33</DID>
       <NAME>MONTREAL</NAME>
-      <TYPE>HISTORICALLOCATIONS, ICEHOCKEY</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>34</DID>
       <NAME>NEW YORK CITY, NY</NAME>
-      <TYPE>MUSEUMS, RESTAURANT, SKYSCRAPERS</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>35</DID>
       <NAME>KERALA,INDIA</NAME>
-      <TYPE>BACKWATERS, FOOD, MUSICAL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>36</DID>
       <NAME>TAJMAHAL, AGRA, INDIA</NAME>
-      <TYPE>FOOD, HISTORICALLOCATIONS</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>37</DID>
       <NAME>TURKEY</NAME>
-      <TYPE>CULTURAL, HISTORICALLOCATIONS, MUSICAL</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>38</DID>
       <NAME>ANTARCTICA</NAME>
-      <TYPE>ICEBERGS</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G23</SOURCE>
     </tuple>
     <tuple>
       <DID>39</DID>
       <NAME>ROCKY MOUNTAINS</NAME>
-      <TYPE>NATIONAL PARK</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G28</SOURCE>
     </tuple>
     <tuple>
       <DID>40</DID>
       <NAME>TOKYO</NAME>
-      <TYPE>CITY TOUR</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G28</SOURCE>
     </tuple>
     <tuple>
       <DID>41</DID>
       <NAME>ALASKA</NAME>
-      <TYPE>NATIONAL PARK</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G28</SOURCE>
     </tuple>
     <tuple>
       <DID>42</DID>
       <NAME>CARIBBEAN SEA</NAME>
-      <TYPE>CRUISE</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G28</SOURCE>
     </tuple>
     <tuple>
       <DID>43</DID>
       <NAME>UPENN</NAME>
-      <TYPE>CULTURE</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G28</SOURCE>
     </tuple>
     <tuple>
       <DID>44</DID>
       <NAME>Hometown Paris</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group1</SOURCE>
     </tuple>
     <tuple>
       <DID>45</DID>
       <NAME>Amsterdam</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group1</SOURCE>
     </tuple>
     <tuple>
       <DID>46</DID>
       <NAME>Tokyo of Japan</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group1</SOURCE>
     </tuple>
     <tuple>
       <DID>47</DID>
       <NAME>Bruges</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group1</SOURCE>
     </tuple>
     <tuple>
       <DID>48</DID>
       <NAME>Paris, Texas</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group1</SOURCE>
     </tuple>
     <tuple>
       <DID>49</DID>
       <NAME>Island 1</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group3</SOURCE>
     </tuple>
     <tuple>
       <DID>50</DID>
       <NAME>Island 2</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group3</SOURCE>
     </tuple>
     <tuple>
       <DID>51</DID>
       <NAME>Island 3</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group3</SOURCE>
     </tuple>
     <tuple>
       <DID>52</DID>
       <NAME>Island 4</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group3</SOURCE>
     </tuple>
     <tuple>
       <DID>53</DID>
       <NAME>Island 5</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group3</SOURCE>
     </tuple>
     <tuple>
@@ -5390,259 +5390,259 @@
     <tuple>
       <DID>68</DID>
       <NAME>Disney World</NAME>
-      <TYPE>The place Mickey Mouse threw up</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>69</DID>
       <NAME>New York, NY</NAME>
-      <TYPE>High Finance</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>70</DID>
       <NAME>Liberty Bell</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>71</DID>
       <NAME>San Diego, CA</NAME>
-      <TYPE>Fish Tacos!!!</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>72</DID>
       <NAME>Levine Hall</NAME>
-      <TYPE>Where dreams go to die</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>73</DID>
       <NAME>Paris, FR</NAME>
-      <TYPE>Where dreams are made of chocolate</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>74</DID>
       <NAME>Wells Fargo Center</NAME>
-      <TYPE>Poor Poor 76er's</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>75</DID>
       <NAME>Milan, IT</NAME>
-      <TYPE>Home sweet home</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>76</DID>
       <NAME>The Shire</NAME>
-      <TYPE>Hobbits!!!</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>77</DID>
       <NAME>Mount Rushmore</NAME>
-      <TYPE>Founding Father's in stone</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G12</SOURCE>
     </tuple>
     <tuple>
       <DID>78</DID>
       <NAME>TOKYO of Japan</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group09</SOURCE>
     </tuple>
     <tuple>
       <DID>79</DID>
       <NAME>Rome</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group09group09</SOURCE>
     </tuple>
     <tuple>
       <DID>80</DID>
       <NAME>Munich</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group09</SOURCE>
     </tuple>
     <tuple>
       <DID>81</DID>
       <NAME>Las Vegas</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group09</SOURCE>
     </tuple>
     <tuple>
       <DID>82</DID>
       <NAME>Mount Vesuvius</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group09</SOURCE>
     </tuple>
     <tuple>
       <DID>83</DID>
       <NAME>Six Flags</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G11</SOURCE>
     </tuple>
     <tuple>
       <DID>84</DID>
       <NAME>Stonehenge</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G11</SOURCE>
     </tuple>
     <tuple>
       <DID>85</DID>
       <NAME>Miami Beach</NAME>
-      <TYPE>location</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE/>
     </tuple>
     <tuple>
       <DID>86</DID>
       <NAME>Las Vegas, CA, USA</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G14</SOURCE>
     </tuple>
     <tuple>
       <DID>87</DID>
       <NAME>California</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G14</SOURCE>
     </tuple>
     <tuple>
       <DID>88</DID>
       <NAME>New York City</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G14</SOURCE>
     </tuple>
     <tuple>
       <DID>89</DID>
       <NAME>Canada</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G14</SOURCE>
     </tuple>
     <tuple>
       <DID>90</DID>
       <NAME>Texas</NAME>
-      <TYPE>null</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G14</SOURCE>
     </tuple>
     <tuple>
       <DID>91</DID>
       <NAME>the Philadelphia, PA</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group15</SOURCE>
     </tuple>
     <tuple>
       <DID>92</DID>
       <NAME>Winterfell</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group15</SOURCE>
     </tuple>
     <tuple>
       <DID>93</DID>
       <NAME>New York, state of NY</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group15</SOURCE>
     </tuple>
     <tuple>
       <DID>94</DID>
       <NAME>Bay Harbor Islands</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group15</SOURCE>
     </tuple>
     <tuple>
       <DID>95</DID>
       <NAME>Mordor</NAME>
-      <TYPE>place</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group15</SOURCE>
     </tuple>
     <tuple>
       <DID>96</DID>
       <NAME>ny</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G17</SOURCE>
     </tuple>
     <tuple>
       <DID>97</DID>
       <NAME>Seattle</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G17</SOURCE>
     </tuple>
     <tuple>
       <DID>98</DID>
       <NAME>Miami</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G17</SOURCE>
     </tuple>
     <tuple>
       <DID>99</DID>
       <NAME>nice philly</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G17</SOURCE>
     </tuple>
     <tuple>
       <DID>100</DID>
       <NAME>Dead sea</NAME>
-      <TYPE>sea</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G17</SOURCE>
     </tuple>
     <tuple>
       <DID>101</DID>
       <NAME>warm Hawaii</NAME>
-      <TYPE>beach</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group19</SOURCE>
     </tuple>
     <tuple>
       <DID>102</DID>
       <NAME>Yosemite</NAME>
-      <TYPE>national park</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group19</SOURCE>
     </tuple>
     <tuple>
       <DID>103</DID>
       <NAME>Poconos</NAME>
-      <TYPE>mountains</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group19</SOURCE>
     </tuple>
     <tuple>
       <DID>104</DID>
       <NAME>Australia</NAME>
-      <TYPE>Island</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group19</SOURCE>
     </tuple>
     <tuple>
       <DID>105</DID>
       <NAME>Tokyo, cap of Japan</NAME>
-      <TYPE>urban</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>group19</SOURCE>
     </tuple>
     <tuple>
       <DID>106</DID>
       <NAME>London, UK</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>107</DID>
       <NAME>cap of France</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>108</DID>
       <NAME>New York, NY state</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>109</DID>
       <NAME>San Francisco of California</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
     <tuple>
       <DID>110</DID>
       <NAME>Chicago, USA</NAME>
-      <TYPE>city</TYPE>
+      <TYPE>Destination</TYPE>
       <SOURCE>G22</SOURCE>
     </tuple>
   </DESTINATION>

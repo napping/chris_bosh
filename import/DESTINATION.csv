@@ -1,57 +1,57 @@
-1|center city|City|default
-2|San Jose|City|default
-3|university city|City|default
-4|calabash mountain|Mountains|default
-5|Raleigh|City|default
-6|Kyoto|city|group30
-7|Tokyo|city|group30
-8|Hawaii|sea|group30
-9|San Francisco|city|group30
-10|Beijing|city|group30
-11|Mexico City|city|group30
-12|France|France|group6group6
-13|Philadelphia|Philadelphia|group6
-14|New York|New York|group6
-15|Boston|Boston|group6
-16|India|India|
+1|center city|Destination|default
+2|San Jose|Destination|default
+3|university city|Destination|default
+4|calabash mountain|Destination|default
+5|Raleigh|Destination|default
+6|Kyoto|Destination|group30
+7|Tokyo|Destination|group30
+8|Hawaii|Destination|group30
+9|San Francisco|Destination|group30
+10|Beijing|Destination|group30
+11|Mexico City|Destination|group30
+12|France|Destination|group6group6
+13|Philadelphia|Destination|group6
+14|New York|Destination|group6
+15|Boston|Destination|group6
+16|India|Destination|
       
-17|Goa|NULL|G05
-18|NewZealand|NULL|G05
-19|Singapore|NULL|G05
-20|Switzerland|NULL|G05
-21|europe|NULL|G05
-22|philly|city|G25
-23|London|city|G22
-24|Paris|city|G22
-25|NY|city|G22
-26|SFO|city|G22
-27|Chicago|city|G22
-28|Paris, France|City|G00
-29|Paris of France|City|G00
-30|Versailles, France|City|G00
-31|Prague, Czech Republic|City|G00
-32|Prague of Czech Republic|City|G00
-33|MONTREAL|HISTORICALLOCATIONS, ICEHOCKEY|G23
-34|NEW YORK CITY, NY|MUSEUMS, RESTAURANT, SKYSCRAPERS|G23
-35|KERALA,INDIA|BACKWATERS, FOOD, MUSICAL|G23
-36|TAJMAHAL, AGRA, INDIA|FOOD, HISTORICALLOCATIONS|G23
-37|TURKEY|CULTURAL, HISTORICALLOCATIONS, MUSICAL|G23
-38|ANTARCTICA|ICEBERGS|G23
-39|ROCKY MOUNTAINS|NATIONAL PARK|G28
-40|TOKYO|CITY TOUR|G28
-41|ALASKA|NATIONAL PARK|G28
-42|CARIBBEAN SEA|CRUISE|G28
-43|UPENN|CULTURE|G28
-44|Hometown Paris|city|group1
-45|Amsterdam|city|group1
-46|Tokyo of Japan|city|group1
-47|Bruges|city|group1
-48|Paris, Texas|city|group1
-49|Island 1|location|group3
-50|Island 2|location|group3
-51|Island 3|location|group3
-52|Island 4|location|group3
-53|Island 5|location|group3
+17|Goa|Destination|G05
+18|NewZealand|Destination|G05
+19|Singapore|Destination|G05
+20|Switzerland|Destination|G05
+21|europe|Destination|G05
+22|philly|Destination|G25
+23|London|Destination|G22
+24|Paris|Destination|G22
+25|NY|Destination|G22
+26|SFO|Destination|G22
+27|Chicago|Destination|G22
+28|Paris, France|Destination|G00
+29|Paris of France|Destination|G00
+30|Versailles, France|Destination|G00
+31|Prague, Czech Republic|Destination|G00
+32|Prague of Czech Republic|Destination|G00
+33|MONTREAL|Destination|G23
+34|NEW YORK CITY, NY|Destination|G23
+35|KERALA,INDIA|Destination|G23
+36|TAJMAHAL, AGRA, INDIA|Destination|G23
+37|TURKEY|Destination|G23
+38|ANTARCTICA|Destination|G23
+39|ROCKY MOUNTAINS|Destination|G28
+40|TOKYO|Destination|G28
+41|ALASKA|Destination|G28
+42|CARIBBEAN SEA|Destination|G28
+43|UPENN|Destination|G28
+44|Hometown Paris|Destination|group1
+45|Amsterdam|Destination|group1
+46|Tokyo of Japan|Destination|group1
+47|Bruges|Destination|group1
+48|Paris, Texas|Destination|group1
+49|Island 1|Destination|group3
+50|Island 2|Destination|group3
+51|Island 3|Destination|group3
+52|Island 4|Destination|group3
+53|Island 5|Destination|group3
 54|Guam|Destination|group20
 55|blind Pig|Destination|group20
 56|guam|Destination|group20
@@ -66,47 +66,47 @@
 65|Paris, Kentucky|Destination|group20
 66|coffee shop|Destination|group20
 67|oooh Guam|Destination|group20
-68|Disney World|The place Mickey Mouse threw up|G12
-69|New York, NY|High Finance|G12
-70|Liberty Bell|null|G12
-71|San Diego, CA|Fish Tacos!!!|G12
-72|Levine Hall|Where dreams go to die|G12
-73|Paris, FR|Where dreams are made of chocolate|G12
-74|Wells Fargo Center|Poor Poor 76er's|G12
-75|Milan, IT|Home sweet home|G12
-76|The Shire|Hobbits!!!|G12
-77|Mount Rushmore|Founding Father's in stone|G12
-78|TOKYO of Japan|place|group09
-79|Rome|place|group09group09
-80|Munich|place|group09
-81|Las Vegas|place|group09
-82|Mount Vesuvius|place|group09
-83|Six Flags|location|G11
-84|Stonehenge|location|G11
-85|Miami Beach|location|
+68|Disney World|Destination|G12
+69|New York, NY|Destination|G12
+70|Liberty Bell|Destination|G12
+71|San Diego, CA|Destination|G12
+72|Levine Hall|Destination|G12
+73|Paris, FR|Destination|G12
+74|Wells Fargo Center|Destination|G12
+75|Milan, IT|Destination|G12
+76|The Shire|Destination|G12
+77|Mount Rushmore|Destination|G12
+78|TOKYO of Japan|Destination|group09
+79|Rome|Destination|group09group09
+80|Munich|Destination|group09
+81|Las Vegas|Destination|group09
+82|Mount Vesuvius|Destination|group09
+83|Six Flags|Destination|G11
+84|Stonehenge|Destination|G11
+85|Miami Beach|Destination|
       
-86|Las Vegas, CA, USA|null|G14
-87|California|null|G14
-88|New York City|null|G14
-89|Canada|null|G14
-90|Texas|null|G14
-91|the Philadelphia, PA|place|group15
-92|Winterfell|place|group15
-93|New York, state of NY|place|group15
-94|Bay Harbor Islands|place|group15
-95|Mordor|place|group15
-96|ny|city|G17
-97|Seattle|city|G17
-98|Miami|city|G17
-99|nice philly|city|G17
-100|Dead sea|sea|G17
-101|warm Hawaii|beach|group19
-102|Yosemite|national park|group19
-103|Poconos|mountains|group19
-104|Australia|Island|group19
-105|Tokyo, cap of Japan|urban|group19
-106|London, UK|city|G22
-107|cap of France|city|G22
-108|New York, NY state|city|G22
-109|San Francisco of California|city|G22
-110|Chicago, USA|city|G22
+86|Las Vegas, CA, USA|Destination|G14
+87|California|Destination|G14
+88|New York City|Destination|G14
+89|Canada|Destination|G14
+90|Texas|Destination|G14
+91|the Philadelphia, PA|Destination|group15
+92|Winterfell|Destination|group15
+93|New York, state of NY|Destination|group15
+94|Bay Harbor Islands|Destination|group15
+95|Mordor|Destination|group15
+96|ny|Destination|G17
+97|Seattle|Destination|G17
+98|Miami|Destination|G17
+99|nice philly|Destination|G17
+100|Dead sea|Destination|G17
+101|warm Hawaii|Destination|group19
+102|Yosemite|Destination|group19
+103|Poconos|Destination|group19
+104|Australia|Destination|group19
+105|Tokyo, cap of Japan|Destination|group19
+106|London, UK|Destination|G22
+107|cap of France|Destination|G22
+108|New York, NY state|Destination|G22
+109|San Francisco of California|Destination|G22
+110|Chicago, USA|Destination|G22
