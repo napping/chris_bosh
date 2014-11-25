@@ -57,7 +57,7 @@ for $root in doc("project_data.xml")
           <tuple>
             <DID>{$i}</DID>
             <NAME>{$destination/name/text()}</NAME>
-            <TYPE>{$destination/type/text()}</TYPE>
+            <TYPE>Destination</TYPE>
             <SOURCE>{$destination/../album/content[1]/source/text()}</SOURCE>
           </tuple>
     }</DESTINATION>
