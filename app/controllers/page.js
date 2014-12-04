@@ -7,7 +7,7 @@ exports.index = function(req, res) {
 };
 
 exports.login = function(req, res) {
-    if (req.user) {
+    if (req.session.email) {
         return res.redirect('/');
     } else {
         return res.render('login');
@@ -15,10 +15,11 @@ exports.login = function(req, res) {
 };
 
 exports.logout = function(req, res) {
-    if (!req.user) {
+    if (!req.session.email) {
         return res.redirect('/');
     }
-    req.logout();
+    delete req.session.email;
+    console.log('logged out');
     req.flash('success', 'Logged out successfully!');
     return res.redirect('/');
 };
