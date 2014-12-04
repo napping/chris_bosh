@@ -1,3 +1,4 @@
 *.class
 *.jar
 node_modules
+script.sh
