@@ -6,6 +6,8 @@ module.exports = function(app) {
     app.get('/', page.index);
     app.get('/login', page.login);
     app.post('/login', user.login);
+    app.get('/register', page.register);
+    app.post('/register', user.register);
     app.get('/logout', page.logout);
 
     // just a proof of concept that authentication middleware works
