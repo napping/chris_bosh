@@ -65,13 +65,31 @@ a {
     margin-left: auto;
     margin-right: auto;
 }
+/* End User Page/Header */
+
+
+/* Footer */
+.footer { 
+    text-align: right;
+    padding: 1em 2em;
+    height: 4em;
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 80%;
+}
+.footer span { 
+    color: red;
+    font-weight: bold;
+}
+/* End Footer */
+
 
 /* Navbar */
 .navbar-default {
 	background-color: #3137b6;
 	border-color: #2f39ad;
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
 }
 .navbar-default .navbar-brand {
 	color: #ecf0f1;
@@ -154,8 +172,12 @@ a {
 
 /***************************** User Page */
 
-.row { 
+.overall { 
+}
+
+.box-row { 
     overflow: hidden;
+    border-bottom: 1px solid #f6f8fc;
 }
 
 .col-md-4 { 
@@ -164,10 +186,15 @@ a {
     padding-top: 1em;
     padding-bottom: 1em;
     border: 1px solid #f6f8fc;
-    border-bottom: none;
+    border-top: none;
+    border-right: none;
     display: table-cell;
     margin-bottom: -2000px;
     padding-bottom: 2000px;
+}
+
+.col-md-4:hover { 
+    background: LightGray;
 }
 
 .col-md-4 .box { 
@@ -179,6 +206,7 @@ a {
     width: 100%;
     text-align: center;
 }
+
 .box-portrait img { 
     display: block;
     width: 75%;
@@ -217,7 +245,7 @@ ul {
 }
 
 .box-recommendations .group-recommendations { 
-    height: 13em;
+    height: 10em;
 }
 
 .box-recommendations .recommended-person { 
@@ -242,9 +270,33 @@ ul {
     margin-left: 3.5em;
 }
 
+.box-trips { 
+    padding-left: 2em;
+}
 
+.box-trips .list-trips { 
 
+}
 
+.box-trips .list-trips ul li { 
+    padding: 1.25em .5em;
+}
+
+.box-trips .list-trips img { 
+    margin-right: 1em;
+    height: 4em;
+    width: auto;
+}
+
+.box-photos .list-photos .photo-row {
+    margin-bottom: 2em;
+}
+
+.box-photos .list-photos .photo-row img { 
+    width: 90%;
+    height: auto;
+    margin: auto;
+}
 
 
 
