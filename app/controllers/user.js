@@ -40,3 +40,20 @@ exports.register = function(req, res) {
 		}
 	});
 };
+
+exports.friends = function (req, res) {
+	var username = req.body.username.toLowerCase();
+
+	user.friends(username, function(err, friends) {
+		if (err || !friends || friends.length == 0) {
+			return res.render('404', {message: 'Friends not found.'});
+		}
+		return res.render('friends', {
+			friends: friends,
+			partials: {
+				friends: 'partials/friends'
+			}
+		});
+	});
+};
+

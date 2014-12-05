@@ -23,3 +23,12 @@ exports.register = function(username, password, email, fullName, cb) {
 		}
 	});
 }
+
+exports.friends = function(username, cb) {
+	var stmt = '(SELECT F.username2 FROM Friendship F WHERE username1=:1) ' + 
+				'UNION ' +
+			   '(SELECT F.username1 FROM Friendship F WHERE username2=:2)';
+	db.connection.execute(stmt, [username], function(err, results) {
+		cb(err, results);
+	});
+}
