@@ -1,10 +1,14 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #e9eaed
+  background-color: #e9eaed;
 }
 
 a {
   color: #00B7FF;
+}
+.navbar-brand img { 
+    height: 120%;
+    width: auto;
 }
 
 .eight-logo { 
