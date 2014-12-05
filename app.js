@@ -6,3 +6,12 @@ require('./app/init')(app);
 app.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+app.use(express.static("app"));
+
+
+
+// app.get( "/css", function (req, res) { 
+    // console.log( "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" );
+    // res.send("Hello world");
+// });

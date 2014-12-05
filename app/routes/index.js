@@ -18,4 +18,5 @@ module.exports = function(app) {
     app.get('/secret', auth.requireLogin, function (req, res) {
         res.send('If you are viewing this page, you are logged in.');
     });
+
 };

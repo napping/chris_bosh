@@ -4,6 +4,7 @@ var express = require('express'),
     session = require('express-session'),
     flash = require('connect-flash'),
     config = require('../config/config');
+    path = require('path');
 
 module.exports = function(app) {
     app.set('port', process.env.PORT || 8080);
@@ -39,15 +40,20 @@ module.exports = function(app) {
     });
 
     require('./routes')(app);
-    app.use('/static', express.static(config.root + '/public'));
+//    app.use('/static', express.static(config.root + '/public'));
+//    app.use('/css', express.static(config.root + '/css'));
+//
+    // app.use(function(req, res) {
+        // res.status(404).render('404', {message: 'Page not found!'});
+        // res.render('./splash.html');
+    // });
+//
+//    app.use(function(err, req, res, next) {
+//        console.error(err);
+//        res.render('500', {message: err.message});
+//    });
 
-    app.use(function(req, res) {
-        res.status(404).render('404', {message: 'Page not found!'});
-    });
 
-    app.use(function(err, req, res, next) {
-        console.error(err);
-        res.status(500).render('./index.html', {message: err.message});
-        // res.render("<h1>HEY!</h1>");
-    });
+
+
 };
