@@ -19,4 +19,7 @@ module.exports = function(app) {
         res.send('If you are viewing this page, you are logged in.');
     });
 
+
+    // TODO For testing
+    app.get('/home', page.testHome);
 };
