@@ -4,6 +4,7 @@ exports.index = function(req, res) {
     } else {
         return res.render('splash');
     }
+    console.log("Home");
 };
 
 exports.login = function(req, res) {
@@ -30,3 +31,11 @@ exports.logout = function(req, res) {
     req.flash('success', 'Logged out successfully!');
     return res.redirect('/');
 };
+
+// TODO Testing
+exports.testHome = function (req, res) { 
+    return res.render('home');
+}
+exports.testUser = function (req, res) { 
+    return res.render('user', { loggedIn: 1 } );
+}
