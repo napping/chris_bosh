@@ -1,11 +1,68 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e9eaed
 }
 
 a {
   color: #00B7FF;
 }
 
+.eight-logo { 
+    width: 50%;
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.eight-logo img { 
+    display: block;
+    width: 100%;
+}
+
+.enter-credentials { 
+    width: 100%;
+    margin-top: 4em;
+}
+
+.enter-credentials div { 
+    display: block;
+    width: 15%;
+    margin-top: 1em;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enter-credentials div input { 
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enter-credentials div #id-password { 
+    margin-left: .2em;
+}
+
+.submit-credentials {
+    width: 100%;
+    margin-top: 1em;
+}
+
+.submit-credentials a {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-credentials a button {
+    margin-top: 2em;
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navbar */
 .navbar-default {
 	background-color: #3137b6;
 	border-color: #2f39ad;
@@ -71,3 +128,23 @@ a {
 .navbar-float-right { 
     float: right;
 }
+/* End Navbar */
+
+/* Submit Button */
+.submit-credentials a button {
+  background-color: hsl(214, 37%, 28%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7a99c1", endColorstr="#2c4361");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#7a99c1), to(#2c4361));
+  background-image: -moz-linear-gradient(top, #7a99c1, #2c4361);
+  background-image: -ms-linear-gradient(top, #7a99c1, #2c4361);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7a99c1), color-stop(100%, #2c4361));
+  background-image: -webkit-linear-gradient(top, #7a99c1, #2c4361);
+  background-image: -o-linear-gradient(top, #7a99c1, #2c4361);
+  background-image: linear-gradient(#7a99c1, #2c4361);
+  border-color: #2c4361 #2c4361 hsl(214, 37%, 19.5%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
+  -webkit-font-smoothing: antialiased;
+}
+/* End Submit Button*/
