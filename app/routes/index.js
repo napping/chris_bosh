@@ -22,4 +22,5 @@ module.exports = function(app) {
 
     // TODO For testing
     app.get('/home', page.testHome);
+    app.get('/user', page.testUser);
 };

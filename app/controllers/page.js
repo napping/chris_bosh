@@ -36,3 +36,6 @@ exports.logout = function(req, res) {
 exports.testHome = function (req, res) { 
     return res.render('home');
 }
+exports.testUser = function (req, res) { 
+    return res.render('user', { loggedIn: 1 } );
+}

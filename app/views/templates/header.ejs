@@ -21,6 +21,11 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-float-right">
                     <li><a href="#about">About EIGHT</a></li>
-                    <li class="active"><a href="#">Create Account</a></li>
+                    <% if (typeof(loggedIn) == "undefined") { %>
+                        <li class="active"><a href="#">Create Account</a></li>
+                    <% } else { %>
+                        <li><a href="#about">Logout</a></li>
+                    <% } %>
+                    
                 </div><!--/.nav-collapse -->
             </div>
