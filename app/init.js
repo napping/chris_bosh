@@ -40,13 +40,15 @@ module.exports = function(app) {
     });
 
     require('./routes')(app);
-//    app.use('/static', express.static(config.root + '/public'));
-//    app.use('/css', express.static(config.root + '/css'));
+
+//    TODO Should these be here?
 //
-    // app.use(function(req, res) {
-        // res.status(404).render('404', {message: 'Page not found!'});
-        // res.render('./splash.html');
-    // });
+//    app.use('/static', express.static(config.root + '/public'));
+//
+//    app.use(function(req, res) {
+//        res.status(404).render('404', {message: 'Page not found!'});
+//        res.render('./splash.html');
+//    });
 //
 //    app.use(function(err, req, res, next) {
 //        console.error(err);
