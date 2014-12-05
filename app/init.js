@@ -47,6 +47,7 @@ module.exports = function(app) {
 
     app.use(function(err, req, res, next) {
         console.error(err);
-        res.status(500).render('500', {message: err.message});
+        res.status(500).render('./index.html', {message: err.message});
+        // res.render("<h1>HEY!</h1>");
     });
 };
