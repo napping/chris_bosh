@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #3137b6;
 }
 .navbar-brand img { 
     height: 120%;
@@ -85,6 +85,13 @@ a {
 
 
 /* Navbar */
+.navbar-default .eight { 
+    font-weight: bold;
+    color: white;
+    padding-top: 1.1em;
+    padding-left: 0em;
+    font-size: 110%;
+}
 .navbar-default {
 	background-color: #3137b6;
 	border-color: #2f39ad;
@@ -288,8 +295,12 @@ ul {
     width: auto;
 }
 
+.box-photos { 
+    padding: 0em 1.5em;
+}
+
 .box-photos .list-photos .photo-row {
-    margin-bottom: 2em;
+    margin-top: 2em;
 }
 
 .box-photos .list-photos .photo-row img { 
@@ -298,5 +309,21 @@ ul {
     margin: auto;
 }
 
+.box-destinations .list-destinations .destinations-row img { 
+    width: 100%;
+    height: auto;
+    margin: auto;
+    border: 2px dotted Black;
+}
+
+.box-destinations .list-destinations .destinations-row p { 
+    margin-top: .2em;
+    font-size: 80%;
+    text-align: center;
+}
+
+.box-destinations .list-destinations .destinations-row .column-destination { 
+    border: none;
+}
 
 
