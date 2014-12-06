@@ -58,3 +58,19 @@ exports.friends = function (req, res) {
 	});
 };
 
+exports.addFriend = function (req, res) {
+	var username1 = req.body.username1.toLowerCase();
+	var username2 = req.body.username2.toLowerCase();
+
+	uer.addFriend(username1, username2, function(wasSuccessful) {
+		if (wasSuccessful) {
+			console.log(username1 + ' is now friends with ' + username2 + '.');
+			return res.render('200', {message: 'Successfully added friend!'});
+		} else {
+			req.flash('error', 'Could not add friend.');
+			return res.redirect('/');
+		}
+		
+	});
+}
+

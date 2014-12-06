@@ -25,11 +25,21 @@ exports.register = function(username, password, email, fullName, cb) {
 }
 
 exports.friends = function(username, cb) {
-	console.log("here");
 	var stmt = '(SELECT F.username2 FROM Friendship F WHERE username1=:1) ' + 
 				'UNION ' +
 			   '(SELECT F.username1 FROM Friendship F WHERE username2=:1)';
 	db.connection.execute(stmt, [username], function(err, results) {
 		cb(err, results);
+	});
+}
+
+exports.addFriend = function(username1, username2, cb) {
+	var stmt = 'INSERT INTO Friendship(username1, username2) VALUES (:1, :2)';
+	db.connection.execute(stmt, [username1, username2], function(err, results) {
+		if (err) {
+			cb(false);
+		} else {
+			cb(results.updateCount === 1)
+		} 
 	});
 }
