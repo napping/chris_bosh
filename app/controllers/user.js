@@ -42,10 +42,11 @@ exports.register = function(req, res) {
 };
 
 exports.friends = function (req, res) {
-	var username = req.body.username.toLowerCase();
+	var username = req.params.username.toLowerCase();
 
 	user.friends(username, function(err, friends) {
-		if (err || !friends || friends.length == 0) {
+		if (err || !friends || friends.length === 0) {
+			console.log(err);
 			return res.render('404', {message: 'Friends not found.'});
 		}
 		return res.render('friends', {
