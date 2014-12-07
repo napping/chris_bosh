@@ -6,7 +6,6 @@ exports.login = function(req, res) {
     var password = req.body.password;
     var shasum   = crypto.createHash('sha1');
     shasum.update(password);
-    //user.isValidLogin(username, 'default', function(isValid) { // good for testing
     user.isValidLogin(username, shasum.digest('hex'), function(isValid) {
     	if (isValid) {
     		console.log(username + ' logged in.');
@@ -26,6 +25,12 @@ exports.register = function(req, res) {
 	var confirm  = req.body.password2;
 	var email    = req.body.email;
 	var fullName = req.body.fullName;
+
+	if (password !== confirm) {
+		console.log(username + ' could not register due to non-matching passwords.');
+		req.flash('error', 'Passwords did not match.');
+		return res.redirect('/register');
+	}
 
 	var shasum   = crypto.createHash('sha1');
 	shasum.update(password);
