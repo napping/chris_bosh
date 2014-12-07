@@ -17,11 +17,12 @@
                         <li class="navbar-float-left"><strong>EIGHT</strong></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-float-right">
-                    <li><a href="#about">About EIGHT</a></li>
-                    <% if (typeof(loggedIn) == "undefined") { %>
-                        <li class="active"><a href="#">Create Account</a></li>
+                    <li><a href="/about">About EIGHT</a></li>
+                    <% if (authUser) { %>
+                        <li><a href="/about">Logout</a></li>
                     <% } else { %>
-                        <li><a href="#about">Logout</a></li>
+                        <li><a href="/">Login</a></li>
+                        <li class="active"><a href="/register">Create Account</a></li>
                     <% } %>
                     
                 </div><!--/.nav-collapse -->

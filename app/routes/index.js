@@ -12,13 +12,14 @@ module.exports = function(app) {
     app.get('/logout', page.logout);
 
     app.get('/destination/:id', destination.show);
-    app.post('/destination/create', auth.requireLogin, destination.create);
+    app.post('/destination', auth.requireLogin, destination.create);
 
     // just a proof of concept that authentication middleware works
     app.get('/secret', auth.requireLogin, function (req, res) {
         res.send('If you are viewing this page, you are logged in.');
     });
 
+    app.get('/about', page.about)
 
     // TODO For testing
     app.get('/home', page.testHome);

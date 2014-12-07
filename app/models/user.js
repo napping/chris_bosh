@@ -12,14 +12,14 @@ exports.isValidLogin = function(username, password, cb) {
     });
 };
 
-exports.register = function(username, password, email, fullName, cb) {
+	exports.register = function(username, password, email, fullName, cb) {
 	var stmt = 'INSERT INTO Users (username, password, email, full_name) ' +
 		'VALUES (:1, :2, :3, :4)';
 	db.connection.execute(stmt, [username, password, email, fullName], function(err, results) {
 		if (err) {
-			cb(false);
+			cb(err);
 		} else {
-			cb(results.updateCount === 1);
+			cb(null);
 		}
 	});
 }

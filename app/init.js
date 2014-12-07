@@ -9,9 +9,9 @@ var express = require('express'),
 module.exports = function(app) {
     app.set('port', process.env.PORT || 8080);
 
-    app.engine('html', require('hogan-express'));
+    app.engine('html', require('ejs').renderFile);
     app.set('views', config.appRoot + '/views');
-    app.set('view engine', 'html');
+    app.set('view engine', 'ejs');
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
@@ -31,9 +31,12 @@ module.exports = function(app) {
         res.locals.successFlashes = req.flash('success');
         res.locals.errorFlashes = req.flash('error');
 
-        if (req.user) {
-            res.locals.layout = 'layouts/user';
-            res.locals.authUser = req.user;
+        if (req.session.username) {
+            //res.locals.layout = 'layouts/user';
+            res.locals.authUser = req.session.username;
+        } else {
+            //res.locals.layout = 'layouts/guest';
+            res.locals.authUser = false;
         }
 
         next();
@@ -41,21 +44,14 @@ module.exports = function(app) {
 
     require('./routes')(app);
 
-//    TODO Should these be here?
-//
-//    app.use('/static', express.static(config.root + '/public'));
-//
-//    app.use(function(req, res) {
-//        res.status(404).render('404', {message: 'Page not found!'});
-//        res.render('./splash.html');
-//    });
-//
-//    app.use(function(err, req, res, next) {
-//        console.error(err);
-//        res.render('500', {message: err.message});
-//    });
+    app.use('/static', express.static(config.root + '/public'));
 
+    // app.use(function(req, res) {
+    //      res.status(404).render('404', {message: 'Page not found!'});
+    // });
 
-
-
+    // app.use(function(err, req, res, next) {
+    //      console.error(err);
+    //      res.render('500', {message: err.message});
+    // });
 };

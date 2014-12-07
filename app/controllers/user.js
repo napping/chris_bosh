@@ -11,17 +11,19 @@ exports.login = function(req, res) {
     	if (isValid) {
     		console.log(username + ' logged in.');
     		req.session.username = username;
-            return res.render('200', {message: 'Logged in successfully!'});
+    		req.flash('success', 'Logged in successfully.');
     	} else {
+    		console.log('Could not log ' + username + ' in.');
     		req.flash('error', 'Invalid username or password.');
-    		return res.redirect('/');
     	}
+    	return res.redirect('/');
     });
 };
 
 exports.register = function(req, res) {
 	var username = req.body.username.toLowerCase();
 	var password = req.body.password;
+	var confirm  = req.body.password2;
 	var email    = req.body.email;
 	var fullName = req.body.fullName;
 
@@ -29,14 +31,15 @@ exports.register = function(req, res) {
 	shasum.update(password);
 
 	// TODO: validate inuput
-	user.register(username, shasum.digest('hex'), email, fullName, function(wasSuccessful) {
-		if (wasSuccessful) {
-			console.log(username + ' has registered for the site.');
+	user.register(username, shasum.digest('hex'), email, fullName, function(err) {
+		if (!err) {
+			console.log(username + ' has registered.');
 			req.session.username = username;
-			return res.render('200', {message: 'Successfully registered!'});
+			req.flash('success', 'Registered successfully.');
 		} else {
+			console.log('Could not register ' + username + ' for Eight.', err);
 			req.flash('error', 'Could not register you.');
-			return res.redirect('/');
 		}
+		return res.redirect('/');
 	});
 };

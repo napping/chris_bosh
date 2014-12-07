@@ -1,6 +1,6 @@
 exports.index = function(req, res) {
-    if (req.user) {
-        return res.render('home');
+    if (req.session.username) {
+        return res.render('user');
     } else {
         return res.render('splash');
     }
@@ -32,10 +32,15 @@ exports.logout = function(req, res) {
     return res.redirect('/');
 };
 
+exports.about = function(req, res) {
+    res.render('about');
+}
+
 // TODO Testing
 exports.testHome = function (req, res) { 
     return res.render('home');
 }
+
 exports.testUser = function (req, res) { 
     return res.render('user', { loggedIn: 1 } );
 }

@@ -30,7 +30,7 @@ a {
 
 .enter-credentials div { 
     display: block;
-    width: 15%;
+    width: 25%;
     margin-top: 1em;
     font-weight: bold;
     margin-left: auto;
@@ -44,6 +44,10 @@ a {
 }
 
 .enter-credentials div #id-password { 
+    margin-left: .2em;
+}
+
+.enter-credentials div #id-password-2 { 
     margin-left: .2em;
 }
 

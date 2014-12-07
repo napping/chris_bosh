@@ -7,7 +7,7 @@
         <img src="images/eight_logo.png"/>
     </div>
     <div class="enter-credentials">
-        <form role="form" action="/login" method="post">
+        <form role="form" action="/register" method="post">
             <div>
     			<label for="id-username">Username: </label>
     			<input id="id-username" name="username" type="text" maxlength="64">
@@ -16,6 +16,18 @@
     			<label for="id-password">Password: </label>
     			<input id="id-password" name="password" type="password" maxlength="256">
     		</div>
+            <div>
+                <label for="id-password-2">Confirm Password: </label>
+                <input id="id-password-2" name="password2" type="password" maxlength="256">
+            </div>
+            <div>
+                <label for="id-name">Name: </label>
+                <input id="id-name" name="fullName" type="text" maxlength="256">
+            </div>
+            <div>
+                <label for="id-email">Email: </label>
+                <input id="id-email" name="email" type="text" maxlength="256">
+            </div>
 
             <div class="submit-credentials">
     			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
