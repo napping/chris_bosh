@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #3137b6;
 }
 .navbar-brand img { 
     height: 120%;
@@ -30,7 +30,7 @@ a {
 
 .enter-credentials div { 
     display: block;
-    width: 15%;
+    width: 25%;
     margin-top: 1em;
     font-weight: bold;
     margin-left: auto;
@@ -44,6 +44,10 @@ a {
 }
 
 .enter-credentials div #id-password { 
+    margin-left: .2em;
+}
+
+.enter-credentials div #id-password-2 { 
     margin-left: .2em;
 }
 
@@ -65,13 +69,38 @@ a {
     margin-left: auto;
     margin-right: auto;
 }
+/* End User Page/Header */
+
+
+/* Footer */
+.footer { 
+    text-align: right;
+    padding: 1em 2em;
+    height: 4em;
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 80%;
+}
+.footer span { 
+    color: red;
+    font-weight: bold;
+}
+/* End Footer */
+
 
 /* Navbar */
+.navbar-default .eight { 
+    font-weight: bold;
+    color: white;
+    padding-top: 1.1em;
+    padding-left: 0em;
+    font-size: 110%;
+}
 .navbar-default {
 	background-color: #3137b6;
 	border-color: #2f39ad;
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
 }
 .navbar-default .navbar-brand {
 	color: #ecf0f1;
@@ -154,22 +183,45 @@ a {
 
 /***************************** User Page */
 
+.overall { 
+}
+
+.box-row { 
+    overflow: hidden;
+    border-bottom: 1px solid #f6f8fc;
+}
+
 .col-md-4 { 
     padding-left: 2em;
     padding-right: 2em;
     padding-top: 1em;
     padding-bottom: 1em;
     border: 1px solid #f6f8fc;
-    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    display: table-cell;
+    margin-bottom: -2000px;
+    padding-bottom: 2000px;
+}
+
+.col-md-4:hover { 
+    background: LightGray;
+}
+
+.col-md-4 .box { 
+    margin-top: 2em;
+    margin-bottom: 3em;
 }
 
 .box-portrait { 
     width: 100%;
     text-align: center;
 }
+
 .box-portrait img { 
     display: block;
     width: 75%;
+    margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid black;
@@ -199,20 +251,83 @@ ul {
     height: 2em;
     width: auto;
 }
+.box-recommendations ul { 
+    margin-top: 2em;
+}
 
-.box-recommendations ul img { 
+.box-recommendations .group-recommendations { 
+    height: 10em;
+}
+
+.box-recommendations .recommended-person { 
+    height: 1.25em;
+}
+.box-recommendations .recommended-person img { 
     margin-right: 1em;
     height: 2em;
     width: auto;
+    float: left;
+    display: inline;
 }
 
-.box-recommendations ul li { 
-    
+.box-recommendations .recommended-person p { 
+    float: left;
+    display: inline;
+    width: 80%;
 }
 
+.box-recommendations .recommended-destinations-list { 
+    margin-top: 0em;
+    margin-left: 3.5em;
+}
 
+.box-trips { 
+    padding-left: 2em;
+}
 
+.box-trips .list-trips { 
 
+}
 
+.box-trips .list-trips ul li { 
+    padding: 1.25em .5em;
+}
+
+.box-trips .list-trips img { 
+    margin-right: 1em;
+    height: 4em;
+    width: auto;
+}
+
+.box-photos { 
+    padding: 0em 1.5em;
+}
+
+.box-photos .list-photos .photo-row {
+    margin-top: 2em;
+}
+
+.box-photos .list-photos .photo-row img { 
+    width: 90%;
+    height: auto;
+    margin: auto;
+}
+
+.box-destinations .list-destinations .destinations-row img { 
+    width: 100%;
+    height: auto;
+    margin: auto;
+    border: 2px dotted Black;
+}
+
+.box-destinations .list-destinations .destinations-row p { 
+    margin-top: .2em;
+    font-size: 80%;
+    text-align: center;
+}
+
+.box-destinations .list-destinations .destinations-row .column-destination { 
+    border: none;
+}
 
 
