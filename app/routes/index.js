@@ -25,8 +25,8 @@ module.exports = function(app) {
 
  
 
-    app.get('/trip/:id', trip.show);
-    app.post('/trip', trip.create);
+    app.get('/trips/:id', trip.show);
+    app.post('/trips', trip.create);
 
     app.post('/goeson', user.addTrip);
     app.get('/goeson/:username', user.getTrips);

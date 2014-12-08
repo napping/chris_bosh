@@ -29,13 +29,23 @@ exports.create = function(name, packing_list, expenses, cb) {
 	});
 }
 
-exports.usersOnTrip = function(username, cb) {
-	var stmt = 'SELECT G.username FROM GoesOn ' +
+exports.usersOnTrip = function(tid, cb) {
+	var stmt = 'SELECT G.username FROM GoesOn G ' +
 			   'INNER JOIN Trip T ON T.tid = G.tid ' +
-			   'WHERE G.username = :1';
-	db.connection.execute(stmt, [username], function(err, results) {
+			   'WHERE G.tid = :1';
+	db.connection.execute(stmt, [tid], function(err, results) {
 		cb(err, results);
 	});
+}
+
+exports.destinationsOnTrip = function(tid, cb) {
+	var stmt = 'SELECT D.did, D.name FROM PartOf P ' +
+			   'INNER JOIN Trip T ON T.tid = P.tid ' +
+			   'INNER JOIN Destination D ON D.did = P.did ' +
+			   'WHERE T.tid = :1';
+	db.connection.execute(stmt, [tid], function(err, results) {
+		cb(err, results);
+	});	
 }
 
 exports.forDestination = function(curDest, curUser, cb) {
@@ -57,20 +67,20 @@ exports.forDestination = function(curDest, curUser, cb) {
 				}
 				for (var i = 0; i < results.length; i++) {
 					if (results[i].PRIVACY === 'public') {
-						trips.push(results[i].NAME);
+						trips.push(results[i]);
 					} else if (results[i].PRIVACY === 'sharedWithTripMembers' && curUser &&
 						(onTrip.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
-						trips.push(results[i].NAME);
+						trips.push(results[i]);
 					}
 					else if (results[i].PRIVACY === 'private' && curUser && curUser == results[i].OWNER) {
-						trips.push(results[i].NAME);
+						trips.push(results[i]);
 					}
 				}
 			});
 		} else {
 			for (var i = 0; i < results.length; i++) {
 				if (results[i].PRIVACY === 'public') {
-					trips.push(results[i].NAME);
+					trips.push(results[i]);
 				} 
 			}
 		}
