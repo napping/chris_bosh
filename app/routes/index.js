@@ -10,23 +10,16 @@ module.exports = function(app) {
     app.get('/register', page.register);
     app.post('/register', user.register);
     app.get('/logout', page.logout);
+    app.get('/users/:username', user.profile);
 
-    app.get('/destination/:id', destination.show);
-    app.post('/destination', auth.requireLogin, destination.create);
+    app.get('/destinations/:id', destination.show);
+    app.post('/destinations', auth.requireLogin, destination.create);
 
     app.get('/friends/:username', user.friends);
-    app.post('/friends',  user.addFriend)
+    app.post('/friends/:username', auth.requireLogin, user.addFriend);
+    // hacky as hell to use a POST to do this, but I don't want to jQuery it currently
+    app.post('/unfriend/:username', auth.requireLogin, user.removeFriend);
+    app.post('/removeFriend', auth.requireLogin, user.removeFriend);
 
-    app.post('/removeFriend', user.removeFriend);
-
-    // just a proof of concept that authentication middleware works
-    app.get('/secret', auth.requireLogin, function (req, res) {
-        res.send('If you are viewing this page, you are logged in.');
-    });
-
-    app.get('/about', page.about)
-
-    // TODO For testing
-    app.get('/home', page.testHome);
-    app.get('/user', page.testUser);
+    app.get('/about', page.about);
 };
