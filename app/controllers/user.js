@@ -53,8 +53,7 @@ exports.friends = function (req, res) {
 	var username = req.params.username.toLowerCase();
 
 	user.friends(username, function(err, friends) {
-		if (err || !friends || friends.length === 0) {
-			console.log(err);
+		if (err || !friends) {
 			return res.render('404', {message: 'Friends not found.'});
 		}
 		return res.render('friends', {
@@ -70,7 +69,7 @@ exports.addFriend = function (req, res) {
 	var username1 = req.body.username1.toLowerCase();
 	var username2 = req.body.username2.toLowerCase();
 
-	uer.addFriend(username1, username2, function(wasSuccessful) {
+	user.addFriend(username1, username2, function(wasSuccessful) {
 		if (wasSuccessful) {
 			console.log(username1 + ' is now friends with ' + username2 + '.');
 			return res.render('200', {message: 'Successfully added friend!'});

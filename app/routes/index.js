@@ -14,7 +14,8 @@ module.exports = function(app) {
     app.get('/destination/:id', destination.show);
     app.post('/destination', auth.requireLogin, destination.create);
 
-    app.get('/friends/:username', auth.requireLogin, user.friends);
+    app.get('/friends/:username', user.friends);
+    app.post('/friends',  user.addFriend)
 
     // just a proof of concept that authentication middleware works
     app.get('/secret', auth.requireLogin, function (req, res) {

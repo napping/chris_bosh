@@ -25,9 +25,9 @@ exports.isValidLogin = function(username, password, cb) {
 }
 
 exports.friends = function(username, cb) {
-	var stmt = '(SELECT F.username2 FROM Friendship F WHERE username1=:1) ' + 
+	var stmt = '(SELECT F.username2 as uname FROM Friendship F WHERE username1=:1) ' + 
 				'UNION ' +
-			   '(SELECT F.username1 FROM Friendship F WHERE username2=:1)';
+			   '(SELECT F.username1 as uname FROM Friendship F WHERE username2=:1)';
 	db.connection.execute(stmt, [username], function(err, results) {
 		cb(err, results);
 	});
