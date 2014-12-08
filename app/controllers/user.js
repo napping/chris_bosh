@@ -107,7 +107,6 @@ exports.profile = function(req, res) {
 			req.flash('error', 'Could not load profile.');
 			return res.redirect('/'); // TODO: something more intelligent here
 		} else {
-
 			user.friends(username, function(err, friends) {
 				if (err) {
 					console.log('Could not load friends for ' + username + '.',
@@ -131,7 +130,7 @@ exports.profile = function(req, res) {
 								return res.redirect('/');
 							} else {
 								return res.render('user', {
-									user: userObj[0],
+									user: userObj,
 									// convert from object array to string array
 									friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
 									trips: trips,
