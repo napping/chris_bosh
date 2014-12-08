@@ -43,3 +43,16 @@ exports.addFriend = function(username1, username2, cb) {
 		} 
 	});
 }
+
+exports.removeFriend = function(username1, username2, cb) {
+	var stmt = 'DELETE FROM Friendship WHERE ' +
+			   '(username1=:1 AND username2=:2) OR ' +
+			   '(username2=:1 AND username1=:2)'
+	db.connection.execute(stmt, [username1, username2], function(err, results) {
+		if (err) {
+			cb(false);
+		} else {
+			cb(results.updateCount === 1 ||  results.updateCount === 2)
+		} 
+	});		   
+}

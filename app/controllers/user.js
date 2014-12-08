@@ -81,3 +81,18 @@ exports.addFriend = function (req, res) {
 	});
 }
 
+exports.removeFriend = function (req, res) {
+	var username1 = req.body.username1.toLowerCase();
+	var username2 = req.body.username2.toLowerCase();
+
+	user.removeFriend(username1, username2, function(wasSuccessful) {
+		if (wasSuccessful) {
+			console.log(username1 + ' is no longer friends with ' + username2 + '.');
+			return res.render('200', {message: 'Successfully removed friend!'});
+		} else {
+			req.flash('error', 'Could not remove friend.');
+			return res.redirect('/');
+		}
+	})
+}
+
