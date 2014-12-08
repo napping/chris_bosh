@@ -68,10 +68,21 @@ exports.profile = function(req, res) {
 					req.flash('error', 'Could not load profile.');
 					return res.redirect('/');
 				} else {
-					return res.render('user', {
-						user: userObj[0],
-						// convert from object array to string array
-						friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); })
+
+					user.getTrips(username, function(err, trips) {
+						if (err) {
+							console.log('Could not load trips for '
+							 + username + '.', err);
+							req.flash('error', 'Could not load profile.');
+							return res.redirect('/');
+						} else {
+							return res.render('user', {
+								user: userObj[0],
+								// convert from object array to string array
+								friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+								trips: _.map(trips, function(f) { return f.NAME; })
+							});
+						}
 					});
 				}
 			});

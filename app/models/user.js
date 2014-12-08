@@ -81,7 +81,9 @@ exports.removeFriend = function(username1, username2, cb) {
 }
 
 exports.getTrips = function(username, cb) {
-	var stmt = 'SELECT tid FROM GoesOn WHERE username=:1';
+	var stmt = 'SELECT T.tid, T.name FROM Trip T ' +
+			   'INNER JOIN GoesOn G on T.tid = G.tid ' +
+			   'WHERE G.username=:1';
 	db.connection.execute(stmt, [username], function(err, results) {
 		cb(err, results);
 	});
