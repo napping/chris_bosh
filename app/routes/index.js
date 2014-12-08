@@ -22,8 +22,13 @@ module.exports = function(app) {
     app.post('/unfriend/:username', auth.requireLogin, user.removeFriend);
     app.post('/removeFriend', auth.requireLogin, user.removeFriend);
 
+ 
+
     app.get('/trip/:id', trip.show);
-    app.post('/trip', trip.create)
+    app.post('/trip', trip.create);
+
+    app.post('/goeson', user.addTrip);
+    app.get('/goeson/:username', user.getTrips);
 
     // just a proof of concept that authentication middleware works
     app.get('/secret', auth.requireLogin, function (req, res) {
@@ -33,7 +38,5 @@ module.exports = function(app) {
     app.get('/about', page.about)
 
     // TODO For testing
-    app.get('/home', page.testHome);
-    app.get('/user', page.testUser);
     app.get('/about', page.about);
 };

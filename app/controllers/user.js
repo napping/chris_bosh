@@ -1,3 +1,4 @@
+
 var crypto = require('crypto'),
     user   = require('../models/user'),
     _      = require('underscore');
@@ -123,5 +124,36 @@ exports.removeFriend = function (req, res) {
 			return res.redirect('/');
 		}
 	})
+}
+
+exports.getTrips = function (req, res) {
+	var username = req.params.username.toLowerCase();
+
+	user.getTrips(username, function(err, trips) {
+		if (err || !trips) {
+			return res.render('404', {message: 'Trips not found.'});
+		}	
+		return res.render('trips', {
+			trips: trips,
+			partials: {
+				trips: 'partials/trips'
+			}
+		});
+	});
+}
+
+exports.addTrip = function (req, res) {
+	var username = req.body.username.toLowerCase();
+	var tid = req.body.tid;
+	
+	user.addTrip(username, tid, function(wasSuccessful) {
+		if (wasSuccessful) {
+			console.log(username1 + ' is going on trip ' + tid +'.');
+			return res.render('200', {message: 'Successfully added trip to user!'});
+		} else {
+			req.flash('error', 'Could not add trip to user.');
+			return res.redirect('/');
+		}
+	});
 }
 

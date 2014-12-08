@@ -36,7 +36,7 @@ exports.register = function(username, password, email, fullName, cb) {
 			cb(null);
 		}
 	});
-}
+};
 
 exports.friends = function(username, cb) {
 	var stmt = '(SELECT F.username2 as username FROM Friendship F WHERE username1=:1) ' + 
@@ -74,3 +74,21 @@ exports.removeFriend = function(username1, username2, cb) {
 		}
 	});		   
 }
+
+exports.getTrips = function(username, cb) {
+	var stmt = 'SELECT tid FROM GoesOn WHERE username=:1';
+	db.connection.execute(stmt, [username], function(err, results) {
+		cb(err, results);
+	});
+}
+
+exports.addTrip = function(username, tid, cb) {
+	var stmt = 'INSERT INTO GoesOn (username, tid) VALUES (:1, :2)';
+	db.connection.execute(stmt, [username, tid], function(err, results) {
+		if (err) {
+			cb(false);
+		} else {
+			cb(results.updatecount === 1);
+		}
+	});
+};
