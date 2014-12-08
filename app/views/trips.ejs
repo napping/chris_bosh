@@ -1,0 +1,27 @@
+<% include templates/header %>
+
+<div class="overall">
+    <div class="row box-row">
+        <div class="col-md-4">
+          <% include templates/box-trip %>
+        </div>
+        <div class="col-md-4">
+          <% include templates/box-destinations %>
+        </div>
+        <div class="col-md-4">
+          <div class="box box-friends">
+            <div class="list-friends">
+                <h3>Attendees</h3>
+                <ul>
+                  <% for (var i = 0; i < attendees.length; i++) { %>
+                      <li><div><img src="/images/filler.jpg"/><a href="/users/<%= attendees[i] %>">
+                        <strong><%= attendees[i] %></strong></a></div></li>
+                    <% } %>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</div>
+<% include templates/footer %>
