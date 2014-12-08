@@ -60,6 +60,7 @@ exports.profile = function(req, res) {
 			req.flash('error', 'Could not load profile.');
 			return res.redirect('/'); // TODO: something more intelligent here
 		} else {
+
 			user.friends(username, function(err, friends) {
 				if (err) {
 					console.log('Could not load friends for ' + username + '.',
