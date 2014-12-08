@@ -28,3 +28,13 @@ exports.create = function(name, packing_list, expenses, cb) {
 		}
 	});
 }
+
+exports.forDestination = function(currDest, cb) {
+	var stmt = 'SELECT DISTINCT T.tid, T.name FROM Trip T ' + 
+			   'INNER JOIN PartOf P on P.tid = T.tid ' +
+			   'INNER JOIN Destination D on P.did = D.did ' +
+			   'WHERE D.did = :1';
+	db.connection.execute(stmt, [currDest], function(err, results) {
+		cb(err, results);
+	});
+}

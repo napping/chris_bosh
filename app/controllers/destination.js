@@ -1,5 +1,6 @@
 var destination = require('../models/destination'),
 	user        = require('../models/user');
+	trip        = require('../models/trip');
 
 var _ = require('underscore');
 
@@ -15,11 +16,20 @@ exports.show = function(req, res) {
 				console.log('Could not load people who visited ' + 
 					req.params.id + '.', err);
 				return res.redirect('/');
+			} else {
+				trip.forDestination(req.params.id, function(err, trips){
+					if (err) {
+						console.log('Could not load trips including ' + 
+							req.params.id + '.', err);
+						return res.redirect('/');
+					}
+					return res.render('destination', {
+						destination: destination,
+						trips:  _.map(trips, function(f) { return f.NAME; }),
+						visitors: _.first(_.shuffle(users), 10)
+					});
+				})
 			}
-			return res.render('destination', {
-				destination: destination,
-				visitors: _.first(_.shuffle(users), 10)
-			});
 		});
 	});
 };
