@@ -17,7 +17,7 @@ exports.load = function(did, cb) {
 	});
 };
 
-exports.create = function(name, cb) {
+exports.create = function(name, username, cb) {
 	var stmt = 'INSERT INTO Media (type, privacy) ' + 
 		'VALUES (\'Destination\', \'public\')' +
 		'RETURNING MID INTO :1';
@@ -25,11 +25,19 @@ exports.create = function(name, cb) {
 		if (err || !results) {
 			cb(err, null);
 		} else {
-			var stmt2 = 'INSERT INTO Destination (did, name) VALUES (:1, :2)';
 			var did = results.returnParam;
-			db.connection.execute(stmt2, [did, name], function(err, results) {
-				// We should never really expect an error to occur here.
-				cb(err, did, name);
+			var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
+				'(:1, :2, \'Destination\')';
+			db.connection.execute(stmt2, [username, did], function (err, results) {
+				if (err) {
+					cb(err, null);
+				} else {
+					var stmt3 = 'INSERT INTO Destination (did, name) VALUES (:1, :2)';
+					db.connection.execute(stmt3, [did, name], function(err, results) {
+						// We should never really expect an error to occur here.
+						cb(err, did, name);
+					});
+				}
 			});
 		}
 	});

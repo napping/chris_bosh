@@ -1,4 +1,7 @@
-var destination = require('../models/destination');
+var destination = require('../models/destination'),
+	user        = require('../models/user');
+
+var _ = require('underscore');
 
 exports.show = function(req, res) {
 	destination.load(req.params.id, function(err, destination) {
@@ -7,8 +10,16 @@ exports.show = function(req, res) {
 			return res.redirect('/');
 		}
 
-		return res.render('destination', {
-			destination: destination
+		user.forDestination(req.params.id, req.session.username, function(err, users) {
+			if (err) {
+				console.log('Could not load people who visited ' + 
+					req.params.id + '.', err);
+				return res.redirect('/');
+			}
+			return res.render('destination', {
+				destination: destination,
+				visitors: _.first(_.shuffle(users), 10)
+			});
 		});
 	});
 };
@@ -19,7 +30,7 @@ exports.new = function(req, res) {
 
 exports.create = function(req, res) {
 	var name = req.body.name;
-	destination.create(name, function(err, did, name) {
+	destination.create(name, req.session.username, function(err, did, name) {
 		if (err || !did) {
 			console.log('Could not create destination ' + name + '.', err);
 			req.flash('error', 'Could not create destination.');

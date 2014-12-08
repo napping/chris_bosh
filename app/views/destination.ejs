@@ -8,6 +8,17 @@
           <% include templates/box-trips.ejs %>
        </div>
        <div class="col-md-4">
+          <div class="box box-friends">
+            <div class="list-friends">
+                <h3>Visitors</h3>
+                <ul>
+                  <% for (var i = 0; i < visitors.length; i++) { %>
+                      <li><div><img src="/images/filler.jpg"/><a href="/users/<%= visitors[i] %>">
+                        <strong><%= visitors[i] %></strong></a></div></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
        </div>
     </div>
 
