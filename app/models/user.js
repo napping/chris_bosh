@@ -127,6 +127,8 @@ exports.forDestination = function(did, curUser, cb) {
 						} else if (results[i].PRIVACY === 'sharedWithTripMembers' && 
 							(friends.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
 							users.push(results[i].USERNAME);
+						} else if (results[i].PRIVACY === 'private' && curUser === results[i].OWNER) {
+							users.push(results[i].USERNAME);
 						}
 					}
 				}
