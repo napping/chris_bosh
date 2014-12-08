@@ -12,6 +12,7 @@ module.exports = function(app) {
     app.get('/logout', page.logout);
     app.get('/users/:username', user.profile);
 
+    app.get('/destinations/new', auth.requireLogin, destination.new);
     app.get('/destinations/:id', destination.show);
     app.post('/destinations', auth.requireLogin, destination.create);
 

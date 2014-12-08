@@ -3,11 +3,17 @@ var db = require('../../config/db'),
 
 exports.load = function(did, cb) {
 	var stmt = 'SELECT * FROM Destination D ' +
-		'INNER JOIN Media M ON D.did = M.mid AND D.type = M.type' +
+		'INNER JOIN Media M ON D.did = M.mid AND D.type = M.type ' +
 		'WHERE D.did = :1 AND D.source=\'default\'';
 
 	db.connection.execute(stmt, [did], function(err, results) {
-		cb(err, results[0]);
+		if (err || !results) {
+			cb(err, null);
+		} else if (results.length === 0) {
+			cb('Not a valid destination.', null);
+		} else {
+			cb(err, results[0]);
+		}
 	});
 };
 
@@ -17,12 +23,13 @@ exports.create = function(name, cb) {
 		'RETURNING MID INTO :1';
 	db.connection.execute(stmt, [new oracle.OutParam()], function(err, results) {
 		if (err || !results) {
-			cb(err, []);
+			cb(err, null);
 		} else {
 			var stmt2 = 'INSERT INTO Destination (did, name) VALUES (:1, :2)';
-			db.connection.execute(stmt2, [results.returnParam, name], function(err, results) {
+			var did = results.returnParam;
+			db.connection.execute(stmt2, [did, name], function(err, results) {
 				// We should never really expect an error to occur here.
-				cb(err, results);
+				cb(err, did, name);
 			});
 		}
 	});
