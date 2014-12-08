@@ -2,10 +2,10 @@
     <div class="list-friends">
         <h3>Friends</h3>
         <ul>
-            <li><div><img src="/images/filler.jpg"/><a href=""><strong>Rigel Swavely</strong> (Became Friends 12-12-2014)</a></div></li>
-            <li><div><img src="/images/filler.jpg"/><a href=""><strong>Max Scheiber</strong> (Became Friends 11-3-2013)</a></div></li>
-            <li><div><img src="/images/filler.jpg"/><a href=""><strong>Professor Tannan</strong> (Became Friends 3-24-2014)</a></div></li>
-            <li><div><img src="/images/filler.jpg"/><a href=""><strong>Gus Wynn</strong> (Became Friends 6-24-1999)</a></div></li>
+        	<% for (var i = 0; i < friends.length; i++) { %>
+            	<li><div><img src="/images/filler.jpg"/><a href="/users/<%= friends[i] %>">
+            		<strong><%= friends[i] %></strong></a></div></li>
+            <% } %>
         </ul>
     </div>
 </div>
