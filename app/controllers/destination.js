@@ -17,7 +17,7 @@ exports.show = function(req, res) {
 					req.params.id + '.', err);
 				return res.redirect('/');
 			} else {
-				trip.forDestination(req.params.id, function(err, trips){
+				trip.forDestination(req.params.id, req.session.username, function(err, trips){
 					if (err) {
 						console.log('Could not load trips including ' + 
 							req.params.id + '.', err);
@@ -25,7 +25,7 @@ exports.show = function(req, res) {
 					}
 					return res.render('destination', {
 						destination: destination,
-						trips:  _.map(trips, function(f) { return f.NAME; }),
+						trips: trips,
 						visitors: _.first(_.shuffle(users), 10)
 					});
 				})
