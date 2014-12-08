@@ -1,6 +1,6 @@
 <div class="box box-portrait">
-    <img src="images/filler.jpg"/>
-    <h3>Brian Shi</h3>
+    <img src="/images/filler.jpg"/>
+    <h3><%= user.FULL_NAME %></h3>
     <p>Joined December 5th, 2014</p>
     <div class="actions">
         <h4>Actions</h4>
@@ -8,6 +8,17 @@
             <li><a href="">Create Trip</a></li>
             <li><a href="">Create Destination</a></li>
             <li><a href="">Create Album</a></li>
+            <% if (authUser && user.USERNAME !== authUser) { %>
+                <% if (friends.indexOf(authUser) === -1) { %>
+                    <form role="form" action="/friends/<%=user.USERNAME %>" method="post">
+                        <li><input type="submit" class="linkButton" value="Befriend"></li>
+                    </form>
+                <% } else { %>
+                    <form role="form" action="/unfriend/<%=user.USERNAME %>" method="post">
+                        <li><input type="submit" class="linkButton" value="Unfriend"></li>
+                    </form>
+                <% } %>
+            <% } %>
         </ul>
     </div>
 </div>

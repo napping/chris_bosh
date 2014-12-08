@@ -1,5 +1,6 @@
 var crypto = require('crypto'),
-    user   = require('../models/user');
+    user   = require('../models/user'),
+    _      = require('underscore');
 
 exports.login = function(req, res) {
     var username = req.body.username.toLowerCase();
@@ -32,7 +33,7 @@ exports.register = function(req, res) {
 		return res.redirect('/register');
 	}
 
-	var shasum   = crypto.createHash('sha1');
+	var shasum = crypto.createHash('sha1');
 	shasum.update(password);
 
 	// TODO: validate inuput
@@ -49,6 +50,34 @@ exports.register = function(req, res) {
 	});
 };
 
+exports.profile = function(req, res) {
+	var username = req.params.username.toLowerCase();
+
+	user.load(username, function(err, userObj) {
+		if (err) {
+			console.log('Could not load profile for ' + username + '.', err);
+			req.flash('error', 'Could not load profile.');
+			return res.redirect('/'); // TODO: something more intelligent here
+		} else {
+			user.friends(username, function(err, friends) {
+				if (err) {
+					console.log('Could not load friends for ' + username + '.',
+						err);
+					req.flash('error', 'Could not load profile.');
+					return res.redirect('/');
+				} else {
+					return res.render('user', {
+						user: userObj[0],
+						// convert from object array to string array
+						friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); })
+					});
+				}
+			});
+		}
+	});
+}
+
+// TODO: probably will not need this controller or route.
 exports.friends = function (req, res) {
 	var username = req.params.username.toLowerCase();
 
@@ -57,39 +86,39 @@ exports.friends = function (req, res) {
 			return res.render('404', {message: 'Friends not found.'});
 		}
 		return res.render('friends', {
-			friends: friends,
-			partials: {
-				friends: 'partials/friends'
-			}
+			friends: friends
 		});
 	});
 };
 
 exports.addFriend = function (req, res) {
-	var username1 = req.body.username1.toLowerCase();
-	var username2 = req.body.username2.toLowerCase();
+	var username1 = req.session.username.toLowerCase();
+	var username2 = req.params.username.toLowerCase();
 
-	user.addFriend(username1, username2, function(wasSuccessful) {
-		if (wasSuccessful) {
+	user.addFriend(username1, username2, function(err, results) {
+		if (!err) {
 			console.log(username1 + ' is now friends with ' + username2 + '.');
-			return res.render('200', {message: 'Successfully added friend!'});
+			return res.redirect('/users/' + username2);
 		} else {
+			console.log('Could not create friendship between ' + username1 + 
+				' and ' + username2 + '.', err);
 			req.flash('error', 'Could not add friend.');
 			return res.redirect('/');
 		}
-		
 	});
 }
 
 exports.removeFriend = function (req, res) {
-	var username1 = req.body.username1.toLowerCase();
-	var username2 = req.body.username2.toLowerCase();
+	var username1 = req.session.username.toLowerCase();
+	var username2 = req.params.username.toLowerCase();
 
-	user.removeFriend(username1, username2, function(wasSuccessful) {
-		if (wasSuccessful) {
+	user.removeFriend(username1, username2, function(err) {
+		if (!err) {
 			console.log(username1 + ' is no longer friends with ' + username2 + '.');
-			return res.render('200', {message: 'Successfully removed friend!'});
+			return res.redirect('/users/' + username2);
 		} else {
+			console.log('Error in unfriending ' + username1 + ' and ' + 
+				username2 + '.', err);
 			req.flash('error', 'Could not remove friend.');
 			return res.redirect('/');
 		}

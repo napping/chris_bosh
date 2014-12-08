@@ -1,5 +1,19 @@
 var db = require('../../config/db');
 
+exports.load = function(username, cb) {
+	var stmt = 'SELECT username, full_name, affiliation, interests FROM ' + 
+		'Users WHERE username=:1';
+	db.connection.execute(stmt, [username], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else if (results.length === 0) {
+			cb('No such user.', null);
+		} else {
+			cb(null, results);
+		}
+	});
+}
+
 // Please make sure that username is lowercase.
 exports.isValidLogin = function(username, password, cb) {
     var stmt = 'SELECT username FROM Users WHERE username=:1 AND password=:2';
@@ -12,7 +26,7 @@ exports.isValidLogin = function(username, password, cb) {
     });
 };
 
-	exports.register = function(username, password, email, fullName, cb) {
+exports.register = function(username, password, email, fullName, cb) {
 	var stmt = 'INSERT INTO Users (username, password, email, full_name) ' +
 		'VALUES (:1, :2, :3, :4)';
 	db.connection.execute(stmt, [username, password, email, fullName], function(err, results) {
@@ -25,9 +39,9 @@ exports.isValidLogin = function(username, password, cb) {
 }
 
 exports.friends = function(username, cb) {
-	var stmt = '(SELECT F.username2 as uname FROM Friendship F WHERE username1=:1) ' + 
+	var stmt = '(SELECT F.username2 as username FROM Friendship F WHERE username1=:1) ' + 
 				'UNION ' +
-			   '(SELECT F.username1 as uname FROM Friendship F WHERE username2=:1)';
+			   '(SELECT F.username1 as username FROM Friendship F WHERE username2=:1)';
 	db.connection.execute(stmt, [username], function(err, results) {
 		cb(err, results);
 	});
@@ -37,9 +51,11 @@ exports.addFriend = function(username1, username2, cb) {
 	var stmt = 'INSERT INTO Friendship(username1, username2) VALUES (:1, :2)';
 	db.connection.execute(stmt, [username1, username2], function(err, results) {
 		if (err) {
-			cb(false);
+			cb(err, null);
+		} else if (results.length === 0) {
+			cb('Already friends with this user.', null);
 		} else {
-			cb(results.updateCount === 1)
+			cb(null, results)
 		} 
 	});
 }
@@ -50,9 +66,11 @@ exports.removeFriend = function(username1, username2, cb) {
 			   '(username2=:1 AND username1=:2)'
 	db.connection.execute(stmt, [username1, username2], function(err, results) {
 		if (err) {
-			cb(false);
+			cb(err);
+		} else if (results.length === 0) {
+			cb('Users were not friends to begin with.');
 		} else {
-			cb(results.updateCount === 1 ||  results.updateCount === 2)
-		} 
+			cb(null);
+		}
 	});		   
 }
