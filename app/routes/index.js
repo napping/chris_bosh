@@ -1,6 +1,7 @@
 var page = require('../controllers/page'),
     user = require('../controllers/user'),
     destination = require('../controllers/destination'),
+    trip = require('../controllers/trip'),
     auth = require('../middlewares/auth');
 
 module.exports = function(app) {
@@ -16,6 +17,9 @@ module.exports = function(app) {
 
     app.get('/friends/:username', user.friends);
     app.post('/friends',  user.addFriend)
+
+    app.get('/trip/:id', trip.show);
+    app.post('/trip', trip.create)
 
     app.post('/removeFriend', user.removeFriend);
 
