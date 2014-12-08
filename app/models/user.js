@@ -1,5 +1,6 @@
-var db = require('../../config/db');
-var _ = require('underscore');
+var db   = require('../../config/db');
+var user = require('./user');
+var _    = require('underscore');
 
 exports.load = function(username, cb) {
 	var stmt = 'SELECT username, email, full_name, affiliation, interests FROM ' + 

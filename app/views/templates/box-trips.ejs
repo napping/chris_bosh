@@ -3,8 +3,8 @@
         <h3>Trips</h3>
         <ul>
         	<% for (var i = 0; i < trips.length; i++) { %>
-            	<li><div><img src="/images/filler.jpg"/><a href="/trips/<%= trips[i] %>">
-            		<strong><%= trips[i] %></strong></a></div></li>
+            	<li><div><img src="/images/filler.jpg"/><a href="/trips/<%= trips[i].TID %>">
+            		<strong><%= trips[i].NAME %></strong></a></div></li>
             <% } %>
         </ul>
     </div>

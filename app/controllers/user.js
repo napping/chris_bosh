@@ -1,7 +1,8 @@
 
-var crypto = require('crypto'),
-    user   = require('../models/user'),
-    _      = require('underscore');
+var crypto		 = require('crypto'),
+    user  		 = require('../models/user'),
+    destination  = require('../models/destination')
+    _     		 = require('underscore');
 
 exports.login = function(req, res) {
     var username = req.body.username.toLowerCase();
@@ -121,14 +122,23 @@ exports.profile = function(req, res) {
 							 + username + '.', err);
 							req.flash('error', 'Could not load profile.');
 							return res.redirect('/');
-						} else {
-							return res.render('user', {
-								user: userObj,
-								// convert from object array to string array
-								friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
-								trips: _.map(trips, function(f) { return f.NAME; })
-							});
-						}
+						} 
+						destination.forUser(username, req.session.username, function(err, destinations) {
+							if (err) {
+								console.log('Could not load destinations for '
+								 + username + '.', err);
+								req.flash('error', 'Could not load profile.');
+								return res.redirect('/');
+							} else {
+								return res.render('user', {
+									user: userObj[0],
+									// convert from object array to string array
+									friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+									trips: trips,
+									destinations: destinations
+								});
+							}
+						});
 					});
 				}
 			});

@@ -1,49 +1,24 @@
 <div class="box box-destinations">
     <div class="list-destinations">
         <h3>Destinations</h3>
-        <div class="row destinations-row">
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Niagara Falls</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Farm</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Google HQ</p></a>
-            </div>
-        </div>
-        <div class="row destinations-row">
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>University of Pennsylvania</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Statue of Liberty</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>First Hamburger</p></a>
-            </div>
-        </div>
-         <div class="row destinations-row">
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>San Francisco</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Great Wall of China</p></a>
-            </div>
-            <div class="col-md-4 column-destination">
-                <img src="/images/filler.jpg"/>
-                <a href=""><p>Chicago</p></a>
-            </div>
-        </div>
+        <% for (var i = 0; i < destinations.length; i++) { %>
 
+            <% if (i % 3 == 0) { %>
+            <div class="row destinations-row">
+            <% } %>
+
+                <div class="col-md-4 column-destination">
+                    <img src="/images/filler.jpg"/>
+                    <a href="/destinations/<%= destinations[i].DID %>">
+                        <p><%= destinations[i].NAME %></p>
+                    </a>
+                </div>
+
+            <% if (i % 3 == 0) { %>
+            </div>
+            <% } %>
+
+        <% } %>
     </div>
 </div>
 
