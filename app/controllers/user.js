@@ -22,11 +22,13 @@ exports.login = function(req, res) {
 };
 
 exports.register = function(req, res) {
-	var username = req.body.username.toLowerCase();
-	var password = req.body.password;
-	var confirm  = req.body.password2;
-	var email    = req.body.email;
-	var fullName = req.body.fullName;
+	var username    = req.body.username.toLowerCase();
+	var password    = req.body.password;
+	var confirm     = req.body.password2;
+	var email       = req.body.email;
+	var fullName    = req.body.fullName;
+	var affiliation = req.body.affiliation;
+	var interests   = req.body.interests;
 
 	if (password !== confirm) {
 		console.log(username + ' could not register due to non-matching passwords.');
@@ -37,8 +39,8 @@ exports.register = function(req, res) {
 	var shasum = crypto.createHash('sha1');
 	shasum.update(password);
 
-	// TODO: validate inuput
-	user.register(username, shasum.digest('hex'), email, fullName, function(err) {
+	// TODO: validate inuput. ESPECIALLY usernames! Ugh
+	user.register(username, shasum.digest('hex'), email, fullName, affiliation, interests, function(err) {
 		if (!err) {
 			console.log(username + ' has registered.');
 			req.session.username = username;
@@ -50,6 +52,50 @@ exports.register = function(req, res) {
 		return res.redirect('/');
 	});
 };
+
+exports.edit = function(req, res) {
+	var src = req.session.username.toLowerCase();
+	var tgt = req.params.username.toLowerCase();
+	if (src !== tgt) {
+		return res.redirect('/');
+	} else {
+		user.load(src, function(err, userObj) {
+			if (err) {
+				// Should never happen, since this is a valid user by authentication.
+				console.log('Could not load profile for ' + username + '.', err);
+				console.log('This is unusual: something weird has happened.');
+				return res.redirect('/');
+			} else {
+				return res.render('edit_profile', {
+					user: userObj
+				});
+			}
+		});
+	}
+}
+
+exports.put = function(req, res) {
+	var src = req.session.username.toLowerCase();
+	var tgt = req.params.username.toLowerCase();
+	if (src !== tgt) {
+		return res.redirect('/');
+	}
+
+	var email    = req.body.email;
+	var fullName = req.body.fullName;
+	var affiliation = req.body.affiliation;
+	var interests = req.body.interests;
+
+	user.save(src, email, fullName, affiliation, interests, function(err) {
+		if (err) {
+			console.log('Could not update profile of ' + src + '.', err);
+			return res.redirect('/users/' + src + '/edit');
+		} else {
+			console.log('Saved profile for ' + src + '.');
+			return res.redirect('/users/' + src);
+		}
+	});
+}
 
 exports.profile = function(req, res) {
 	var username = req.params.username.toLowerCase();
@@ -77,7 +123,7 @@ exports.profile = function(req, res) {
 							return res.redirect('/');
 						} else {
 							return res.render('user', {
-								user: userObj[0],
+								user: userObj,
 								// convert from object array to string array
 								friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
 								trips: _.map(trips, function(f) { return f.NAME; })

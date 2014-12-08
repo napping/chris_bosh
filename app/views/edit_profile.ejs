@@ -1,0 +1,33 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    
+    <div class="eight-logo">
+        <h2>Edit Your Profile</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/users/<%= authUser %>/edit" method="post">
+            <div>
+                <label for="id-name">Name: </label>
+                <input id="id-name" name="fullName" type="text" maxlength="256" value="<% if (user.FULL_NAME) { %><%= user.FULL_NAME %><% } %>">
+            </div>
+            <div>
+                <label for="id-email">Email: </label>
+                <input id="id-email" name="email" type="text" maxlength="256" value="<% if (user.EMAIL) { %><%= user.EMAIL %><% } %>">
+            </div>
+            <div>
+                <label for="id-affiliation">Affiliation: </label>
+                <input id="id-affiliation" name="affiliation" type="text" maxlength="256" value="<% if (user.AFFILIATION) { %><%= user.AFFILIATION %><% } %>">
+            </div>
+            <div>
+                <label for="id-interests">Interests: </label>
+                <input id="id-interests" name="interests" type="text" maxlength="256" value="<% if (user.INTERESTS) { %><%= user.INTERESTS %><% } %>">
+            </div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>

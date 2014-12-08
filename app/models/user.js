@@ -2,7 +2,7 @@ var db = require('../../config/db');
 var _ = require('underscore');
 
 exports.load = function(username, cb) {
-	var stmt = 'SELECT username, full_name, affiliation, interests FROM ' + 
+	var stmt = 'SELECT username, email, full_name, affiliation, interests FROM ' + 
 		'Users WHERE username=:1';
 	db.connection.execute(stmt, [username], function(err, results) {
 		if (err) {
@@ -10,7 +10,7 @@ exports.load = function(username, cb) {
 		} else if (results.length === 0) {
 			cb('No such user.', null);
 		} else {
-			cb(null, results);
+			cb(null, results[0]);
 		}
 	});
 }
@@ -27,10 +27,11 @@ exports.isValidLogin = function(username, password, cb) {
 		});
 };
 
-exports.register = function(username, password, email, fullName, cb) {
-	var stmt = 'INSERT INTO Users (username, password, email, full_name) ' +
-		'VALUES (:1, :2, :3, :4)';
-	db.connection.execute(stmt, [username, password, email, fullName], function(err, results) {
+exports.register = function(username, password, email, fullName, affiliation, interests, cb) {
+	var stmt = 'INSERT INTO Users (username, password, email, full_name, affiliation, interests) ' +
+		'VALUES (:1, :2, :3, :4, :5, :6)';
+	db.connection.execute(stmt, [username, password, email, fullName,
+		affiliation, interests], function(err, results) {
 		if (err) {
 			cb(err);
 		} else {
@@ -38,6 +39,18 @@ exports.register = function(username, password, email, fullName, cb) {
 		}
 	});
 };
+
+exports.save = function(src, email, fullName, affiliation, interests, cb) {
+	var stmt = 'UPDATE Users SET email=:1, full_name=:2, affiliation=:3, ' + 
+		'interests=:4 WHERE username=:5';
+	db.connection.execute(stmt, [email, fullName, affiliation, interests, src], function(err, results) {
+		if (err) {
+			cb(err);
+		} else {
+			cb(null);
+		}
+	});
+}
 
 exports.friends = function(username, cb) {
 	if (!username) {

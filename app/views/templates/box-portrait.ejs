@@ -1,13 +1,10 @@
 <div class="box box-portrait">
     <img src="/images/filler.jpg"/>
-    <h3><%= user.FULL_NAME %></h3>
-    <p>Joined December 5th, 2014</p>
+    <h3><%= user.FULL_NAME %><% if (user.AFFILIATION) { %> of <%= user.AFFILIATION %><% } %></h3>
+    <% if (user.INTERESTS) { %><p><%= user.INTERESTS %></p><% } %>
     <div class="actions">
         <h4>Actions</h4>
         <ul>
-            <li><a href="">Create Trip</a></li>
-            <li><a href="/destinations/new">Create Destination</a></li>
-            <li><a href="">Create Album</a></li>
             <% if (authUser && user.USERNAME !== authUser) { %>
                 <% if (friends.indexOf(authUser) === -1) { %>
                     <form role="form" action="/friends/<%=user.USERNAME %>" method="post">
@@ -18,6 +15,11 @@
                         <li><input type="submit" class="linkButton" value="Unfriend"></li>
                     </form>
                 <% } %>
+            <% } else { %>
+                <li><a href="/users/<%= authUser %>/edit">Edit Profile</a></li>
+                <li><a href="">Create Trip</a></li>
+                <li><a href="/destinations/new">Create Destination</a></li>
+                <li><a href="">Create Album</a></li>
             <% } %>
         </ul>
     </div>
