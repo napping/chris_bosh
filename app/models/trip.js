@@ -11,21 +11,28 @@ exports.load = function(tid, cb) {
 
 };
 
-exports.create = function(name, packing_list, expenses, cb) {
+exports.create = function(username, name, packing_list, expenses, cb) {
 	var stmt = 'INSERT INTO Media (type, privacy) ' + 
 		'VALUES (\'Trip\', \'public\') ' +
 		'RETURNING MID INTO :1';
 	db.connection.execute(stmt, [new oracle.OutParam()], function(err, results) {
 		if (err || !results) {
 			cb(err, []);
-		} else {
-			var stmt2 = "INSERT INTO Trip (tid, name, packing_list, expenses) " +
+		} 
+		var tid = results.returnParam;
+	var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
+					'(:1, :2, \'Trip\')';
+		db.connection.execute(stmt2, [username, tid], function(err, results2) {
+			if (err || !results2) {
+				cb(err, []);
+			} 
+			var stmt3 = "INSERT INTO Trip (tid, name, packing_list, expenses) " +
 						"VALUES (:1, :2, :3, :4)";
-			db.connection.execute(stmt2, [results.returnParam, name, packing_list, expenses], function(err, results) {
+			db.connection.execute(stmt3, [tid, name, packing_list, expenses], function(err, results3) {
 				// We should never really expect an error to occur here.
-				cb(err, results);
+				cb(err, tid);
 			});
-		}
+		});
 	});
 }
 

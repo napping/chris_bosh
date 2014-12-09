@@ -19,9 +19,6 @@ exports.show = function(req, res) {
 						currTrip.TID + '.' + err);
 					return res.render('/');
 				}
-				console.log(destinations);
-				console.log(attendees);
-				console.log(currTrip);
 				return res.render('trips', {
 					trip: currTrip,
 					attendees: _.map(attendees, function(f) { return f.USERNAME; }),
@@ -37,23 +34,22 @@ exports.show = function(req, res) {
 	});
 };
 
+exports.new = function(req, res) {
+	return res.render('new_trip');
+}
+
 exports.create = function(req, res) {
+
 	var name = req.body.name;
 	var packing_list = req.body.packing_list;
 	var expenses = req.body.expenses;
-	trip.create(name, packing_list, expenses, function(err, trip) {
-		console.log(trip);
-		if (err || !trip || trip.length === 0) {
+	trip.create(req.session.username, name, packing_list, expenses, function(err, tid) {
+		if (err || !tid) {
 			return res.render('404', {message: 'Could not create Trip.'});
 		}
 
 		console.log('Trip successfully created.');
 
-		return res.render('trips', {
-			trip: trip,
-			partials: {
-				trip: 'partials/trips'
-			}
-		});
+		return res.redirect('/trips/' + tid);
 	});
 };

@@ -26,6 +26,8 @@ exports.create = function(name, username, cb) {
 		if (err || !results) {
 			cb(err, null);
 		} else {
+			console.log(username);
+			console.log(did);
 			var did = results.returnParam;
 			var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
 				'(:1, :2, \'Destination\')';

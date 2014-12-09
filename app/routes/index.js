@@ -26,7 +26,7 @@ module.exports = function(app) {
     app.post('/removeFriend', auth.requireLogin, user.removeFriend);
 
  
-
+    app.get('/trips/new', auth.requireLogin, trip.new);
     app.get('/trips/:id', trip.show);
     app.post('/trips', trip.create);
 
