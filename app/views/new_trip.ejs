@@ -1,0 +1,26 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    <div class="eight-logo">
+        <h2>New Destination</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/trips" method="post">
+            <div>
+    			<label for="id-trip-name">Name: </label>
+    			<input id="id-trip-name" name="name" type="text" maxlength="64">
+                <label for="id-trip-packing-list">Packing List: </label>
+                <input id="id-trip-packing-list" name="packing_list" type="text" maxlength="64">
+                <label for="id-trip-expenses">Expenses: </label>
+                <input id="id-trip-expenses" name="expenses" type="text" maxlength="64">
+
+
+    		</div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>
