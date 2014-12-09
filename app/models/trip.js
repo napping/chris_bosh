@@ -2,13 +2,13 @@ var db = require('../../config/db'),
 	oracle = require('oracle');
 
 exports.load = function(tid, cb) {
-	var stmt = 'SELECT * FROM Trip T ' +
+	var stmt = 'SELECT T.tid, T.name, T.expenses, T.packing_list, O.username as owner FROM Trip T ' +
 		'INNER JOIN Media M ON T.tid = M.mid AND T.type = M.type ' +
+		'INNER JOIN Owns O ON O.mid = M.mid AND M.source = O.source AND M.type = O.type ' + 
 		'WHERE T.tid = :1';
 	db.connection.execute(stmt, [tid], function(err, results) {
 		cb(err, results[0]);
 	});
-
 };
 
 exports.create = function(username, name, packing_list, expenses, cb) {
@@ -44,6 +44,18 @@ exports.create = function(username, name, packing_list, expenses, cb) {
 					});
 				}
 			});
+		}
+	});
+}
+
+exports.save = function(tid, name, packing_list, expenses, cb) {
+	var stmt = 'UPDATE Trip SET name=:1, packing_list=:2, expenses=:3 ' + 
+			   'WHERE tid=:4';
+	db.connection.execute(stmt, [name, packing_list, expenses, tid], function(err, results) {
+		if (err) {
+			cb(err);
+		} else {
+			cb(null);
 		}
 	});
 }

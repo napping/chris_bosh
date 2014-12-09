@@ -28,6 +28,8 @@ module.exports = function(app) {
  
     app.get('/trips/new', auth.requireLogin, trip.new);
     app.get('/trips/:id', trip.show);
+    app.get('/trips/:id/edit', auth.requireLogin, trip.edit);
+    app.post('/trips/:id/edit', auth.requireLogin, trip.put);
     app.post('/trips', trip.create);
 
     app.post('/goeson', user.addTrip);

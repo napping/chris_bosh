@@ -34,6 +34,46 @@ exports.show = function(req, res) {
 	});
 };
 
+exports.edit = function(req, res) {
+	var tid = req.params.id;
+	var currUser = req.session.username.toLowerCase();
+	trip.load(tid, function(err, tripObj) {
+		if (err) {
+			// Should never happen, since this is a valid user by authentication.
+			console.log('Could not load trip for ' + tid + '.', err);
+			console.log('This is unusual: something weird has happened.');
+			return res.redirect('/');
+		} else {
+			if (tripObj.OWNER != currUser) {
+				return res.redirect('/');
+			}
+			else {
+				return res.render('edit_trip', {
+					trip: tripObj
+				});
+			}
+		}
+	});
+};
+
+exports.put = function(req, res) {
+
+	var tid 	= req.params.id;
+	var name    = req.body.name;
+	var packing_list = req.body.packing_list;
+	var expenses = req.body.expenses;
+
+	trip.save(tid, name, packing_list, expenses, function(err) {
+		if (err) {
+			console.log('Could not update trip of ' + name + '.', err);
+			return res.redirect('/trips/' + tid + '/edit');
+		} else {
+			console.log('Saved trip for ' + name + '.');
+			return res.redirect('/trips/' + tid);
+		}
+	});
+}
+
 exports.new = function(req, res) {
 	return res.render('new_trip');
 };
