@@ -72,7 +72,7 @@ exports.edit = function(req, res) {
 			}
 		});
 	}
-}
+};
 
 exports.put = function(req, res) {
 	var src = req.session.username.toLowerCase();
@@ -95,7 +95,7 @@ exports.put = function(req, res) {
 			return res.redirect('/users/' + src);
 		}
 	});
-}
+};
 
 exports.profile = function(req, res) {
 	var username = req.params.username.toLowerCase();
@@ -128,13 +128,32 @@ exports.profile = function(req, res) {
 								req.flash('error', 'Could not load profile.');
 								return res.redirect('/');
 							} else {
-								return res.render('user', {
-									user: userObj,
-									// convert from object array to string array
-									friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
-									trips: trips,
-									destinations: destinations
-								});
+
+								if (req.session.username && req.session.username.toLowerCase() === username) {
+									user.friendRequests(username, function(err, requests) {
+										if (err) {
+											console.log('Error loading friend requests for ' + username + '.', err);
+											return res.redirect('/');
+										} else {
+											return res.render('user', {
+												user: userObj,
+												// convert from object array to string array
+												friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+												trips: trips,
+												destinations: destinations,
+												requests: requests
+											});
+										}
+									});
+								} else {
+									return res.render('user', {
+										user: userObj,
+										// convert from object array to string array
+										friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+										trips: trips,
+										destinations: destinations
+									});
+								}
 							}
 						});
 					});
@@ -142,7 +161,7 @@ exports.profile = function(req, res) {
 			});
 		}
 	});
-}
+};
 
 // TODO: probably will not need this controller or route.
 exports.friends = function (req, res) {
@@ -158,20 +177,60 @@ exports.friends = function (req, res) {
 	});
 };
 
-exports.addFriend = function (req, res) {
-	var username1 = req.session.username.toLowerCase();
-	var username2 = req.params.username.toLowerCase();
+exports.requestFriend = function (req, res) {
+	var requester = req.session.username.toLowerCase();
+	var requestee = req.params.username.toLowerCase();
 
-	user.addFriend(username1, username2, function(err, results) {
-		if (!err) {
-			console.log(username1 + ' is now friends with ' + username2 + '.');
-			return res.redirect('/users/' + username2);
-		} else {
-			console.log('Could not create friendship between ' + username1 + 
-				' and ' + username2 + '.', err);
-			req.flash('error', 'Could not add friend.');
-			return res.redirect('/');
+	user.friendsWith(requester, requestee, function(areFriends) {
+		if (areFriends) {
+			return res.redirect('/users/' + requestee);
 		}
+		user.requestFriend(requester, requestee, function(requested) {
+			if (!requested) {
+				console.log('Friend request error from ' + requester + ' to ' + requestee + '.');
+			} else {
+				console.log('Friend request made from ' + requester + ' to ' + requestee + '.');
+			}
+			return res.redirect('/users/' + requestee);
+		});
+	});
+};
+
+// Accepts a friend request.
+exports.addFriend = function (req, res) {
+	var requestee = req.session.username.toLowerCase();
+	var requester = req.params.username.toLowerCase();
+
+	user.friendsWith(requester, requestee, function(areFriends) {
+		if (areFriends) {
+			return res.redirect(req.header('Referer') || '/');
+		}
+
+		user.addFriend(requester, requestee, function(err, results) {
+			if (!err) {
+				console.log(requester + ' is now friends with ' + requestee + '.');
+				return res.redirect(req.header('Referer') || '/');
+			} else {
+				console.log('Could not create friendship between ' + requester + 
+					' and ' + requestee + '.', err);
+				req.flash('error', 'Could not add friend.');
+				return res.redirect(req.header('Referer') || '/');
+			}
+		});
+	});
+};
+
+exports.declineFriendship = function (req, res) {
+	var requestee = req.session.username.toLowerCase();
+	var requester = req.params.username.toLowerCase();
+
+	user.deleteFriendRequest(requester, requestee, function(deleted) {
+		if (!deleted) {
+			console.log('Could not decline the friendship of ' + requester + ' and ' + requestee + '.');
+		} else {
+			console.log(requestee + ' declined the friendship of ' + requester + '.');
+		}
+		return res.redirect(req.header('Referer') || '/');
 	});
 }
 
@@ -190,7 +249,7 @@ exports.removeFriend = function (req, res) {
 			return res.redirect('/');
 		}
 	})
-}
+};
 
 exports.getTrips = function (req, res) {
 	var username = req.params.username.toLowerCase();
@@ -200,13 +259,10 @@ exports.getTrips = function (req, res) {
 			return res.render('404', {message: 'Trips not found.'});
 		}	
 		return res.render('trips', {
-			trips: trips,
-			partials: {
-				trips: 'partials/trips'
-			}
+			trips: trips
 		});
 	});
-}
+};
 
 exports.addTrip = function (req, res) {
 	var username = req.body.username.toLowerCase();
@@ -221,5 +277,4 @@ exports.addTrip = function (req, res) {
 			return res.redirect('/');
 		}
 	});
-}
-
+};

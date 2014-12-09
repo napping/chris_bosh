@@ -198,6 +198,15 @@ CREATE TABLE InviteTrip
     FOREIGN KEY (tid, source) REFERENCES Trip(tid, source)
 );
 
+CREATE TABLE FriendRequest
+(
+    requestee   VARCHAR(64),
+    requester   VARCHAR(64),
+    CONSTRAINT pk_friendrequest PRIMARY KEY (requestee, requester),
+    FOREIGN KEY (requestee) REFERENCES Users(username),
+    FOREIGN KEY (requester) REFERENCES Users(username)
+);
+
 CREATE TABLE InAlbum
 (
     aid             INT,
