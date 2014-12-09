@@ -18,21 +18,33 @@ exports.create = function(username, name, packing_list, expenses, cb) {
 	db.connection.execute(stmt, [new oracle.OutParam()], function(err, results) {
 		if (err || !results) {
 			cb(err, []);
-		} 
-		var tid = results.returnParam;
-	var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
-					'(:1, :2, \'Trip\')';
-		db.connection.execute(stmt2, [username, tid], function(err, results2) {
-			if (err || !results2) {
-				cb(err, []);
-			} 
-			var stmt3 = "INSERT INTO Trip (tid, name, packing_list, expenses) " +
-						"VALUES (:1, :2, :3, :4)";
-			db.connection.execute(stmt3, [tid, name, packing_list, expenses], function(err, results3) {
-				// We should never really expect an error to occur here.
-				cb(err, tid);
+		} else {
+			var tid = results.returnParam;
+			var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
+						'(:1, :2, \'Trip\')';
+
+			db.connection.execute(stmt2, [username, tid], function(err, results2) {
+				if (err || !results2) {
+					cb(err, []);
+				} else {
+					var stmt3 = "INSERT INTO Trip (tid, name, packing_list, expenses) " +
+									"VALUES (:1, :2, :3, :4)";
+					db.connection.execute(stmt3, [tid, name, packing_list, expenses], function(err, results3) {
+						if (err || !results3) {
+							cb(err, []);
+						}
+						else {
+							var stmt4 = "INSERT INTO GoesOn (username, tid) " +
+										"VALUES (:1, :2)";
+							db.connection.execute(stmt4, [username, tid], function(err, results4) {
+							// We should never really expect an error to occur here.
+								cb(err, tid);
+							});
+						}
+					});
+				}
 			});
-		});
+		}
 	});
 }
 
@@ -61,29 +73,24 @@ exports.forDestination = function(curDest, curUser, cb) {
 			   'INNER JOIN Destination D on P.did = D.did ' +
 			   'INNER JOIN Media M ON M.mid = T.tid AND M.type = T.type AND M.source = T.source ' +
 			   'INNER JOIN Owns O ON O.mid = M.mid AND M.source = O.source AND M.type = O.type ' +
-			   'WHERE D.did = :1';
+			   'WHERE D.did=:1';
 	db.connection.execute(stmt, [curDest], function(err, results) {
 		if (err) {
 			cb(err, null);
 		}
 		var trips = [];
 		if (curUser) {
-			exports.usersOnTrip(curUser, function(err, onTrip) {
-				if (err) {
-					cb(err, null);
+			for (var i = 0; i < results.length; i++) {
+				if (results[i].PRIVACY === 'public') {
+					trips.push(results[i]);
+				} else if (results[i].PRIVACY === 'sharedWithTripMembers' && curUser &&
+					(onTrip.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
+					trips.push(results[i]);
 				}
-				for (var i = 0; i < results.length; i++) {
-					if (results[i].PRIVACY === 'public') {
-						trips.push(results[i]);
-					} else if (results[i].PRIVACY === 'sharedWithTripMembers' && curUser &&
-						(onTrip.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
-						trips.push(results[i]);
-					}
-					else if (results[i].PRIVACY === 'private' && curUser && curUser == results[i].OWNER) {
-						trips.push(results[i]);
-					}
+				else if (results[i].PRIVACY === 'private' && curUser && curUser == results[i].OWNER) {
+					trips.push(results[i]);
 				}
-			});
+			}
 		} else {
 			for (var i = 0; i < results.length; i++) {
 				if (results[i].PRIVACY === 'public') {

@@ -9,13 +9,13 @@ exports.show = function(req, res) {
 		}
 		trip.usersOnTrip(currTrip.TID, function(err, attendees) {
 			if (err || !attendees) {
-				return console.log('Could not load users attending '+
+				console.log('Could not load users attending '+
 					currTrip.TID + '.' + err);
 				return res.render('/');
 			}
 			trip.destinationsOnTrip(currTrip.TID, function(err, destinations) {
 				if (err || !destinations) {
-					return console.log('Could not load destinations on ' +
+					console.log('Could not load destinations on ' +
 						currTrip.TID + '.' + err);
 					return res.render('/');
 				}
@@ -36,20 +36,19 @@ exports.show = function(req, res) {
 
 exports.new = function(req, res) {
 	return res.render('new_trip');
-}
+};
 
 exports.create = function(req, res) {
-
 	var name = req.body.name;
 	var packing_list = req.body.packing_list;
 	var expenses = req.body.expenses;
 	trip.create(req.session.username, name, packing_list, expenses, function(err, tid) {
-		if (err || !tid) {
-			return res.render('404', {message: 'Could not create Trip.'});
+		if (err || !tid || tid.length === 0) {
+			console.log('Could not create trip ' + tid + '.', err);
+			req.flash('error', 'Could not create trip.');
+			return res.redirect('/');
 		}
-
-		console.log('Trip successfully created.');
-
+		console.log('Created trip ' + tid + '.');
 		return res.redirect('/trips/' + tid);
 	});
 };
