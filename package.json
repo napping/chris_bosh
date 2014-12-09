@@ -19,6 +19,7 @@
         "ejs": "~1.0.0",
         "underscore": "~1.7.0",
         "oracle": "~0.3.7",
-        "crypto": "~0.0.3"
+        "crypto": "~0.0.3",
+        "damerau-levenshtein": "~0.1.3"
     }
 }

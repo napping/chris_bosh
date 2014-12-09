@@ -1,4 +1,3 @@
-
 var crypto		 = require('crypto'),
     user  		 = require('../models/user'),
     destination  = require('../models/destination')
