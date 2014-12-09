@@ -32,9 +32,15 @@ module.exports = function(app) {
 
     app.get('/trips/new', auth.requireLogin, trip.new);
     app.get('/trips/:id', trip.show);
+    app.post('/trips/:id', auth.requireLogin, trip.requestTrip);
+    //is there a better way to do this?
+    app.get('/trips/:id/:username/accept', auth.requireLogin, trip.addAttendee);
+    app.get('/trips/:id/:username/decline', auth.requireLogin, trip.declineRequest);
+    app.post('/trips/leave/:id', auth.requireLogin, trip.removeAttendee);
     app.get('/trips/:id/edit', auth.requireLogin, trip.edit);
     app.post('/trips/:id/edit', auth.requireLogin, trip.put);
     app.post('/trips', auth.requireLogin, trip.create);
+
 
     app.post('/goeson', auth.requireLogin, user.addTrip);
     app.get('/goeson/:username', user.getTrips);

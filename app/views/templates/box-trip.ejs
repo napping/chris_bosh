@@ -1,7 +1,29 @@
-<div class="box box-portrait">
+<div class="box box-trips">
     <img src="/images/filler.jpg"/>
     <h3><%= trip.NAME %></h3>
     <% if (authUser && authUser === trip.OWNER) { %>
     <a href="/trips/<%= trip.TID %>/edit">Edit Trip</a>
+		<h3>Trip Requests</h3>
+		<div class="list-friends">
+			<ul>
+				<% for (var i = 0; i < requests.length; i++) { %>
+	            	<li><div><img src="/images/filler.jpg"/><a href="/users/<%= requests[i].USERNAME 
+            		%>"><strong><%= requests[i].USERNAME %></strong></a>
+	            	| <a class="accept" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/accept">ACCEPT</a> 
+	            	| <a class="decline" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/decline">DECLINE</a>
+	            	</div></li>
+	            <% } %>
+			</ul>
+		</div>
+    <% } else if (authUser) { %>
+	    <% if (attendees.indexOf(authUser) === -1) { %>
+	        <form role="form" action="/trips/<%=trip.TID %>" method="post">
+	            <li><input type="submit" class="linkButton" value="Request Trip"></li>
+	        </form>
+	    <% } else { %>
+	        <form role="form" action="/trips/leave/<%=trip.TID %>" method="post">
+	            <li><input type="submit" class="linkButton" value="Leave Trip"></li>
+	        </form>
+	    <% } %>
     <% } %> 
 </div>

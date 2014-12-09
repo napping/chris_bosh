@@ -48,6 +48,29 @@ exports.create = function(username, name, packing_list, expenses, cb) {
 	});
 }
 
+exports.tripRequests = function(tid, cb) {
+	var stmt = 'SELECT username FROM RequestTrip WHERE tid=:1';
+	db.connection.execute(stmt, [tid], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, results);
+		}
+	});
+}
+
+exports.friendRequests = function(username, cb) {
+	var stmt = 'SELECT requester FROM FriendRequest WHERE requestee=:1';
+	db.connection.execute(stmt, [username.toLowerCase()], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, results);
+		}
+	});
+};
+
+
 exports.save = function(tid, name, packing_list, expenses, cb) {
 	var stmt = 'UPDATE Trip SET name=:1, packing_list=:2, expenses=:3 ' + 
 			   'WHERE tid=:4';
@@ -76,6 +99,90 @@ exports.destinationsOnTrip = function(tid, cb) {
 			   'WHERE T.tid = :1';
 	db.connection.execute(stmt, [tid], function(err, results) {
 		cb(err, results);
+	});	
+}
+
+exports.requestTrip = function(tid, username, cb) {
+	var stmt = 'INSERT INTO RequestTrip (tid, username) VALUES (:1, :2)';
+	db.connection.execute(stmt, [tid, username], function(err, results) {
+		if (err) {
+			cb(false);
+		} else {
+			cb(true);
+		}
+	});
+};
+exports.addAttendee = function(tid, username, cb) {
+	exports.requestPending(username, tid, function(pending) {
+		if (!pending) {
+			cb('No trip request pending.', null);
+		} else {
+			var stmt2 = 'DELETE FROM RequestTrip WHERE username=:1 AND tid=:2';
+			db.connection.execute(stmt2, [username, tid], function(err, results) {
+				if (err) {
+					cb(err, null);
+				} else {
+
+					var stmt3 = 'INSERT INTO GoesOn(username, tid) VALUES (:1, :2)';
+					db.connection.execute(stmt3, [username, tid], function(err, results) {
+						if (err) {
+							cb(err, null);
+						} else if (results.length === 0) {
+							cb('Already on this trip.', null);
+						} else {
+							cb(null, results)
+						} 
+					});
+				}
+			});
+		}
+	});
+}
+
+exports.deleteTripRequest = function(tid, username, cb) {
+	var stmt = 'DELETE FROM RequestTrip WHERE tid=:1 AND username=:2';
+	db.connection.execute(stmt, [tid, username], function(err, results) {
+		return cb(!err);
+	});
+};
+
+
+exports.removeAttendee = function(tid, username, cb) {
+	var stmt = 'DELETE FROM GoesOn WHERE (username=:1 AND tid=:2)'
+	db.connection.execute(stmt, [username, tid], function(err, results) {
+		if (err) {
+			cb(err);
+		} else if (results.length === 0) {
+			cb('User was not on trip to begin with.');
+		} else {
+			cb(null);
+		}
+	});		   
+};
+
+exports.requestPending = function(username, tid, cb) {
+	var stmt = 'SELECT * FROM RequestTrip WHERE username=:1 AND tid=:2';
+	db.connection.execute(stmt, [username, tid], function(err, results) {
+		if (err) {
+			cb(false);
+		} else if (results.length === 0) {
+			cb(false);
+		} else {
+			cb(true);
+		}
+	});
+};
+
+exports.onTrip = function(tid, username, cb) {
+	console.log(tid);
+	console.log(username);
+	var stmt = 'SELECT * FROM GoesOn WHERE tid=:1 AND username=:2';
+	db.connection.execute(stmt, [tid, username], function(err, results) {
+		if (err || results.length === 0) {
+			cb(false);
+		} else {
+			cb(true);
+		}
 	});	
 }
 

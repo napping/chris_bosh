@@ -19,18 +19,24 @@ exports.show = function(req, res) {
 						currTrip.TID + '.' + err);
 					return res.render('/');
 				}
-				return res.render('trips', {
-					trip: currTrip,
-					attendees: _.map(attendees, function(f) { return f.USERNAME; }),
-					destinations: destinations,
-					partials: {
-						destination: 'partials/trips'
+				trip.tripRequests(currTrip.TID, function(err, requests) {
+					if (err || !requests) {
+						console.log('Could not load trip requests on ' +
+							currTrip.TID + '.' + err);
+						return res.render('/');
 					}
+					return res.render('trips', {
+						trip: currTrip,
+						attendees: _.map(attendees, function(f) { return f.USERNAME; }),
+						destinations: destinations,
+						requests: requests,
+						partials: {
+							destination: 'partials/trips'
+						}
+					});
 				});
 			});
-
 		});
-
 	});
 };
 
@@ -52,6 +58,98 @@ exports.edit = function(req, res) {
 					trip: tripObj
 				});
 			}
+		}
+	});
+};
+
+
+
+exports.requestTrip = function(req, res) {
+
+	var tid = req.params.id;
+	var username = req.session.username.toLowerCase();
+
+	trip.onTrip(tid, username, function(onTrip) {
+		if (onTrip) {
+			console.log(username + ' is already on trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		}
+		trip.requestTrip(tid, username, function(requested) {
+			if (!requested) {
+				console.log('Trip request error from ' + username + ' to trip ' + tid + '.');
+			} else {
+				console.log('Trip request made from ' + username + ' to trip ' + tid + '.');
+			}
+			return res.redirect('/trips/' + tid);
+		});
+	});
+
+}
+
+exports.addAttendee = function(req, res) {
+	var currUser = req.session.username.toLowerCase();
+	var tid = req.params.id;
+	var username = req.params.username.toLowerCase();
+
+	trip.load(tid, function(err, tripObj) {
+		if (err || !tripObj || tripObj.length === 0) {
+			console.log('Trip ' + tid + ' could not be loaded.');
+			return res.redirect('/');
+		}
+		if (tripObj.OWNER != currUser) {
+			console.log('Could not accept request for trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		}
+		trip.addAttendee(tid, username, function(err, results) {
+			if (!err) {
+				console.log(username + ' is on now trip ' + tid + '.');
+				return res.redirect(req.header('Referer') || '/');
+			} else {
+				console.log('Could not add ' + username + ' to trip ' + tid + '.');
+				req.flash('error', 'Could not add user to trip.');
+				return res.redirect(req.header('Referer') || '/');
+			}
+		});
+	});
+}
+
+exports.declineRequest = function (req, res) {
+	var currUser = req.session.username.toLowerCase();
+	var tid = req.params.id;
+	var username = req.params.username.toLowerCase();
+
+	trip.load(tid, function(err, tripObj) {
+		if (err || !tripObj || tripObj.length === 0) {
+			console.log('Trip ' + tid + ' could not be loaded.');
+			return res.redirect('/');
+		}
+		if (tripObj.OWNER != currUser) {
+			console.log('Could not accept request for trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		}
+		trip.deleteTripRequest(tid, username, function(deleted) {
+			if (!deleted) {
+				console.log('Could not decline the request of ' + username + ' for trip ' + tid + '.');
+			} else {
+				console.log(username + '\'s request to be on trip ' + tid + ' was declined.');
+			}
+			return res.redirect(req.header('Referer') || '/');
+		});
+	});
+}
+
+exports.removeAttendee = function (req, res) {
+	var username = req.session.username.toLowerCase();
+	var tid = req.params.id;
+
+	trip.removeAttendee(tid, username, function(err) {
+		if (!err) {
+			console.log(username + ' is no longer on trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		} else {
+			console.log('Error in removing ' + username + ' from trip ' + tid, err);
+			req.flash('error', 'Could not remove attendee.');
+			return res.redirect('/');
 		}
 	});
 };

@@ -251,6 +251,19 @@ ul {
     height: 2em;
     width: auto;
 }
+.box-trips { 
+}
+
+.box-trips ul li { 
+    padding: 1em;
+}
+
+.box-trips ul img { 
+    margin-right: 1em;
+    height: 2em;
+    width: auto;
+}
+
 .box-recommendations ul { 
     margin-top: 2em;
 }
