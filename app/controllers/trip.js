@@ -202,13 +202,22 @@ exports.acceptRequest = function(req, res) {
 		}
 		//add check for request
 		trip.addAttendee(tid, username, function(err, results) {
-			if (!err) {
-				console.log(username + ' is on now trip ' + tid + '.');
-				return res.redirect(req.header('Referer') || '/');
-			} else {
+			if (err) {
 				console.log('Could not add ' + username + ' to trip ' + tid + '.');
 				req.flash('error', 'Could not add user to trip.');
 				return res.redirect(req.header('Referer') || '/');
+			} else {
+				trip.deleteTripRequest(tid, username, function(deleted) {
+					if (!deleted) {
+						console.log('Could not delete request by ' + username + ' for trip ' + tid + '.');
+						req.flash('error', 'Could not remove trip request.'); 
+					}
+					else {
+						console.log(username + ' is on now trip ' + tid + '.');
+						return res.redirect(req.header('Referer') || '/');
+					}
+
+				});
 			}
 		});
 	});
