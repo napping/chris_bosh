@@ -115,8 +115,24 @@ exports.getUrlByID = function (pid, cb) {
     });
 }
 
+exports.getUserProfile = function (username, cb) { 
+    var stmt =  " SELECT P.pid, P.url " +
+                " FROM Photo P " +
+                " INNER JOIN Media M ON M.mid = P.pid AND M.type = \'Photo\' "+
+                " INNER JOIN Owns O ON O.mid = M.mid AND O.type = \'Photo\' "+
+                " WHERE O.username = :1 AND ROWNUM = 1"+
+                " ORDER BY P.pid ";
+    console.log(stmt);
 
-
+	db.connection.execute(stmt, [username], function (err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+            console.log( "Found profile photo for user " + username + ".");
+            cb(null, results[0]);
+		}
+	});
+}
 
 
 

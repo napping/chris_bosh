@@ -134,7 +134,6 @@ exports.profile = function(req, res) {
                         albums = userAlbums;
                     });
 
-
                     user.getTrips(username, function(err, trips) {
 						if (err) {
 							console.log('Could not load trips for '

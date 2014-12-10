@@ -1,5 +1,6 @@
 var db = require('../../config/db'),
     user = require('../models/user'),
+    photo = require('../models/photo'),
     utils = require('./utils');
 
 var _ = require('underscore'),
@@ -14,28 +15,38 @@ exports.index = function(req, res) {
                 req.flash('error', 'Could not load profile.');
                 return res.redirect('/'); // TODO: something more intelligent here
             } else {
-                user.friends(username, function(err, friends) {
-                    if (err) {
-                        console.log('Could not load friends for ' + username + '.',
-                            err);
-                        req.flash('error', 'Could not load profile.');
-                        return res.redirect('/');
+                photo.getUserProfile(username, function (err, foundProfilePicture) {
+                    var profilePicture = 0;
+                    if (err || !foundProfilePicture) { 
+                        console.log('Could not find profile picture for user', username);
                     } else {
-
-                        // This is doing privacy filtering at the query level.
-                        user.newsfeed(username, function(err, newsfeed) {
-                            if (err) {
-                                console.log('Could not load ' + username + '\'s newsfeed.', err);
-                            }
-                            return res.render('home', {
-                                user: userObj,
-                                friends: _.map(friends, function(f) {return f.USERNAME}),
-                                requests: [],
-                                newsfeed: newsfeed || [],
-                                profile: null
-                            });
-                        });
+                        console.log(foundProfilePicture);
+                        profilePicture = foundProfilePicture;
                     }
+                    user.friends(username, function(err, friends) {
+                        if (err) {
+                            console.log('Could not load friends for ' + username + '.',
+                                err);
+                            req.flash('error', 'Could not load profile.');
+                            return res.redirect('/');
+                        } else {
+
+                            // This is doing privacy filtering at the query level.
+                            user.newsfeed(username, function(err, newsfeed) {
+                                if (err) {
+                                    console.log('Could not load ' + username + '\'s newsfeed.', err);
+                                }
+                                    console.log(">>>>", profilePicture);
+                                return res.render('home', {
+                                    user: userObj,
+                                    friends: _.map(friends, function(f) {return f.USERNAME}),
+                                    requests: [],
+                                    profile: profilePicture,
+                                    newsfeed: newsfeed || [],
+                                });
+                            });
+                        }
+                    });
                 });
             }
         });
