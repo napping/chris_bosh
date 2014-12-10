@@ -12,7 +12,7 @@
             <% } %>
 
             <div class="col-md-3">
-                <img src="<%= photos[i].URL %>"/>
+                <a href="<%= photos[i].URL %>"><img src="<%= photos[i].URL %>"/></a>
             </div>
 
             <% if ((i % 4 == 3) || (i == photos.length -1)) { %>
@@ -22,13 +22,15 @@
         <% } %>
 
         </div>
-    <div class="upload-photo">
-        <form method="post" action="/photo">
-            <h5>Paste photo URL here:</h5>
-            <input class="input-photo" type="text" name="url">
-            <input class="input-submit-photo" type="submit" value="Upload Photo"></input>
-        </form>
-    </div>
+    <% if (typeof(upload) != "undefined" && upload == 1) { %>
+        <div class="upload-photo">
+            <form method="post" action="/photo">
+                <h5>Paste photo URL here:</h5>
+                <input class="input-photo" type="text" name="url">
+                <input class="input-submit-photo" type="submit" value="Upload Photo"></input>
+            </form>
+        </div>
+    <% } %>
 </div>
 
 
