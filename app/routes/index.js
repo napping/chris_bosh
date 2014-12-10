@@ -35,9 +35,13 @@ module.exports = function(app) {
     app.get('/trips/:id', trip.show);
     app.post('/trips/:id', auth.requireLogin, trip.requestTrip);
     //is there a better way to do this?
-    app.get('/trips/:id/:username/accept', auth.requireLogin, trip.addAttendee);
-    app.get('/trips/:id/:username/decline', auth.requireLogin, trip.declineRequest);
-    app.post('/trips/leave/:id', auth.requireLogin, trip.removeAttendee);
+    app.get('/trips/:id/:username/acceptRequest', auth.requireLogin, trip.acceptRequest);
+    app.get('/trips/:id/:username/declineRequest', auth.requireLogin, trip.declineRequest);
+    app.get('/trips/:id/acceptInvitation', auth.requireLogin, trip.acceptInvitation);
+    app.get('/trips/:id/declineInvitation', auth.requireLogin, trip.declineInvitation);
+
+    app.post('/trips/:id/invite', auth.requireLogin, trip.inviteUser)
+    app.post('/trips/:id/leave', auth.requireLogin, trip.removeAttendee);
     app.get('/trips/:id/edit', auth.requireLogin, trip.edit);
     app.post('/trips/:id/edit', auth.requireLogin, trip.put);
     app.post('/trips', auth.requireLogin, trip.create);

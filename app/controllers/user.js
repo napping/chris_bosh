@@ -146,17 +146,27 @@ exports.profile = function(req, res) {
 											console.log('Error loading friend requests for ' + username + '.', err);
 											return res.redirect('/');
 										} else {
-											return res.render('user', {
-												user: userObj,
-												// convert from object array to string array
-												friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
-												trips: trips,
-												destinations: destinations,
-												requests: requests,
-                                                photos: photos,
-                                                profile: profilePhoto,
-                                                upload: 1
+
+											user.tripInvitations(username, function(err, invitations) {
+												if (err) {
+													console.log('Error loading trip invitations for ' + username + '.', err);
+													return res.redirect('/');
+												} else {
+													return res.render('user', {
+														user: userObj,
+														// convert from object array to string array
+														friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+														trips: trips,
+														destinations: destinations,
+														requests: requests,
+                                               			photos: photos,
+														invitations: invitations,
+														profile: profilePhoto,
+														upload: 1
+													});
+												}
 											});
+											
 										}
 									});
 								} else {

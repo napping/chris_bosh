@@ -1,5 +1,6 @@
 var trip = require('../models/trip');
 var comment = require('../models/comment');
+var user = require('../models/user');
 
 var _ = require('underscore');
 
@@ -33,14 +34,39 @@ exports.show = function(req, res) {
 								currTrip.TID + '.', err);
 							return res.redirect('/');
 						}
-
-						return res.render('trips', {
-							trip: currTrip,
-							attendees: _.map(attendees, function(f) { return f.USERNAME; }),
-							destinations: destinations,
-							requests: requests,
-							comments: comments
-						});
+					if (req.session.username && currTrip.OWNER == req.session.username.toLowerCase()) {
+						user.friends(currTrip.OWNER, function(err, friends) {
+							if (err || !friends) {
+								console.log('Could not load invitation candidates on ' +
+									currTrip.TID + '.' + err);
+								return res.render('/');
+							} else {
+								var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
+									return res.render('trips', {
+										trip: currTrip,
+										attendees: attendeeNames,
+										destinations: destinations,
+										invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
+										requests: requests,
+										comments: comments,
+										partials: {
+											destination: 'partials/trips'
+										}
+									});
+								}
+							});
+						} else {
+							return res.render('trips', {
+								trip: currTrip,
+								attendees: _.map(attendees, function(f) { return f.USERNAME; }),
+								destinations: destinations,
+								requests: requests,
+								comments: comments,
+								partials: {
+									destination: 'partials/trips'
+								}
+							});
+						}
 					});
 				});
 			});
@@ -70,6 +96,33 @@ exports.edit = function(req, res) {
 	});
 };
 
+exports.inviteUser = function(req, res) {
+	var tid = req.params.id;
+	var username = req.body.username.toLowerCase();
+	var currUser = req.session.username.toLowerCase();
+
+	trip.load(tid, function(err, tripObj) {
+		if (err || !tripObj || tripObj.length === 0) {
+			console.log('Trip ' + tid + ' could not be loaded.');
+			return res.redirect('/');
+		}
+		if (tripObj.OWNER != currUser) {
+			console.log('Could not send invitation for trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		}
+		trip.sendInvitation(tid, currUser, username, function(err) {
+			if (!err) {
+				console.log(currUser + ' invited ' + username + ' to go on trip ' + tid + '.');
+				return res.redirect(req.header('Referer') || '/');
+			} else {
+				console.log('Could not invite ' + username + ' to trip ' + tid + '.');
+				req.flash('error', 'Could not invite user to trip.');
+				return res.redirect(req.header('Referer') || '/');
+			}
+		});
+	});
+}
+
 exports.requestTrip = function(req, res) {
 
 	var tid = req.params.id;
@@ -89,10 +142,51 @@ exports.requestTrip = function(req, res) {
 			return res.redirect('/trips/' + tid);
 		});
 	});
-
 }
 
-exports.addAttendee = function(req, res) {
+exports.acceptInvitation = function (req, res) {
+	var currUser = req.session.username.toLowerCase();
+	var tid = req.params.id;
+
+	trip.load(tid, function(err, tripObj) {
+		if (err || !tripObj || tripObj.length === 0) {
+			console.log('Trip ' + tid + ' could not be loaded.');
+			return res.redirect('/');
+		}
+		user.tripInvitations(currUser, function(err, invitations) {
+			if (err || !invitations) {
+				console.log('Could not load trip invitations.');
+				return res.redirect(req.header('Referer') || '/');
+			} else {
+				var invitation_tids = _.map(invitations, function (f) { return f.TID });
+				if (invitation_tids.indexOf(Number(tid)) === -1) {
+					console.log('User not invited on this trip.');
+					return res.redirect(req.header('Referer') || '/');
+				}
+				else {
+							trip.addAttendee(tid, currUser, function(err, results) {
+								if (err) {
+									console.log('Could not add user to trip.');
+									return res.redirect(req.header('Referer') || '/');
+								} else {
+								trip.deleteTripInvitation(tid, currUser, function(err) {
+									if (err) {
+										console.log('Could not remove trip invitation.');
+										return res.redirect(req.header('Referer') || '/');
+									} else {
+										console.log(currUser + ' is on now trip ' + tid + '.');
+										return res.redirect(req.header('Referer') || '/');
+									}
+								});
+							}
+					});
+				}
+			}
+		});
+	});
+}
+
+exports.acceptRequest = function(req, res) {
 	var currUser = req.session.username.toLowerCase();
 	var tid = req.params.id;
 	var username = req.params.username.toLowerCase();
@@ -106,6 +200,7 @@ exports.addAttendee = function(req, res) {
 			console.log('Could not accept request for trip ' + tid + '.');
 			return res.redirect('/trips/' + tid);
 		}
+		//add check for request
 		trip.addAttendee(tid, username, function(err, results) {
 			if (!err) {
 				console.log(username + ' is on now trip ' + tid + '.');
@@ -130,7 +225,7 @@ exports.declineRequest = function (req, res) {
 			return res.redirect('/');
 		}
 		if (tripObj.OWNER != currUser) {
-			console.log('Could not accept request for trip ' + tid + '.');
+			console.log('Could not decline request for trip ' + tid + '.');
 			return res.redirect('/trips/' + tid);
 		}
 		trip.deleteTripRequest(tid, username, function(deleted) {
@@ -141,6 +236,32 @@ exports.declineRequest = function (req, res) {
 			}
 			return res.redirect(req.header('Referer') || '/');
 		});
+	});
+}
+
+exports.declineInvitation = function (req, res) {
+	var currUser = req.session.username.toLowerCase();
+	var tid = req.params.id;
+
+	user.tripInvitations(currUser, function(err, invitations) {
+		if (err || !invitations) {
+			console.log('Could not load trip invitations.');
+			return res.redirect(req.header('Referer') || '/');
+		} else {
+			if (_.map(invitations, function (f) { return f.TID }).indexOf(Number(tid)) === -1) {
+				console.log('User not invited on this trip');
+				return res.redirect(req.header('Referer') || '/');
+			}
+			trip.deleteTripInvitation(tid, currUser, function(deleted) {
+				if (!deleted) {
+					console.log('Could not decline the invitation of ' + currUser + ' for trip ' + tid + '.');
+					return res.redirect(req.header('Referer') || '/');
+				} else {
+					console.log(currUser + '\'s invitation to be on trip ' + tid + ' was declined.');
+					return res.redirect(req.header('Referer') || '/');
+				}
+			});
+		}
 	});
 }
 

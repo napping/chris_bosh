@@ -10,8 +10,8 @@
 				<% for (var i = 0; i < requests.length; i++) { %>
 	            	<li><div><img src="/images/filler.jpg"/><a href="/users/<%= requests[i].USERNAME 
             		%>"><strong><%= requests[i].USERNAME %></strong></a>
-	            	| <a class="accept" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/accept">ACCEPT</a> 
-	            	| <a class="decline" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/decline">DECLINE</a>
+	            	| <a class="accept" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/acceptRequest">ACCEPT</a> 
+	            	| <a class="decline" href="/trips/<%= trip.TID %>/<%= requests[i].USERNAME%>/declineRequest">DECLINE</a>
 	            	</div></li>
 	            <% } %>
 			</ul>
@@ -22,7 +22,7 @@
 	            <li><input type="submit" class="linkButton" value="Request Trip"></li>
 	        </form>
 	    <% } else { %>
-	        <form role="form" action="/trips/leave/<%=trip.TID %>" method="post">
+	        <form role="form" action="/trips/<%=trip.TID %>/leave" method="post">
 	            <li><input type="submit" class="linkButton" value="Leave Trip"></li>
 	        </form>
 	    <% } %>

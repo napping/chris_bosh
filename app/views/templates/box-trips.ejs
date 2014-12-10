@@ -1,4 +1,18 @@
 <div class="box box-trips">
+	<% if (authUser && authUser === user.USERNAME.toLowerCase()) { %>
+		<h3>Trip Invitations</h3>
+		<div class="list-friends">
+			<ul>
+				<% for (var i = 0; i < invitations.length; i++) { %>
+	            	<li><div><img src="/images/filler.jpg"/><a href="/trips/<%= invitations[i].TID 
+            		%>"><strong><%= invitations[i].TRIPNAME %> (invited by <%= invitations[i].INVITER %>)</strong></a>
+	            	| <a class="accept" href="/trips/<%= invitations[i].TID %>/acceptInvitation">ACCEPT</a> 
+	            	| <a class="decline" href="/trips/<%= invitations[i].TID %>/declineInvitation">DECLINE</a>
+	            	</div></li>
+	            <% } %>
+			</ul>
+		</div>
+    <% } %>
     <div class="list-trips">
         <h3>Trips</h3>
         <ul>
@@ -9,3 +23,4 @@
         </ul>
     </div>
 </div>
+

@@ -59,7 +59,7 @@ exports.friends = function(username, cb) {
 	} else {
 		var stmt = '(SELECT F.username2 as username FROM Friendship F WHERE username1=:1) ' + 
 					'UNION ' +
-					 '(SELECT F.username1 as username FROM Friendship F WHERE username2=:1)';
+					'(SELECT F.username1 as username FROM Friendship F WHERE username2=:1)';
 		db.connection.execute(stmt, [username], function(err, results) {
 			cb(err, results);
 		});
@@ -115,6 +115,20 @@ exports.deleteFriendRequest = function(requester, requestee, cb) {
 
 exports.friendRequests = function(username, cb) {
 	var stmt = 'SELECT requester FROM FriendRequest WHERE requestee=:1';
+	db.connection.execute(stmt, [username.toLowerCase()], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, results);
+		}
+	});
+};
+
+exports.tripInvitations = function(username, cb) {
+	var stmt = 'SELECT T.name AS tripname, T.tid AS tid, I.username1 AS inviter ' +
+			   'FROM InviteTrip I ' +
+			   'INNER JOIN Trip T ON T.tid=I.tid ' +
+			   'WHERE username2=:1';
 	db.connection.execute(stmt, [username.toLowerCase()], function(err, results) {
 		if (err) {
 			cb(err, null);
