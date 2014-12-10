@@ -59,7 +59,7 @@ exports.friends = function(username, cb) {
 	} else {
 		var stmt = '(SELECT F.username2 as username FROM Friendship F WHERE username1=:1) ' + 
 					'UNION ' +
-					 '(SELECT F.username1 as username FROM Friendship F WHERE username2=:1)';
+					'(SELECT F.username1 as username FROM Friendship F WHERE username2=:1)';
 		db.connection.execute(stmt, [username], function(err, results) {
 			cb(err, results);
 		});
@@ -124,6 +124,20 @@ exports.friendRequests = function(username, cb) {
 	});
 };
 
+exports.tripInvitations = function(username, cb) {
+	var stmt = 'SELECT T.name AS tripname, T.tid AS tid, I.username1 AS inviter ' +
+			   'FROM InviteTrip I ' +
+			   'INNER JOIN Trip T ON T.tid=I.tid ' +
+			   'WHERE username2=:1';
+	db.connection.execute(stmt, [username.toLowerCase()], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, results);
+		}
+	});
+};
+
 exports.addFriend = function(requester, requestee, cb) {
 	exports.requestPending(requester, requestee, function(pending) {
 		if (!pending) {
@@ -165,6 +179,20 @@ exports.removeFriend = function(username1, username2, cb) {
 		}
 	});		   
 };
+
+exports.allCotravelers = function(username, cb) {
+	var stmt = 'SELECT G.username FROM GoesOn G ' +
+			   'WHERE G.tid '+
+			   'IN (SELECT G2.tid FROM GoesOn G2 WHERE G2.username = :1) ' +
+			   'AND G.username <> :1'
+	db.connection.execute(stmt, [username], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else{
+			cb(null, results);
+		}
+	})
+}
 
 exports.getTrips = function(username, cb) {
 	var stmt = 'SELECT T.tid, T.name FROM Trip T ' +
@@ -223,3 +251,34 @@ exports.forDestination = function(did, curUser, cb) {
 		}
 	});
 }
+
+exports.newsfeed = function(username, cb) {
+	var stmt = 'SELECT * FROM (SELECT M.mid AS id, M.type AS type, T.name AS name, O.username AS owner ' +
+		'FROM Trip T ' +
+		'INNER JOIN Media M ON T.tid = M.mid AND T.source = M.source AND T.type = M.type ' +
+		'INNER JOIN Owns O ON M.mid = O.mid AND M.source = O.source AND M.type = O.type ' +
+		'WHERE rownum <= 10 AND O.username IN ' +
+			'(SELECT username2 AS u FROM Friendship WHERE username1=:1 UNION ' +
+			'SELECT username1 AS u FROM Friendship WHERE username2=:1) ' +
+			'AND (M.privacy=\'public\' OR (M.privacy=\'sharedWithTripMembers\' AND :1 IN ' +
+			'(SELECT username FROM GoesOn WHERE tid=T.tid AND source=T.source)))' +
+
+		' UNION ' +
+		
+		'SELECT M.mid AS id, M.type AS type, P.url AS url, O.username AS owner ' +
+		'FROM Photo P ' +
+		'INNER JOIN Media M ON P.pid = M.mid AND P.source = M.source AND P.type = M.type ' +
+		'INNER JOIN Owns O ON M.mid = O.mid AND M.source = O.source AND M.type = O.type ' +
+		'WHERE rownum <= 10 AND O.username IN ' +
+			'(SELECT username2 AS u FROM Friendship WHERE username1=:1 UNION ' +
+			'SELECT username1 AS u FROM Friendship WHERE username2=:1) AND ' +
+			'(M.privacy=\'public\')) ORDER BY rownum DESC';
+
+	db.connection.execute(stmt, [username], function(err, newsfeed) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, newsfeed);
+		}
+	});
+};

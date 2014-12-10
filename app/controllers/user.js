@@ -156,17 +156,35 @@ exports.profile = function(req, res) {
 											console.log('Error loading friend requests for ' + username + '.', err);
 											return res.redirect('/');
 										} else {
-											return res.render('user', {
-												user: userObj,
-												// convert from object array to string array
-												friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
-												trips: trips,
-												destinations: destinations,
-												requests: requests,
-                                                photos: photos,
-                                                albums: albums,
-                                                profile: profilePhoto,
-                                                upload: 1
+											user.tripInvitations(username, function(err, invitations) {
+												if (err) {
+													console.log('Error loading trip invitations for ' + username + '.', err);
+													return res.redirect('/');
+												} else {
+                                                  user.allCotravelers(username, function(err, cotravelers) {
+                                                    if (err) {
+                                                      console.log('Error loading recommended friends for ' + username + '.', err);
+                                                      return res.redirect('/');
+                                                    } else {
+                                                      var friendNames = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
+                                                      var cotravelerNames = _.map(cotravelers, function(f) { return f.USERNAME.toLowerCase(); });
+                                                      return res.render('user', {
+                                                        user: userObj,
+                                                        // convert from object array to string array
+                                                        friends: friendNames,
+                                                        trips: trips,
+                                                        destinations: destinations,
+                                                        requests: requests,
+                                                        photos: photos,
+                                                        albums: albums,
+                                                        invitations: invitations,
+                                                        profile: profilePhoto,
+                                                        upload: 1,
+                                                        recommendedFriends: _.filter(cotravelerNames, function(f) { return friendNames.indexOf(f) === -1})
+                                                      });
+                                                    }
+                                                  })
+												}
 											});
 										}
 									});
@@ -182,7 +200,6 @@ exports.profile = function(req, res) {
                                         albums: albums,
                                         upload: 0,
                                         requests: []
-
 									});
 								}
 							}

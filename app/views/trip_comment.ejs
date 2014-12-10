@@ -1,0 +1,21 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    
+    <div class="eight-logo">
+        <h2>Leave Comment</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/trips/<%= id %>/comment" method="post">
+            <div>
+                <label for="id-comment">Name: </label>
+                <textarea id="id-comment" rows="4" cols="50" name="review"></textarea>
+            </div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>

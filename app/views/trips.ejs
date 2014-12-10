@@ -18,9 +18,30 @@
                         <strong><%= attendees[i] %></strong></a></div></li>
                     <% } %>
                 </ul>
+                <% if (authUser && authUser == trip.OWNER) { %>
+                  <h3>Invite</h3>
+                  <form id="invite_form" role="form" action="/trips/<%= trip.TID %>/invite" method="post">
+                      <select form="invite_form" name="username">
+                      <% for (var i = 0; i < invitationCandidates.length; i++) { %>
+                        <option value="<%= invitationCandidates[i].USERNAME %>"><%= invitationCandidates[i].USERNAME %></option>
+                      <% } %>
+                      </select>
+                      <div class="submit-credentials">
+                        <a id="submit-credentials"><button type="submit" name="submit" value="Submit">Invite</button></a>
+                     </div>
+                  </form>
+                <% } %>
             </div>
           </div>
         </div>
+    </div>
+
+    <div class="row box-row">
+      <div class="col-md-4"></div>
+
+      <div class="col-md-4"><% include templates/box-comments %></div>
+
+      <div class="col-md-4"></div>
     </div>
 
 </div>
