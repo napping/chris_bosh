@@ -1,4 +1,19 @@
 <div class="box box-friends">
+	<% if (authUser && authUser === user.USERNAME.toLowerCase()) { %>
+		<div class="list-friends">
+			<h3>Friend Requests</h3>
+			<ul>
+				<% for (var i = 0; i < requests.length; i++) { %>
+	            	<li><div><img src="/images/filler.jpg"/><a href="/users/<%= requests[i].REQUESTER 
+	            	%>"><strong><%= requests[i].REQUESTER %></strong></a> 
+	            	
+	            	| <a class="accept" href="/friends/<%= requests[i].REQUESTER%>/accept">ACCEPT</a> 
+	            	| <a class="decline" href="/friends/<%= requests[i].REQUESTER%>/decline">DECLINE</a>
+	            	</div></li>
+	            <% } %>
+			</ul>
+		</div>
+	<% } %>
     <div class="list-friends">
         <h3>Friends</h3>
         <ul>

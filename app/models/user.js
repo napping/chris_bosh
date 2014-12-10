@@ -64,20 +64,92 @@ exports.friends = function(username, cb) {
 			cb(err, results);
 		});
 	}
-}
+};
 
-exports.addFriend = function(username1, username2, cb) {
-	var stmt = 'INSERT INTO Friendship(username1, username2) VALUES (:1, :2)';
-	db.connection.execute(stmt, [username1, username2], function(err, results) {
+exports.friendsWith = function(username1, username2, cb) {
+	if (!username1 || !username2) {
+		cb('Invalid usernames.', null);
+	} else {
+		var stmt = 'SELECT * FROM Friendship F WHERE (username1=:1 AND username2=:2) ' +
+			'OR (username2=:1 AND username1=:2)';
+		db.connection.execute(stmt, [username1, username2], function(err, results) {
+			if (err || results.length === 0) {
+				cb(false);
+			} else {
+				cb(true);
+			}
+		});
+	}
+};
+
+exports.requestPending = function(requester, requestee, cb) {
+	var stmt = 'SELECT * FROM FriendRequest WHERE requester=:1 AND requestee=:2';
+	db.connection.execute(stmt, [requester, requestee], function(err, results) {
+		if (err) {
+			cb(false);
+		} else if (results.length === 0) {
+			cb(false);
+		} else {
+			cb(true);
+		}
+	});
+};
+
+exports.requestFriend = function(requester, requestee, cb) {
+	var stmt = 'INSERT INTO FriendRequest (requester, requestee) VALUES (:1, :2)';
+	db.connection.execute(stmt, [requester, requestee], function(err, results) {
+		if (err) {
+			cb(false);
+		} else {
+			cb(true);
+		}
+	});
+};
+
+exports.deleteFriendRequest = function(requester, requestee, cb) {
+	var stmt = 'DELETE FROM FriendRequest WHERE requester=:1 AND requestee=:2';
+	db.connection.execute(stmt, [requester, requestee], function(err, results) {
+		return cb(!err);
+	});
+};
+
+exports.friendRequests = function(username, cb) {
+	var stmt = 'SELECT requester FROM FriendRequest WHERE requestee=:1';
+	db.connection.execute(stmt, [username.toLowerCase()], function(err, results) {
 		if (err) {
 			cb(err, null);
-		} else if (results.length === 0) {
-			cb('Already friends with this user.', null);
 		} else {
-			cb(null, results)
-		} 
+			cb(null, results);
+		}
 	});
-}
+};
+
+exports.addFriend = function(requester, requestee, cb) {
+	exports.requestPending(requester, requestee, function(pending) {
+		if (!pending) {
+			cb('No friend request pending.', null);
+		} else {
+			var stmt2 = 'DELETE FROM FriendRequest WHERE requester=:1 AND requestee=:2';
+			db.connection.execute(stmt2, [requester, requestee], function(err, results) {
+				if (err) {
+					cb(err, null);
+				} else {
+
+					var stmt3 = 'INSERT INTO Friendship(username1, username2) VALUES (:1, :2)';
+					db.connection.execute(stmt3, [requester, requestee], function(err, results) {
+						if (err) {
+							cb(err, null);
+						} else if (results.length === 0) {
+							cb('Already friends with this user.', null);
+						} else {
+							cb(null, results)
+						} 
+					});
+				}
+			});
+		}
+	});
+};
 
 exports.removeFriend = function(username1, username2, cb) {
 	var stmt = 'DELETE FROM Friendship WHERE ' +
@@ -92,7 +164,7 @@ exports.removeFriend = function(username1, username2, cb) {
 			cb(null);
 		}
 	});		   
-}
+};
 
 exports.getTrips = function(username, cb) {
 	var stmt = 'SELECT T.tid, T.name FROM Trip T ' +

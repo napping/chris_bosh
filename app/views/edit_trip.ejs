@@ -1,0 +1,29 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    
+    <div class="eight-logo">
+        <h2>Edit Your Profile</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/trips/<%= trip.TID %>/edit" method="post">
+            <div>
+                <label for="id-name">Name: </label>
+                <input id="id-name" name="name" type="text" maxlength="256" value="<% if (trip.NAME) { %><%= trip.NAME %><% } %>">
+            </div>
+            <div>
+                <label for="id-packing-list">Packing List: </label>
+                <input id="id-packing-list" name="packing_list" type="text" maxlength="256" value="<% if (trip.PACKING_LIST) { %><%= trip.PACKING_LIST %><% } %>">
+            </div>
+            <div>
+                <label for="id-expenses">Expenses: </label>
+                <input id="id-expenses" name="expenses" type="text" maxlength="256" value="<% if (trip.EXPENSES) { %><%= trip.EXPENSES %><% } %>">
+            </div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>

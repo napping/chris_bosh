@@ -5,3 +5,4 @@ script.sh
 *.log
 *.swp
 *.swo
+.DS_Store
