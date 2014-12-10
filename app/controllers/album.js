@@ -21,33 +21,39 @@ exports.create = function(req, res) {
     });
 }
 
-
-
-//////////////////////////////////////////////////////////////////////////////
 exports.show = function(req, res) {
-    album.load(req.params.id, function(err, album) {
-        console.log("LOADING ALBUM");
-        var aid = req.params.id;
-        if (err || !album || album.length === 0) {
-            console.log('Album ' + aid + ' not found.', err);
-            return res.redirect('/');
+    var username = req.session.username;
+    var aid = req.params.id;
+    album.verifyUser(username, aid, function (err, allowed) { 
+        if (allowed) { 
+            album.load(aid, function(err, album) {
+                if (err || !album || album.length === 0) {
+                    console.log('Album ' + aid + ' not found.', err);
+                    return res.redirect('/');
+                }
+                photos = [];
+                photo.forAlbum(aid, username, function(err, foundPhotos) { 
+                    if (err) {
+                        console.log('Could not find photos for album ', album.NAME, '.');
+                        req.flash('error', 'Could not find photos for album.');
+                        return res.redirect('/');
+                    }
+                    photos = foundPhotos;
+                    return res.render('album', {
+                        name: album.NAME,
+                        aid: album.AID,
+                        privacy: album.PRIVACY,
+                        photos: photos
+                    });
+                });
+           });
+        } else { 
+            var backURL = req.header('Referer') || '/';
+
+            console.log("User", username, "is not allowed to view album", aid);
+            return res.redirect(backURL);
         }
-        photos = [];
-        photo.forAlbum(aid, req.session.username, function(err, foundPhotos) { 
-            if (err) {
-                console.log('Could not find photos for album ', album.NAME, '.');
-                req.flash('error', 'Could not find photos for album.');
-                return res.redirect('/');
-            }
-            photos = foundPhotos;
-            return res.render('album', {
-                name: album.NAME,
-                aid: album.AID,
-                privacy: album.PRIVACY,
-                photos: photos
-            });
-        });
-   });
+    });
 };
 
 exports.uploadPhoto = function(req, res) { 

@@ -92,9 +92,9 @@ exports.forAlbum = function(aid, username, cb) {
                 " INNER JOIN Media M ON M.mid = P.pid AND M.type = \'Photo\' "+
                 " INNER JOIN Owns O ON O.mid = M.mid AND O.type = \'Photo\' "+
                 " INNER JOIN InAlbum IA ON IA.mid = M.mid AND IA.type = \'Photo\' "+
-                " WHERE IA.aid = :1 AND O.username = :2 "+
+                " WHERE IA.aid = :1 "+
                 " ORDER BY P.pid ";
-	db.connection.execute(stmt, [aid, username], function (err, results) {
+	db.connection.execute(stmt, [aid], function (err, results) {
 		if (err) {
 			cb(err, null);
 		} else {

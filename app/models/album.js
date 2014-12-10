@@ -55,4 +55,54 @@ exports.forUser = function(username, cb) {
 	});
 }
 
-
+exports.verifyUser = function(username, aid, cb) { 
+    var stmt =  " SELECT A.privacy, A.username " + 
+                " FROM ALBUM A " +  
+                " WHERE A.aid = :1 ";
+    db.connection.execute(stmt, [aid], function (err, results) { 
+        if (err) { 
+            cb(err, null);
+        } else { 
+            var privacy = results[0].PRIVACY;
+            var owner = results[0].USERNAME;
+            switch (privacy) { 
+                case "public":
+                    cb(null, true);
+                    break;
+                case "private":
+                    if (owner == username) { 
+                        cb(null, true);
+                    } else { 
+                        cb(null, false);
+                    }
+                    break;
+                case "sharedWithTripMembers":
+                    var stmt2 = " SELECT U.username " + 
+                                " FROM Users U " +  
+                                " INNER JOIN GoesOn GO ON GO.username = U.username " +  
+                                " INNER JOIN AlbumOfTrip AOT ON AOT.tid = GO.tid " +  
+                                " WHERE AOT.aid = :1 ";
+                    db.console.execute(stmt2, [aid], function (err, results) { 
+                        if (err) { 
+                            cb(err, null);
+                        } else {
+                            allowedUsernames = [];
+                            console.log("Allowed usernames : ", results);
+                            for (tripUser in results) { 
+                                allowedUsernames.push(tripUser.USERNAME);
+                            }
+                            if (allowedUsernames.indexOf(username)) { 
+                                err(null, true);
+                            } else { 
+                                err(null, false);
+                            }
+                        }
+                    });
+                    break;
+                default:
+                    cb(null, false);
+                    break;
+            }
+        }
+    });
+}
