@@ -1,6 +1,7 @@
 var crypto		 = require('crypto'),
     user  		 = require('../models/user'),
-    destination  = require('../models/destination')
+    destination  = require('../models/destination'),
+    photo        = require('../models/photo'),
     _     		 = require('underscore');
 
 exports.login = function(req, res) {
@@ -113,8 +114,16 @@ exports.profile = function(req, res) {
 					req.flash('error', 'Could not load profile.');
 					return res.redirect('/');
 				} else {
+                    photos = [];
+                    photo.forUser( username, function(err, userPhotos) {
+                        if (err || !photos) {
+                            console.log('Photos not found.', err);
+                            return res.redirect('/');
+                        }
+                        photos = userPhotos;
+                    });
 
-					user.getTrips(username, function(err, trips) {
+                    user.getTrips(username, function(err, trips) {
 						if (err) {
 							console.log('Could not load trips for '
 							 + username + '.', err);
@@ -141,7 +150,8 @@ exports.profile = function(req, res) {
 												friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
 												trips: trips,
 												destinations: destinations,
-												requests: requests
+												requests: requests,
+                                                photos: photos
 											});
 										}
 									});
@@ -151,7 +161,8 @@ exports.profile = function(req, res) {
 										// convert from object array to string array
 										friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
 										trips: trips,
-										destinations: destinations
+										destinations: destinations,
+                                        photos: photos
 									});
 								}
 							}
@@ -159,8 +170,8 @@ exports.profile = function(req, res) {
 					});
 				}
 			});
-		}
-	});
+        }
+    });
 };
 
 // TODO: probably will not need this controller or route.
@@ -278,3 +289,16 @@ exports.addTrip = function (req, res) {
 		}
 	});
 };
+
+exports.getPhotos = function (req, res) {
+	var username = req.params.username.toLowerCase();
+	photo.forUser( username, function(err, photos) {
+		if (err || !photos || photos.length === 0) {
+			console.log('Photos not found.', err);
+			return res.redirect('/');
+		}
+        return res.render('photos', {
+            photos: photos
+        });
+	});
+}

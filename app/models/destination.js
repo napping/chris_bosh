@@ -1,5 +1,6 @@
 var db = require('../../config/db'),
     user = require('./user'),
+    _ = require('underscore'),
 	oracle = require('oracle');
 
 exports.load = function(did, cb) {

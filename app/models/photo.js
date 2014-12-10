@@ -11,7 +11,6 @@ exports.create = function(url, username, cb) {
 			cb(err, null);
 		} else {
 			console.log(username);
-            console.log(results);
 			var pid = results.returnParam;
 			console.log(pid);
 			var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
@@ -20,7 +19,7 @@ exports.create = function(url, username, cb) {
 				if (err) {
 					cb(err, null);
 				} else {
-                    console.log(url, pid);
+                    console.log(url, pid, username);
 					var stmt3 = 'INSERT INTO Photo (pid, url) VALUES (:1, :2)';
 					db.connection.execute(stmt3, [pid, url], function(err, results) {
 						// We should never really expect an error to occur here.
@@ -32,37 +31,18 @@ exports.create = function(url, username, cb) {
 	});
 }
 
-exports.forUser = function(username, curUser, cb) {
+exports.forUser = function(username, cb) {
     var stmt =  " SELECT P.pid, P.url " +
                 " FROM Photo P " +
-                " INNER JOIN Media M ON M.mid = P.pid AND M.type = P.type "+
-                " INNER JOIN Owns O ON O.mid = M.mid AND O.type = M.type "+
-                " INNER JOIN User U ON U.username + O.username "+
-                " WHERE U.username = :1";
+                " INNER JOIN Media M ON M.mid = P.pid AND M.type = \'Photo\' "+
+                " INNER JOIN Owns O ON O.mid = M.mid AND O.type = \'Photo\' "+
+                " WHERE O.username = :1 ";
 
 	db.connection.execute(stmt, [username], function (err, results) {
 		if (err) {
 			cb(err, null);
 		} else {
-			user.friends(curUser, function(err, friends) {
-				if (err) {
-					cb(err, null);
-				} else {
-					var photos = [];
-					friends = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
-					for (var i = 0; i < results.length; i++) {
-						if (results[i].PRIVACY === 'public') {
-							photos.push(results[i]);
-						} else if (results[i].PRIVACY === 'sharedWithTripMembers' && 
-							(friends.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
-							photos.push(results[i]);
-						} else if (results[i].PRIVACY === 'private' && curUser === results[i].OWNER) {
-							photos.push(results[i]);
-						}
-					}
-				}
-				cb(null, photos);
-			});
+            cb(null, results);
 		}
 	});
 }
@@ -73,7 +53,6 @@ exports.getUrlByID = function (pid, cb) {
 		if (err) {
 			cb(err, null);
 		} else {
-            console.log("results:", results[0].URL);
             cb(err, results[0].URL);
         }
     });

@@ -1,5 +1,5 @@
 var photo       = require('../models/photo'),
-	user        = require('../models/user');
+	user        = require('../models/user'),
 	trip        = require('../models/trip');
 
 var _ = require('underscore');
@@ -11,7 +11,7 @@ exports.show = function (req, res) {
 			req.flash('error', 'Could not find photo.');
 			return res.redirect('/');
 		}
-		console.log('Created photo.');
+		console.log('Showing photo.');
         return res.render( "photo", { url: url } );
     });
 
@@ -34,3 +34,18 @@ exports.create = function(req, res) {
 		return res.redirect('/photo/' + pid);
 	});
 };
+
+// Not used, method was moved to controller/user.js
+exports.showUserPhotos = function (req, res) {
+    console.log("Params : ", req.params);
+	photo.forUser(req.params.username, function(err, photos) {
+		if (err || !destination || destination.length === 0) {
+			console.log('Destination ' + req.params.id + ' not found.', err);
+			return res.redirect('/');
+		}
+
+        return res.render('destination', {
+            photos: photos
+        });
+	});
+}

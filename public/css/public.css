@@ -334,6 +334,11 @@ ul {
     margin-top: 2em;
 }
 
+.box-photos .list-photos .photo-row img {
+    width: 5em;
+    height: auto;
+}
+
 .box-photos .upload-photo { 
     width: 100%;
     margin-top: 3em;
