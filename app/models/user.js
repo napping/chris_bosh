@@ -1,6 +1,7 @@
-var db   = require('../../config/db');
-var user = require('./user');
-var _    = require('underscore');
+var db 			= require('../../config/db');
+var user 		= require('./user');
+var destination = require('./destination')
+var _  			= require('underscore');
 
 exports.load = function(username, cb) {
 	var stmt = 'SELECT username, email, full_name, affiliation, interests FROM ' + 
@@ -213,6 +214,33 @@ exports.addTrip = function(username, tid, cb) {
 		}
 	});
 };
+
+exports.getFriendDestinations = function(username, cb) {
+	exports.friends(username, function(err, friends) {
+		if (err) {
+			cb(err,null);
+		} else {
+			var friendDestinations = recursiveGetDestinations(0, friends, username, [], cb);
+		}
+	});
+}
+
+recursiveGetDestinations = function(i, friends, username, destinations, cb) {
+	if (i === friends.length) {
+		cb(null, destinations);
+	}
+	else {
+		destination.forUser(friends[i].USERNAME, username, function(err, results) {
+			if (err) {
+				cb(err, null);
+				console.log(err);
+			}
+			else {
+				recursiveGetDestinations(i + 1, friends, username, destinations.concat(results), cb);
+			}
+		});
+	}
+}
 
 // This is going to be hard to debug without more data.
 exports.forDestination = function(did, curUser, cb) {

@@ -10,6 +10,15 @@
                         <li><a href="/users/<%=recommendedFriends[i]%>"><%=recommendedFriends[i]%></a></li>
                     <% } %>
                     </ul>
+                    <ul>
+                    <% if (recommendedDestinations.length > 0) { %>
+                    <h4>Recommended Desinations</h4>
+                    <% } %>
+                    <% for (var i = 0; i < recommendedDestinations.length; i++) { %>
+                        <li><a href="/destinations/<%=recommendedDestinations[i].DID%>"><%=recommendedDestinations[i].NAME%></a></li>
+                    <% } %>
+                    </ul>
+
                 </div>
             <% } %>
         </div>
