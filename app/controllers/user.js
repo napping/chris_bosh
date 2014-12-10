@@ -162,7 +162,8 @@ exports.profile = function(req, res) {
 										friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
 										trips: trips,
 										destinations: destinations,
-                                        photos: photos
+                                        photos: photos,
+                                        requests: []
 									});
 								}
 							}
