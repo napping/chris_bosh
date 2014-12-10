@@ -1,0 +1,13 @@
+<div class="box box-friends">
+  <div class="list-friends">
+      <h3>Comments</h3>
+      <ul>
+        <% for (var i = 0; i < comments.length; i++) { %>
+            <li>
+              <h4><%= comments[i].USERNAME %></h4>
+              <%= comments[i].REVIEW %>
+            </li>
+          <% } %>
+      </ul>
+  </div>
+</div>

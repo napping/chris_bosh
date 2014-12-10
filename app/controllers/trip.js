@@ -1,38 +1,46 @@
 var trip = require('../models/trip');
+var comment = require('../models/comment');
 
 var _ = require('underscore');
 
 exports.show = function(req, res) {
 	trip.load(req.params.id, function(err, currTrip) {
-		if (err || !currTrip || currTrip.length === 0) {
-			return res.render('404', {message: 'Trip not found.'});
+		if (err || !currTrip) {
+			console.log('Trip ' + req.params.id + ' not found.', err);
+			return res.redirect('/');
 		}
 		trip.usersOnTrip(currTrip.TID, function(err, attendees) {
 			if (err || !attendees) {
 				console.log('Could not load users attending '+
-					currTrip.TID + '.' + err);
-				return res.render('/');
+					currTrip.TID + '.', err);
+				return res.redirect('/');
 			}
 			trip.destinationsOnTrip(currTrip.TID, function(err, destinations) {
 				if (err || !destinations) {
 					console.log('Could not load destinations on ' +
-						currTrip.TID + '.' + err);
-					return res.render('/');
+						currTrip.TID + '.', err);
+					return res.redirect('/');
 				}
 				trip.tripRequests(currTrip.TID, function(err, requests) {
 					if (err || !requests) {
 						console.log('Could not load trip requests on ' +
-							currTrip.TID + '.' + err);
-						return res.render('/');
+							currTrip.TID + '.', err);
+						return res.redirect('/');
 					}
-					return res.render('trips', {
-						trip: currTrip,
-						attendees: _.map(attendees, function(f) { return f.USERNAME; }),
-						destinations: destinations,
-						requests: requests,
-						partials: {
-							destination: 'partials/trips'
+					comment.forTrip(currTrip.TID, function(err, comments) {
+						if (err || !comments) {
+							console.log('Could not load comments and ratings for trip ' +
+								currTrip.TID + '.', err);
+							return res.redirect('/');
 						}
+
+						return res.render('trips', {
+							trip: currTrip,
+							attendees: _.map(attendees, function(f) { return f.USERNAME; }),
+							destinations: destinations,
+							requests: requests,
+							comments: comments
+						});
 					});
 				});
 			});
@@ -61,8 +69,6 @@ exports.edit = function(req, res) {
 		}
 	});
 };
-
-
 
 exports.requestTrip = function(req, res) {
 
@@ -190,3 +196,25 @@ exports.create = function(req, res) {
 		return res.redirect('/trips/' + tid);
 	});
 };
+
+exports.comment = function(req, res) {
+	if (req.session.username) {
+		return res.render('trip_comment', {
+			id: req.params.id
+		});
+ 	} else {
+		return res.redirect('/trips/' + req.params.id);
+	}
+}
+
+exports.addComment = function(req, res) {
+	var username = req.session.username.toLowerCase();
+	var tid = req.params.id;
+	var review = req.body.review;
+	comment.create(username, tid, 'Trip', review, function(wasSuccessful) {
+		if (!wasSuccessful) {
+			console.log(username + ' could not leave comment for trip ' + tid + '.');
+		}
+		return res.redirect('/trips/' + tid);
+	});
+}

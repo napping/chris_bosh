@@ -41,7 +41,8 @@ module.exports = function(app) {
     app.get('/trips/:id/edit', auth.requireLogin, trip.edit);
     app.post('/trips/:id/edit', auth.requireLogin, trip.put);
     app.post('/trips', auth.requireLogin, trip.create);
-
+    app.get('/trips/:id/comment', auth.requireLogin, trip.comment);
+    app.post('/trips/:id/comment', auth.requireLogin, trip.addComment);
 
     app.post('/goeson', auth.requireLogin, user.addTrip);
     app.get('/goeson/:username', user.getTrips);

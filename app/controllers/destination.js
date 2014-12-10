@@ -26,7 +26,9 @@ exports.show = function(req, res) {
 					return res.render('destination', {
 						destination: destination,
 						trips: trips,
-						visitors: _.first(_.shuffle(users), 10)
+						visitors: _.first(_.shuffle(users), 10),
+						// TODO: make this an actual value
+						url: '/images/filler.jpg'
 					});
 				})
 			}

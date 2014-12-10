@@ -1,6 +1,7 @@
 <div class="box box-trips">
     <img src="/images/filler.jpg"/>
     <h3><%= trip.NAME %></h3>
+    <a href="/trips/<%= trip.TID %>/comment">Leave a Comment</a><br/>
     <% if (authUser && authUser === trip.OWNER) { %>
     <a href="/trips/<%= trip.TID %>/edit">Edit Trip</a>
 		<h3>Trip Requests</h3>
