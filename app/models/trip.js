@@ -2,7 +2,7 @@ var db = require('../../config/db'),
 	oracle = require('oracle');
 
 exports.load = function(tid, cb) {
-	var stmt = 'SELECT T.tid, T.name, T.expenses, T.packing_list, O.username as owner FROM Trip T ' +
+	var stmt = 'SELECT T.tid, T.name, T.expenses, T.packing_list, O.username as owner, M.privacy as privacy FROM Trip T ' +
 		'INNER JOIN Media M ON T.tid = M.mid AND T.type = M.type ' +
 		'INNER JOIN Owns O ON O.mid = M.mid AND M.source = O.source AND M.type = O.type ' + 
 		'WHERE T.tid = :1';

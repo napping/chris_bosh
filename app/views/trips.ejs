@@ -18,7 +18,7 @@
                         <strong><%= attendees[i] %></strong></a></div></li>
                     <% } %>
                 </ul>
-                <% if (authUser && authUser == trip.OWNER) { %>
+                <% if (authUser && authUser == trip.OWNER && trip.PRIVACY !== 'private') { %>
                   <h3>Invite</h3>
                   <form id="invite_form" role="form" action="/trips/<%= trip.TID %>/invite" method="post">
                       <select form="invite_form" name="username">
