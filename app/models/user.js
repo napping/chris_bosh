@@ -180,6 +180,20 @@ exports.removeFriend = function(username1, username2, cb) {
 	});		   
 };
 
+exports.allCotravelers = function(username, cb) {
+	var stmt = 'SELECT G.username FROM GoesOn G ' +
+			   'WHERE G.tid '+
+			   'IN (SELECT G2.tid FROM GoesOn G2 WHERE G2.username = :1) ' +
+			   'AND G.username <> :1'
+	db.connection.execute(stmt, [username], function(err, results) {
+		if (err) {
+			cb(err, null);
+		} else{
+			cb(null, results);
+		}
+	})
+}
+
 exports.getTrips = function(username, cb) {
 	var stmt = 'SELECT T.tid, T.name FROM Trip T ' +
 			   'INNER JOIN GoesOn G on T.tid = G.tid ' +
