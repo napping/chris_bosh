@@ -168,7 +168,9 @@ exports.profile = function(req, res) {
 										destinations: destinations,
                                         photos: photos,
                                         profile: profilePhoto,
-                                        upload: 0
+                                        upload: 0,
+                                        requests: []
+
 									});
 								}
 							}
