@@ -1,10 +1,11 @@
 <div class="box box-portrait">
+    <a href="/users/<%=user.USERNAME%>">
     <% if (profile) { %>
         <img src="<%= profile.URL %>"/>
     <% } else { %>
         <img src="/images/filler.jpg"/>
-
     <% } %>
+    </a>
 
     <h3><%= user.FULL_NAME %><% if (user.AFFILIATION) { %> of <%= user.AFFILIATION %><% } %></h3>
     <% if (user.INTERESTS) { %><p><%= user.INTERESTS %></p><% } %>
