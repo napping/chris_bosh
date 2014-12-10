@@ -3,6 +3,7 @@ var page = require('../controllers/page'),
     destination = require('../controllers/destination'),
     trip = require('../controllers/trip'),
     auth = require('../middlewares/auth');
+    photo = require('../controllers/photo');
 
 module.exports = function(app) {
     app.get('/', page.index);
@@ -34,5 +35,10 @@ module.exports = function(app) {
     app.post('/goeson', user.addTrip);
     app.get('/goeson/:username', user.getTrips);
 
+    app.post('/photo', photo.create);
+    // app.get('/photo/:username', photo.getByUser);  // TODO
+    app.get('/photo/:pid', photo.show);
+
     app.get('/about', page.about);
+
 };

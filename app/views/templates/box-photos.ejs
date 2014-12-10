@@ -1,6 +1,10 @@
 <div class="box box-photos">
     <div class="list-photos">
-        <h3>Photos</h3>
+        <div class="box-photos-header">
+            <div class="box-photos-header-title">
+                <h3>Photos</h3>
+            </div>
+        </div>
         <div class="row photo-row">
             <div class="col-md-3">
                 <img src="/images/filler.jpg"/>
@@ -37,7 +41,13 @@
                 <img src="/images/filler.jpg"/>
             </div>
         </div>
-
+    </div>
+    <div class="upload-photo">
+        <form method="post" action="/photo">
+            <h5>Paste photo URL here:</h5>
+            <input class="input-photo" type="text" name="url">
+            <input class="input-submit-photo" type="submit" value="Upload Photo"></input>
+        </form>
     </div>
 </div>
 

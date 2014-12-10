@@ -303,8 +303,36 @@ ul {
     padding: 0em 1.5em;
 }
 
+.box-photos .list-photos .box-photos-header {
+    width: 100%;
+    height: 5em;
+}
+
+.box-photos .list-photos .box-photos-header .box-photos-header-title {
+    float: left;
+}
+
+.box-photos .list-photos .box-photos-header .upload-photo {
+    float: right;
+    padding-top: 1em;
+}
+
 .box-photos .list-photos .photo-row {
     margin-top: 2em;
+}
+
+.box-photos .upload-photo { 
+    width: 100%;
+    margin-top: 3em;
+}
+
+.box-photos .upload-photo input[type="text"] { 
+    width: 60%;
+    float: left;
+}
+
+.box-photos .upload-photo input[type="submit"] { 
+    float: right;
 }
 
 .box-photos .list-photos .photo-row img { 
