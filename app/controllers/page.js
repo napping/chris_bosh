@@ -20,7 +20,6 @@ exports.index = function(req, res) {
                     if (err || !foundProfilePicture) { 
                         console.log('Could not find profile picture for user', username);
                     } else {
-                        console.log(foundProfilePicture);
                         profilePicture = foundProfilePicture;
                     }
                     user.friends(username, function(err, friends) {
@@ -36,7 +35,6 @@ exports.index = function(req, res) {
                                 if (err) {
                                     console.log('Could not load ' + username + '\'s newsfeed.', err);
                                 }
-                                    console.log(">>>>", profilePicture);
                                 return res.render('home', {
                                     user: userObj,
                                     friends: _.map(friends, function(f) {return f.USERNAME}),
