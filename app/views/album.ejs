@@ -1,0 +1,51 @@
+<% include templates/header %>
+<div class="overall">
+    <div class="row box-row box-albums">
+        <div class="col-md-4 album-profile">
+            <h2 class="album-name">
+                <%= name %>
+            </h2>
+            <h5 class="album-privacy">
+                <%= privacy %>
+            </h5>
+            <h5 class="album-trips">
+                Trip
+            </h5>
+       </div>
+
+        <div class="col-md-8">
+            <% for (var i = 0; i < photos.length; i++) { %>
+
+                <% if (i % 4 == 0) { %>
+                    <div class="row photo-row">
+                <% } %>
+
+                <div class="col-md-3">
+                    <a href="<%= photos[i].URL %>"><img src="<%= photos[i].URL %>"/></a>
+                </div>
+
+                <% if ((i % 4 == 3) || (i == photos.length -1)) { %>
+                    </div>
+                <% } %>
+
+            <% } %>
+
+            <% if (photos.length == 0) { %>
+                <h3>No photos in this album.</h3>
+            <% } %>
+            <div class="album-upload-picture">
+                <div class="upload-photo">
+                    <form method="post" action="/albums/photo">
+                        <h5>Upload photo to this album:</h5>
+                        <input class="input-photo" type="text" name="url">
+                        <input class="hidden-aid" type="hidden" name="aid" value="<%= aid %>"></input>
+                        <input class="hidden-aid" type="hidden" name="privacy" value="<%= privacy %>"></input>
+                        <input class="input-submit-photo" type="submit" value="Upload Photo"></input>
+                    </form>
+                </div>
+            </div>
+       </div>
+    </div>
+
+</div>
+<% include templates/footer %>

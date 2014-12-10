@@ -55,7 +55,9 @@ CREATE TABLE Album
 (
     aid             INT PRIMARY KEY NOT NULL,
     name            VARCHAR(50),
-    privacy         VARCHAR(20)
+    privacy         VARCHAR(20),
+    username        VARCHAR(20),
+    FOREIGN KEY (username) REFERENCES Users(username)
 );
 
 CREATE TABLE Link 

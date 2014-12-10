@@ -1,0 +1,27 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    <div class="eight-logo">
+        <h2>New Album</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/albums/new" method="post">
+            <div>
+    			<label for="id-album-name">Name: </label>
+    			<input id="id-album-name" name="name" type="text" maxlength="64">
+                <div class="privacy-select">
+                    <label for="id-album-privacy">Privacy: </label>
+                    <select name="privacy">
+                        <option value="public">Public</option>
+                        <option value="privacy">Private</option>
+                    </select>
+                </div>
+    		</div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>

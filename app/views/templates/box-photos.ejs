@@ -31,6 +31,18 @@
             </form>
         </div>
     <% } %>
+        <div class="list-albums">
+            <h3>Albums</h3>
+            <ul>
+                <% for (var i = 0; i < albums.length; i++ ) { %>
+                    <li>
+                        <a href="/albums/<%= albums[i].AID %>">
+                            <h5><%= albums[i].NAME %></h5>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
 </div>
 
 

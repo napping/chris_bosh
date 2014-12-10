@@ -2,6 +2,7 @@ var crypto		 = require('crypto'),
     user  		 = require('../models/user'),
     destination  = require('../models/destination'),
     photo        = require('../models/photo'),
+    album        = require('../models/album'),
     _     		 = require('underscore');
 
 exports.login = function(req, res) {
@@ -116,14 +117,23 @@ exports.profile = function(req, res) {
 				} else {
                     var photos = [];
                     var profilePhoto = 0;
+                    var albums = [];
                     photo.forUser(username, function(err, userPhotos) {
-                        if (err || !photos) {
-                            console.log('Photos not found.', err);
-                            return res.redirect('/');
+                        if (err) {
+                            console.log('Could not find photos for user ', username, '.', err);
+                            // return res.redirect('/');    Don't need, just keep the photos array empty
                         }
                         photos = userPhotos;
                         profilePhoto = userPhotos[photos.length - 1];
                     });
+                    album.forUser(username, function(err, userAlbums) {
+                        if (err) {
+                            console.log('Could not find albums for user ', username, '.', err);
+                            // return res.redirect('/');    Don't need, just keep the albums array empty
+                        }
+                        albums = userAlbums;
+                    });
+
 
                     user.getTrips(username, function(err, trips) {
 						if (err) {
@@ -154,6 +164,7 @@ exports.profile = function(req, res) {
 												destinations: destinations,
 												requests: requests,
                                                 photos: photos,
+                                                albums: albums,
                                                 profile: profilePhoto,
                                                 upload: 1
 											});
@@ -168,6 +179,7 @@ exports.profile = function(req, res) {
 										destinations: destinations,
                                         photos: photos,
                                         profile: profilePhoto,
+                                        albums: albums,
                                         upload: 0,
                                         requests: []
 

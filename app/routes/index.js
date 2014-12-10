@@ -4,6 +4,7 @@ var page = require('../controllers/page'),
     trip = require('../controllers/trip'),
     auth = require('../middlewares/auth');
     photo = require('../controllers/photo');
+    album = require('../controllers/album');
 
 module.exports = function(app) {
     app.get('/', page.index);
@@ -52,4 +53,8 @@ module.exports = function(app) {
 
     app.get('/about', page.about);
 
+    app.get('/albums/new', auth.requireLogin, album.new);
+    app.get('/albums/:id', auth.requireLogin, album.show);
+    app.post('/albums/new', auth.requireLogin, album.create);
+    app.post('/albums/photo', auth.requireLogin, album.uploadPhoto);
 };

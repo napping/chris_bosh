@@ -353,6 +353,10 @@ ul {
     float: right;
 }
 
+.box-photos .list-albums { 
+    padding-top: 3em;
+}
+
 .box-photos .list-photos .photo-row img { 
     width: 90%;
     height: auto;
@@ -376,4 +380,25 @@ ul {
     border: none;
 }
 
+.privacy-select { 
+    margin-top: 2em;
+}
 
+.box-albums .album-profile {
+    text-align: center;
+}
+.box-albums .album-profile h2 { 
+    top: 50%;
+}
+
+.box-albums .photo-row {
+    margin-top: 2em;
+}
+
+.box-albums .photo-row img {
+    width: 5em;
+    height: auto;
+    width: 90%;
+    height: auto;
+    margin: auto;
+}
