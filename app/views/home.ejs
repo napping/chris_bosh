@@ -1,6 +1,17 @@
 <% include templates/header %>
 
-<div class="container">
+<div class="overall">
+	<div class="row box-row">
+        <div class="col-md-4">
+            <% include templates/box-portrait %>
+       </div>
+       <div class="col-md-4">
+       		<% include templates/newsfeed %>
+       </div>
+        <div class="col-md-4">
+            <% include templates/box-friends %>
+       </div>
+    </div> 
 </div>
 
 <% include templates/footer %>

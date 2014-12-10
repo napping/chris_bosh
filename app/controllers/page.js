@@ -7,8 +7,38 @@ var _ = require('underscore'),
 
 exports.index = function(req, res) {
     if (req.session.username) {
-        // TODO: replace with something more intelligent
-        res.redirect('/users/' + req.session.username);
+        var username = req.session.username;
+        user.load(username, function(err, userObj) {
+            if (err) {
+                console.log('Could not load profile for ' + username + '.', err);
+                req.flash('error', 'Could not load profile.');
+                return res.redirect('/'); // TODO: something more intelligent here
+            } else {
+                user.friends(username, function(err, friends) {
+                    if (err) {
+                        console.log('Could not load friends for ' + username + '.',
+                            err);
+                        req.flash('error', 'Could not load profile.');
+                        return res.redirect('/');
+                    } else {
+
+                        // This is doing privacy filtering at the query level.
+                        user.newsfeed(username, function(err, newsfeed) {
+                            if (err) {
+                                console.log('Could not load ' + username + '\'s newsfeed.', err);
+                            }
+                            return res.render('home', {
+                                user: userObj,
+                                friends: _.map(friends, function(f) {return f.USERNAME}),
+                                requests: [],
+                                newsfeed: newsfeed || [],
+                                profile: null
+                            });
+                        });
+                    }
+                });
+            }
+        });
     } else {
         return res.render('splash');
     }

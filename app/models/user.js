@@ -251,3 +251,34 @@ exports.forDestination = function(did, curUser, cb) {
 		}
 	});
 }
+
+exports.newsfeed = function(username, cb) {
+	var stmt = 'SELECT * FROM (SELECT M.mid AS id, M.type AS type, T.name AS name, O.username AS owner ' +
+		'FROM Trip T ' +
+		'INNER JOIN Media M ON T.tid = M.mid AND T.source = M.source AND T.type = M.type ' +
+		'INNER JOIN Owns O ON M.mid = O.mid AND M.source = O.source AND M.type = O.type ' +
+		'WHERE rownum <= 10 AND O.username IN ' +
+			'(SELECT username2 AS u FROM Friendship WHERE username1=:1 UNION ' +
+			'SELECT username1 AS u FROM Friendship WHERE username2=:1) ' +
+			'AND (M.privacy=\'public\' OR (M.privacy=\'sharedWithTripMembers\' AND :1 IN ' +
+			'(SELECT username FROM GoesOn WHERE tid=T.tid AND source=T.source)))' +
+
+		' UNION ' +
+		
+		'SELECT M.mid AS id, M.type AS type, P.url AS url, O.username AS owner ' +
+		'FROM Photo P ' +
+		'INNER JOIN Media M ON P.pid = M.mid AND P.source = M.source AND P.type = M.type ' +
+		'INNER JOIN Owns O ON M.mid = O.mid AND M.source = O.source AND M.type = O.type ' +
+		'WHERE rownum <= 10 AND O.username IN ' +
+			'(SELECT username2 AS u FROM Friendship WHERE username1=:1 UNION ' +
+			'SELECT username1 AS u FROM Friendship WHERE username2=:1) AND ' +
+			'(M.privacy=\'public\')) ORDER BY rownum DESC';
+
+	db.connection.execute(stmt, [username], function(err, newsfeed) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, newsfeed);
+		}
+	});
+};

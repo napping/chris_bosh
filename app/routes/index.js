@@ -51,9 +51,9 @@ module.exports = function(app) {
     app.post('/goeson', auth.requireLogin, user.addTrip);
     app.get('/goeson/:username', user.getTrips);
 
-    app.post('/photo', photo.create);
-    // app.get('/photo/:username', photo.getByUser);  // TODO
-    app.get('/photo/:pid', photo.show);
+    app.post('/photos', auth.requireLogin, photo.create);
+    // app.get('/photos/:username', photo.getByUser);  // TODO
+    app.get('/photos/:pid', photo.show);
 
     app.get('/about', page.about);
 

@@ -23,7 +23,6 @@ exports.new = function(req, res) {
 
 exports.create = function(req, res) {
 	var url = req.body.url;
-    // console.log(req);
 	photo.create(url, req.session.username, function(err, pid, url) {
 		if (err || !pid) {
 			console.log('Could not create photo.', err);
@@ -31,7 +30,7 @@ exports.create = function(req, res) {
 			return res.redirect('/');
 		}
 		console.log('Created photo.');
-		return res.redirect('/photo/' + pid);
+		return res.redirect('/photos/' + pid);
 	});
 };
 
