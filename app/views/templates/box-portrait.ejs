@@ -1,5 +1,11 @@
 <div class="box box-portrait">
-    <img src="/images/filler.jpg"/>
+    <% if (profile) { %>
+        <img src="<%= profile.URL %>"/>
+    <% } else { %>
+        <img src="/images/filler.jpg"/>
+
+    <% } %>
+
     <h3><%= user.FULL_NAME %><% if (user.AFFILIATION) { %> of <%= user.AFFILIATION %><% } %></h3>
     <% if (user.INTERESTS) { %><p><%= user.INTERESTS %></p><% } %>
     <div class="actions">

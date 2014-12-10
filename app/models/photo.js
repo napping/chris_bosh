@@ -36,12 +36,14 @@ exports.forUser = function(username, cb) {
                 " FROM Photo P " +
                 " INNER JOIN Media M ON M.mid = P.pid AND M.type = \'Photo\' "+
                 " INNER JOIN Owns O ON O.mid = M.mid AND O.type = \'Photo\' "+
-                " WHERE O.username = :1 ";
+                " WHERE O.username = :1 "+
+                " ORDER BY P.pid ";
 
 	db.connection.execute(stmt, [username], function (err, results) {
 		if (err) {
 			cb(err, null);
 		} else {
+            console.log( "Found " + results.length + " photos for user " + username + ".");
             cb(null, results);
 		}
 	});

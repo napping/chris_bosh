@@ -114,13 +114,15 @@ exports.profile = function(req, res) {
 					req.flash('error', 'Could not load profile.');
 					return res.redirect('/');
 				} else {
-                    photos = [];
-                    photo.forUser( username, function(err, userPhotos) {
+                    var photos = [];
+                    var profilePhoto = 0;
+                    photo.forUser(username, function(err, userPhotos) {
                         if (err || !photos) {
                             console.log('Photos not found.', err);
                             return res.redirect('/');
                         }
                         photos = userPhotos;
+                        profilePhoto = userPhotos[photos.length - 1];
                     });
 
                     user.getTrips(username, function(err, trips) {
@@ -151,7 +153,9 @@ exports.profile = function(req, res) {
 												trips: trips,
 												destinations: destinations,
 												requests: requests,
-                                                photos: photos
+                                                photos: photos,
+                                                profile: profilePhoto,
+                                                upload: 1
 											});
 										}
 									});
@@ -163,7 +167,10 @@ exports.profile = function(req, res) {
 										trips: trips,
 										destinations: destinations,
                                         photos: photos,
+                                        profile: profilePhoto,
+                                        upload: 0,
                                         requests: []
+
 									});
 								}
 							}
@@ -293,7 +300,7 @@ exports.addTrip = function (req, res) {
 
 exports.getPhotos = function (req, res) {
 	var username = req.params.username.toLowerCase();
-	photo.forUser( username, function(err, photos) {
+	photo.forUser(username, function(err, photos) {
 		if (err || !photos || photos.length === 0) {
 			console.log('Photos not found.', err);
 			return res.redirect('/');
@@ -303,3 +310,4 @@ exports.getPhotos = function (req, res) {
         });
 	});
 }
+
