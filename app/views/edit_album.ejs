@@ -1,0 +1,40 @@
+<% include templates/header %>
+
+    <!--    <script data-main="/js/main" src="/js/libs/require.js"></script> -->
+
+    <div class="eight-logo">
+        <h2>Edit Album</h2>
+    </div>
+    <div class="enter-credentials">
+        <form role="form" action="/albums/save/<%= aid %>" method="post">
+            <div>
+    			<label for="id-album-name">Name: </label>
+    			<input id="id-album-name" name="name" type="text" maxlength="64" value="<%= name %>"></input>
+                <div class="privacy-select">
+                    <label for="id-album-privacy">Privacy: </label>
+                    <select name="privacy" value="<%= privacy %>">
+
+                        <% if (privacy == "public") { %>
+                            <option value="public" selected="selected">Public</option>
+                            <option value="private">Private</option>
+                            <option value="sharedWithTripMembers">Share with trip members</option>
+                        <% } else if (privacy == "private") { %>
+                            <option value="public">Public</option>
+                            <option value="private" selected="selected">Private</option>
+                            <option value="sharedWithTripMembers">Share with trip members</option>
+                        <% } else { %>
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                            <option value="sharedWithTripMembers" selected="selected">Share with trip members</option>
+                        <% } %>
+
+                    </select>
+                </div>
+    		</div>
+
+            <div class="submit-credentials">
+    			<a id="submit-credentials"><button type="submit" name="submit" value="Submit">Submit</button></a>
+    		</div>
+        </form>
+    </div>
+<% include templates/footer %>

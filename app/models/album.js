@@ -20,6 +20,23 @@ exports.create = function(name, privacy, username, cb) {
 	});
 }
 
+exports.update = function(aid, name, privacy, cb) { 
+	var stmt =  ' UPDATE Album A SET '+ 
+                ' A.name = :1, '+
+                ' A.privacy = :2 '+
+                ' WHERE aid = :3 ';
+
+    db.connection.execute(stmt, [ name, privacy, aid ], function(err, results) {
+		if (err || !results) {
+			cb(err, null);
+		} else {
+			console.log("Successfully updated album", aid);
+            cb(err, results);
+		}
+	});
+}
+
+
 exports.addToTrip = function(aid, tid, cb) {
 	var stmt = 'INSERT INTO AlbumOfTrip (aid, tid) ' + 
 		'VALUES (:1, :2) ';
@@ -33,7 +50,6 @@ exports.addToTrip = function(aid, tid, cb) {
 		}
 	});
 }
-
 
 // takes in album aid, outputs an object with data
 exports.load = function(aid, cb) {
@@ -134,3 +150,4 @@ exports.verifyUser = function(username, aid, cb) {
         }
     });
 }
+

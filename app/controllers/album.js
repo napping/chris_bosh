@@ -73,3 +73,31 @@ exports.uploadPhoto = function(req, res) {
         return res.redirect('/albums/' + aid);
     });
 }
+
+exports.editAlbum = function(req, res) { 
+    var aid = req.params.id;
+    album.load(aid, function (err, results) { 
+        if (err) { 
+            console.log("Could not find album", aid);
+            return res.redirect("/albums/" + aid);
+        }
+        return res.render("edit_album", {
+            aid: aid,
+            name: results.NAME,
+            privacy: results.PRIVACY
+        });
+    });
+}
+exports.saveEdits = function(req, res) {
+    var aid = req.params.id;
+    var name = req.body.name;
+    var privacy = req.body.privacy;
+
+    album.update(aid, name, privacy, function (err, results) { 
+        if (err) { 
+            console.log("Could not find album", aid);
+            return res.redirect("/albums/" + aid);
+        }
+        return res.redirect("/albums/" + aid);
+    });
+}

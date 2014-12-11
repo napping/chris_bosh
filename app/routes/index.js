@@ -60,7 +60,9 @@ module.exports = function(app) {
     app.get('/about', page.about);
 
     app.get('/albums/new', auth.requireLogin, album.new);
-    app.get('/albums/:id', auth.requireLogin, album.show);
+    app.get('/albums/edit/:id', auth.requireLogin, album.editAlbum);
+    app.post('/albums/save/:id', auth.requireLogin, album.saveEdits);
     app.post('/albums/new', auth.requireLogin, album.create);
     app.post('/albums/photo', auth.requireLogin, album.uploadPhoto);
+    app.get('/albums/:id', auth.requireLogin, album.show);
 };
