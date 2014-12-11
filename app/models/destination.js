@@ -23,6 +23,7 @@ exports.create = function(name, username, cb) {
 	var stmt = 'INSERT INTO Media (type, privacy) ' + 
 		'VALUES (\'Destination\', \'public\')' +
 		'RETURNING MID INTO :1';
+
 	db.connection.execute(stmt, [new oracle.OutParam()], function(err, results) {
 		if (err || !results) {
 			cb(err, null);
@@ -55,6 +56,7 @@ exports.forUser = function(username, curUser, cb) {
 			   'INNER JOIN Media M ON M.mid = D.did AND M.type = D.type AND M.source = D.source ' +
 			   'INNER JOIN Owns O ON O.mid = M.mid AND M.source = O.source AND M.type = O.type ' + 
 			   'WHERE U.username = :1';
+
 	db.connection.execute(stmt, [username], function (err, results) {
 		if (err) {
 			cb(err, null);

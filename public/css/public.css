@@ -402,3 +402,8 @@ ul {
     height: auto;
     margin: auto;
 }
+
+#submit-album-to-trip button { 
+    margin-top: 0em;
+    float: left;
+}

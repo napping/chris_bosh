@@ -33,6 +33,7 @@ module.exports = function(app) {
     app.post('/removeFriend', auth.requireLogin, user.removeFriend);
 
     app.get('/trips/new', auth.requireLogin, trip.new);
+    app.post('/trips/album', auth.requireLogin, trip.addAlbum);
     app.get('/trips/:id', trip.show);
     app.post('/trips/:id', auth.requireLogin, trip.requestTrip);
     //is there a better way to do this?

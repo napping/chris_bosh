@@ -1,6 +1,7 @@
 var trip = require('../models/trip');
 var comment = require('../models/comment');
 var user = require('../models/user');
+var album = require('../models/album');
 
 var _ = require('underscore');
 
@@ -34,39 +35,63 @@ exports.show = function(req, res) {
 								currTrip.TID + '.', err);
 							return res.redirect('/');
 						}
-					if (req.session.username && currTrip.OWNER == req.session.username.toLowerCase()) {
-						user.friends(currTrip.OWNER, function(err, friends) {
-							if (err || !friends) {
-								console.log('Could not load invitation candidates on ' +
-									currTrip.TID + '.' + err);
-								return res.render('/');
-							} else {
-								var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
-									return res.render('trips', {
-										trip: currTrip,
-										attendees: attendeeNames,
-										destinations: destinations,
-										invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
-										requests: requests,
-										comments: comments,
-										partials: {
-											destination: 'partials/trips'
-										}
-									});
-								}
-							});
-						} else {
-							return res.render('trips', {
-								trip: currTrip,
-								attendees: _.map(attendees, function(f) { return f.USERNAME; }),
-								destinations: destinations,
-								requests: requests,
-								comments: comments,
-								partials: {
-									destination: 'partials/trips'
-								}
-							});
-						}
+                        var albumsUser = [];
+                        album.forUser(req.session.username, function(err, foundAlbumsUser) { 
+                            if (err) { 
+                                return res.redirect('/');
+                            } else { 
+                                albumsUser = foundAlbumsUser;
+                                var albumsTrip = [];
+                                album.forTrip(currTrip.TID, function(err, foundAlbumsTrip) { 
+                                    if (err) { 
+                                        console.log("error getting trip albums : ", err);
+                                        return res.redirect('/');
+                                    } else { 
+                                        albumsTrip = foundAlbumsTrip;
+                                        if (req.session.username && currTrip.OWNER == req.session.username.toLowerCase()) {
+                                            user.friends(currTrip.OWNER, function(err, friends) {
+                                                if (err || !friends) {
+                                                    console.log('Could not load invitation candidates on ' +
+                                                        currTrip.TID + '.' + err);
+                                                    return res.render('/');
+                                                } else {
+                                                    var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
+                                                    return res.render('trips', {
+                                                        trip: currTrip,
+                                                        tid: currTrip.TID,
+                                                        attendees: attendeeNames,
+                                                        destinations: destinations,
+                                                        invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
+                                                        requests: requests,
+                                                        comments: comments,
+                                                        partials: {
+                                                            destination: 'partials/trips'
+                                                        },
+                                                        albumsTrip: albumsTrip,
+                                                        albumsUser: albumsUser,
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            return res.render('trips', {
+                                                trip: currTrip,
+                                                tid: currTrip.TID,
+                                                attendees: _.map(attendees, function(f) { return f.USERNAME; }),
+                                                destinations: destinations,
+                                                requests: requests,
+                                                comments: comments,
+                                                partials: {
+                                                    destination: 'partials/trips'
+                                                },
+                                                albums: albums,
+                                                albumsTrip: albumsTrip,
+                                                albumsUser: albumsUser,
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        });
 					});
 				});
 			});
@@ -348,3 +373,16 @@ exports.addComment = function(req, res) {
 		return res.redirect('/trips/' + tid);
 	});
 }
+
+exports.addAlbum = function(req, res) {
+	var tid = req.body.tid;
+	var aid = req.body.aid;
+    album.addToTrip(aid, tid, function(err) {
+        if (err) { 
+            console.log("Could not add album ", aid, " to trip ", tid, ".");
+        }
+		return res.redirect('/trips/' + tid);
+	});
+}
+
+

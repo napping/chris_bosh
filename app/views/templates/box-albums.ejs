@@ -1,0 +1,32 @@
+<div class="box box-albums">
+    <div class="list-albums">
+        <h3>Albums</h3>
+            <div>
+                <ul>
+                    <% for (var i = 0; i < albumsTrip.length; i++) { %>
+                        <li>
+                            <a href="/albums/<%= albumsTrip[i].AID %>">
+                                <p><%= albumsTrip[i].NAME %></p>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        <div>
+           <form role="form" action="/trips/album" method="post">
+                <h3>Add album to trip:</h3>
+                <input name="tid" value="<%= tid %>" type="hidden"></input>
+                <select name="aid">
+                    <% for (var i = 0; i < albumsUser.length; i++) { %>
+                        <option value="<%= albumsUser[i].AID %>"><%= albumsUser[i].NAME %></option>
+                    <% } %>
+                </select>
+                  <div class="submit-credentials">
+                    <a id="submit-album-to-trip"><button type="submit" name="submit" value="Submit">Add</button></a>
+                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

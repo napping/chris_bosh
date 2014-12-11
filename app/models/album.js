@@ -9,20 +9,31 @@ exports.create = function(name, privacy, username, cb) {
 		'VALUES (:1, :2, :3) ' +
 		'RETURNING aid INTO :4 ';
 
-    console.log(name, privacy, username);
-	 // db.connection.execute("INSERT INTO Album (name, privacy, username) VALUES (\'blah\', \'public\', \'rigel\')", [], function(err, results) {
     db.connection.execute(stmt, [ name, privacy, username, new oracle.OutParam() ], function(err, results) {
 		if (err || !results) {
-            console.log(" error with db query ", err);
 			cb(err, null);
 		} else {
 			var aid = results.returnParam;
 			console.log(username + " successfully created Album called " + name + " with privacy " + privacy + " and id " + aid + ".");
-            console.log(results);
             cb(err, aid, name);
 		}
 	});
 }
+
+exports.addToTrip = function(aid, tid, cb) {
+	var stmt = 'INSERT INTO AlbumOfTrip (aid, tid) ' + 
+		'VALUES (:1, :2) ';
+
+    db.connection.execute(stmt, [ aid, tid ], function(err, results) {
+		if (err) {
+            console.log("Error adding album", aid, " to trip ", tid, err);
+			cb(err, null);
+		} else {
+            cb(results);
+		}
+	});
+}
+
 
 // takes in album aid, outputs an object with data
 exports.load = function(aid, cb) {
@@ -54,6 +65,23 @@ exports.forUser = function(username, cb) {
 		}
 	});
 }
+
+exports.forTrip = function(tid, cb) {
+    var stmt =  " SELECT A.aid, A.name " +
+                " FROM Album A " +
+                " INNER JOIN AlbumOfTrip AOT ON AOT.aid = A.aid " +
+                " WHERE AOT.tid = :1 ";
+
+	db.connection.execute(stmt, [tid], function (err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+            console.log( "Found " + results.length + " albums for trip " + tid + ".");
+            cb(null, results);
+		}
+	});
+}
+
 
 exports.verifyUser = function(username, aid, cb) { 
     var stmt =  " SELECT A.privacy, A.username " + 

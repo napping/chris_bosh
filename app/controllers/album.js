@@ -60,6 +60,9 @@ exports.uploadPhoto = function(req, res) {
     var aid = req.body.aid;
     var privacy = req.body.privacy;
     var url = req.body.url;
+    if (!url) { 
+        console.log("Need a valid photo URL.");
+    }
     photo.createInAlbum(url, req.session.username, aid, privacy, function (err, pid) {
         if (err || !pid) { 
             console.log('Could not upload photo to album ' + aid + '.', err);
