@@ -2,9 +2,10 @@ var page = require('../controllers/page'),
     user = require('../controllers/user'),
     destination = require('../controllers/destination'),
     trip = require('../controllers/trip'),
-    auth = require('../middlewares/auth');
-    photo = require('../controllers/photo');
-    album = require('../controllers/album');
+    auth = require('../middlewares/auth'),
+    photo = require('../controllers/photo'),
+    album = require('../controllers/album'),
+    hashtag = require('../controllers/hashtag');
 
 module.exports = function(app) {
     app.get('/', page.index);
@@ -54,7 +55,6 @@ module.exports = function(app) {
     app.get('/goeson/:username', user.getTrips);
 
     app.post('/photos', auth.requireLogin, photo.create);
-    // app.get('/photos/:username', photo.getByUser);  // TODO
     app.get('/photos/:pid', photo.show);
 
     app.get('/about', page.about);
@@ -65,4 +65,7 @@ module.exports = function(app) {
     app.post('/albums/new', auth.requireLogin, album.create);
     app.post('/albums/photo', auth.requireLogin, album.uploadPhoto);
     app.get('/albums/:id', auth.requireLogin, album.show);
+
+    app.post('/hashtags/add', auth.requireLogin, hashtag.add);
+    app.get('/hashtags/:tag', auth.requireLogin, hashtag.show);
 };

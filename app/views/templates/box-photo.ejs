@@ -3,7 +3,28 @@
     <h3>Photo</h3>
 
     <div class="hashtags">
-        <form method="post" action="hashtags/add">
-        </form>
+        <div>
+            <h4>Tags</h4>
+            <p>
+                <% if (typeof(hashtags) != "undefined" && hashtags.length != 0) { %>
+                        <% for (var i = 0; i < hashtags.length - 1; i++) { %>
+                            <a href="/hashtags/<%= hashtags[i].TAG %>">#<%= hashtags[i].TAG %></a>, 
+                        <% } %>
+                        <a href="/hashtags/<%= hashtags[hashtags.length - 1].TAG %>">#<%= hashtags[hashtags.length - 1].TAG %></a>
+                <% } else { %>
+                    Currently no hashtags.
+                <% } %>
+            </p>
+        </div>
+        <% if (typeof(isOwner) != "undefined" && isOwner) { %>
+            <form method="post" action="/hashtags/add">
+                <label for="enter-hashtag">Add Hashtag</label>
+                <input id="enter-hashtag" type="text" name="tag" maxlength="20" value="#"></input>
+                <input type="hidden" name="type" maxlength="20" value="Photo"></input>
+                <input type="hidden" name="mid" maxlength="20" value="<%= pid %>"></input>
+
+                <input class="input-submit-hashtag" type="submit" value="Add"></input>
+            </form>
+        <% } %>
     </div>
 </div>

@@ -102,19 +102,19 @@ exports.put = function(req, res) {
 exports.profile = function(req, res) {
 	var username = req.params.username.toLowerCase();
 
-	user.load(username, function(err, userObj) {
-		if (err) {
-			console.log('Could not load profile for ' + username + '.', err);
-			req.flash('error', 'Could not load profile.');
-			return res.redirect('/'); // TODO: something more intelligent here
-		} else {
-			user.friends(username, function(err, friends) {
-				if (err) {
-					console.log('Could not load friends for ' + username + '.',
-						err);
-					req.flash('error', 'Could not load profile.');
-					return res.redirect('/');
-				} else {
+    user.load(username, function(err, userObj) {
+        if (err) {
+            console.log('Could not load profile for ' + username + '.', err);
+            req.flash('error', 'Could not load profile.');
+            return res.redirect('/'); // TODO: something more intelligent here
+        } else {
+            user.friends(username, function(err, friends) {
+                if (err) {
+                    console.log('Could not load friends for ' + username + '.',
+                                err);
+                                req.flash('error', 'Could not load profile.');
+                                return res.redirect('/');
+                } else {
                     var photos = [];
                     var profilePhoto = 0;
                     var albums = [];
@@ -122,98 +122,99 @@ exports.profile = function(req, res) {
                         if (err) {
                             console.log('Could not find photos for user ', username, '.', err);
                             // return res.redirect('/');    Don't need, just keep the photos array empty
-                        }
-                        photos = userPhotos;
-                        profilePhoto = userPhotos[photos.length - 1];
-                    });
-                    album.forUser(username, function(err, userAlbums) {
-                        if (err) {
-                            console.log('Could not find albums for user ', username, '.', err);
-                            // return res.redirect('/');    Don't need, just keep the albums array empty
-                        }
-                        albums = userAlbums;
-                    });
-
-                    user.getTrips(username, function(err, trips) {
-						if (err) {
-							console.log('Could not load trips for '
-							 + username + '.', err);
-							req.flash('error', 'Could not load profile.');
-							return res.redirect('/');
-						} 
-						destination.forUser(username, req.session.username, function(err, destinations) {
-							if (err) {
-								console.log('Could not load destinations for '
-								 + username + '.', err);
-								req.flash('error', 'Could not load profile.');
-								return res.redirect('/');
-							} else {
-
-								if (req.session.username && req.session.username.toLowerCase() === username) {
-									user.friendRequests(username, function(err, requests) {
-										if (err) {
-											console.log('Error loading friend requests for ' + username + '.', err);
-											return res.redirect('/');
-										} else {
-											user.tripInvitations(username, function(err, invitations) {
-												if (err) {
-													console.log('Error loading trip invitations for ' + username + '.', err);
-                                                    return res.redirect('/');
-                                                } else {
-
-                                                    user.allCotravelers(username, function(err, cotravelers) {
+                        } else { 
+                            photos = userPhotos;
+                            profilePhoto = userPhotos[photos.length - 1];
+                            album.forUser(username, function(err, userAlbums) {
+                                if (err) {
+                                    console.log('Could not find albums for user ', username, '.', err);
+                                    // return res.redirect('/');    Don't need, just keep the albums array empty
+                                } else { 
+                                    albums = userAlbums;
+                                    user.getTrips(username, function(err, trips) {
+                                        if (err) {
+                                            console.log('Could not load trips for '
+                                                        + username + '.', err);
+                                                        req.flash('error', 'Could not load profile.');
+                                                        return res.redirect('/');
+                                        } 
+                                        destination.forUser(username, req.session.username, function(err, destinations) {
+                                            if (err) {
+                                                console.log('Could not load destinations for '
+                                                            + username + '.', err);
+                                                            req.flash('error', 'Could not load profile.');
+                                                            return res.redirect('/');
+                                            } else {
+                                                if (req.session.username && req.session.username.toLowerCase() === username) {
+                                                    user.friendRequests(username, function(err, requests) {
                                                         if (err) {
-                                                            console.log('Error loading recommended friends for ' + username + '.', err);
+                                                            console.log('Error loading friend requests for ' + username + '.', err);
                                                             return res.redirect('/');
                                                         } else {
-                                                            user.getFriendDestinations(username, function(err, friendDestinations) {
+                                                            user.tripInvitations(username, function(err, invitations) {
                                                                 if (err) {
-                                                                    console.log('Error loading friend destinatinos for ' + username + '.', err);
+                                                                    console.log('Error loading trip invitations for ' + username + '.', err);
                                                                     return res.redirect('/');
-                                                                }
-                                                                else {
-                                                                    var friendNames = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
-                                                                    var cotravelerNames = _.map(cotravelers, function(f) { return f.USERNAME.toLowerCase(); });
-                                                                    return res.render('user', {
-                                                                        user: userObj,
-                                                                        // convert from object array to string array
-                                                                        friends: friendNames,
-                                                                        trips: trips,
-                                                                        destinations: destinations,
-                                                                        requests: requests,
-                                                                        photos: photos,
-                                                                        albums: albums,
-                                                                        invitations: invitations,
-                                                                        profile: profilePhoto,
-                                                                        upload: 1,
-                                                                        recommendedFriends: _.filter(cotravelerNames, function(f) { return friendNames.indexOf(f) === -1}),
-                                                                        recommendedDestinations: _.filter(friendDestinations, function(f) { return destinations.indexOf(f) === -1 })
-                                                                    });
+                                                                } else {
+
+                                                                    user.allCotravelers(username, function(err, cotravelers) {
+                                                                        if (err) {
+                                                                            console.log('Error loading recommended friends for ' + username + '.', err);
+                                                                            return res.redirect('/');
+                                                                        } else {
+                                                                            user.getFriendDestinations(username, function(err, friendDestinations) {
+                                                                                if (err) {
+                                                                                    console.log('Error loading friend destinatinos for ' + username + '.', err);
+                                                                                    return res.redirect('/');
+                                                                                }
+                                                                                else {
+                                                                                    var friendNames = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
+                                                                                    var cotravelerNames = _.map(cotravelers, function(f) { return f.USERNAME.toLowerCase(); });
+                                                                                    return res.render('user', {
+                                                                                        user: userObj,
+                                                                                        // convert from object array to string array
+                                                                                        friends: friendNames,
+                                                                                        trips: trips,
+                                                                                        destinations: destinations,
+                                                                                        requests: requests,
+                                                                                        photos: photos,
+                                                                                        albums: albums,
+                                                                                        invitations: invitations,
+                                                                                        profile: profilePhoto,
+                                                                                        upload: 1,
+                                                                                        recommendedFriends: _.filter(cotravelerNames, function(f) { return friendNames.indexOf(f) === -1}),
+                                                                                        recommendedDestinations: _.filter(friendDestinations, function(f) { return destinations.indexOf(f) === -1 })
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    })
                                                                 }
                                                             });
                                                         }
-                                                    })
-												}
-											});
-										}
-									});
-								} else {
-									return res.render('user', {
-										user: userObj,
-										// convert from object array to string array
-										friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
-										trips: trips,
-										destinations: destinations,
-                                        photos: photos,
-                                        profile: profilePhoto,
-                                        albums: albums,
-                                        upload: 0,
-                                        requests: []
-									});
-								}
-							}
-						});
-					});
+                                                    });
+                                                } else {
+                                                    return res.render('user', {
+                                                        user: userObj,
+                                                        // convert from object array to string array
+                                                        friends: _.map(friends, function(f) { return f.USERNAME.toLowerCase(); }),
+                                                        trips: trips,
+                                                        destinations: destinations,
+                                                        photos: photos,
+                                                        profile: profilePhoto,
+                                                        albums: albums,
+                                                        upload: 0,
+                                                        requests: []
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    });
+
+                                }
+                            });
+                        }
+                    });
 				}
 			});
         }

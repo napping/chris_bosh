@@ -1,20 +1,53 @@
 var photo       = require('../models/photo'),
 	user        = require('../models/user'),
+	hashtag        = require('../models/hashtag'),
 	trip        = require('../models/trip');
 
 var _ = require('underscore');
 
 exports.show = function (req, res) {
-    photo.getUrlByID(req.params.pid, function (err, url) {
+    var mid = req.params.pid;
+    photo.getUrlByID(mid, function (err, url) {
 		if (err || !url) {
 			console.log('Could not find photo.', err);
 			req.flash('error', 'Could not find photo.');
 			return res.redirect('/');
 		}
-		console.log('Showing photo.');
-        return res.render( "photo", { url: url } );
-    });
+        photo.getOwner(mid, function (err, owner) {
+            if (err || !owner) { 
+                console.log('Could not get owner', err);
+                req.flash('error', 'Could not get owner.');
+                return res.redirect('/');
+            } 
+            var hashtags = [];
+            hashtag.getAllByMedia(mid, function (err, receivedHashtags) { 
+                if (err) { 
+                    console.log("Could not get hashtags", mid);
+                    return res.redirect('/');
+                } 
 
+                if (receivedHashtags && receivedHashtags.length > 0) { 
+                    hashtags = receivedHashtags;
+                }
+
+                if (owner == req.session.username) { 
+                    return res.render( "photo", { 
+                        url: url, 
+                        pid: req.params.pid, 
+                        isOwner: true,
+                        hashtags: hashtags
+                    });
+                } else { 
+                    return res.render( "photo", { 
+                        url: url, 
+                        pid: req.params.pid, 
+                        isOwner: false,
+                        hashtags: hashtags
+                    });
+                }
+            });
+        });
+    });
 }
 
 exports.new = function(req, res) {

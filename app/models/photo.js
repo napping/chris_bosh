@@ -39,16 +39,13 @@ exports.createInAlbum = function(url, username, aid, privacy, cb) {
 		if (err || !results) {
 			cb(err, null);
 		} else {
-			console.log(username);
 			var pid = results.returnParam;
-			console.log(pid);
 			var stmt2 = 'INSERT INTO Owns (username, mid, type) VALUES ' +
 				'(:1, :2, \'Photo\')';
 			db.connection.execute(stmt2, [username, pid], function (err, results) {
 				if (err) {
 					cb(err, null);
 				} else {
-                    console.log(url, pid, username);
                     var stmt3 = 'INSERT INTO InAlbum (aid, mid, type) VALUES (:1, :2, \'Photo\')';
                     db.connection.execute(stmt3, [aid, pid], function (err, results) {
                         if (err) {
@@ -136,10 +133,19 @@ exports.getUserProfile = function (username, cb) {
 	});
 }
 
+exports.getOwner = function (pid, cb) { 
+    var stmt =  " SELECT O.username " +
+                " FROM Owns O " + 
+                " WHERE O.mid = :1";
 
-
-
-
+	db.connection.execute(stmt, [pid], function (err, results) {
+        if (err) { 
+            cb(err, null);
+        } else { 
+            cb(err, results[0].USERNAME);
+        }
+    });
+}
 
 
 
