@@ -136,7 +136,7 @@ exports.getUserProfile = function (username, cb) {
 exports.getOwner = function (pid, cb) { 
     var stmt =  " SELECT O.username " +
                 " FROM Owns O " + 
-                " WHERE O.mid = :1";
+                " WHERE O.mid = :1 AND O.type = \'Photo\'";
 
 	db.connection.execute(stmt, [pid], function (err, results) {
         if (err) { 

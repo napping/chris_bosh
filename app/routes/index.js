@@ -67,5 +67,7 @@ module.exports = function(app) {
     app.get('/albums/:id', auth.requireLogin, album.show);
 
     app.post('/hashtags/add', auth.requireLogin, hashtag.add);
-    app.get('/hashtags/:tag', auth.requireLogin, hashtag.show);
+    app.get('/hashtags/search', auth.requireLogin, hashtag.search);
+    app.post('/hashtags/search', auth.requireLogin, hashtag.query);
+    // app.get('/hashtags/:tag', auth.requireLogin, hashtag.show);
 };

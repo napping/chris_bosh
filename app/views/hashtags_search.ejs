@@ -1,0 +1,52 @@
+<% include templates/header %>
+<div class="overall" style='text-align:center'>
+    <h3>Search for hashtags</h3>
+    <form method="post" action="/hashtags/search">
+        <input name="tag" type="text" value="#"></input>
+        <input name="username" type="hidden" value="<%= username %>"></input>
+        <input type="submit" value="Search"></input>
+    </form>
+    
+    <div class="found-hashtags">
+        <% if (typeof(tag) != "undefined") { %>
+            <div>
+                <h4><strong>#<%= tag %></strong></h4>
+            </div>
+        <% } %>
+
+        <% if (typeof(photos) != "undefined" && photos.length != 0) { %>
+            <div>
+                <h4>Found Photos</h4>
+                <ul>
+                    <% for (var i = 0; i < photos.length; i++) { %>
+                        <li>
+                            <a href="/photos/<%= photos[i].pid %>">
+                                <img src="<%= photos[i].url %>">
+                            </a>
+                        </li> 
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
+        <% if (typeof(destinations) != "undefined" && destinations.length != 0) { %>
+            <div>
+                <h4>Found Destinations</h4>
+                <ul>
+                    <% for (var i = 0; i < destinations.length; i++) { %>
+                        <li>
+                            <a href="/destinations/<%= destinations[i].did %>">
+                                <p>"<%= destinations[i].name %>"</p>
+                            </a>
+                        </li> 
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
+
+    <div>
+
+
+
+
+</div>
+<% include templates/footer %>

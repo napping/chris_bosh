@@ -6,7 +6,7 @@ exports.add = function(req, res) {
 	var mid = req.body.mid;
 
 
-    if (tag.length > 2) { 
+    if (tag.length > 1) { 
         if (tag.charAt(0) == "#") { 
             tag = tag.substring(1);
         }
@@ -60,7 +60,46 @@ exports.add = function(req, res) {
     }
 };
 
-exports.show = function(req, res) {
-    var tag = req.params.tag;
+exports.search = function(req, res) {
+
+    return res.render("hashtags_search", { username: req.session.username });
+}
+
+exports.query = function(req, res) {
+    var tag = req.body.tag;
+    var username = req.body.username;
+
+    if (tag.length > 1) { 
+        if (tag.charAt(0) == "#") { 
+            tag = tag.substring(1);
+        }
+
+        var photos = [];
+        hashtag.searchPhotos(tag, username, function (err, foundPhotos) { 
+            if (err) { 
+                console.log("Error getting photos with hashtag", tag);
+                return res.redirect('/');
+            } else { 
+                photos = foundPhotos;
+
+                var destinations = [];
+                hashtag.searchDestinations(tag, username, function (err, foundDestinations) { 
+                    if (err) { 
+                        console.log("Error getting photos with hashtag", tag);
+                        return res.redirect('/');
+                    }
+                    destinations = foundDestinations;
+                    res.render( "hashtags_search", {
+                        photos: photos,
+                        destinations: destinations,
+                        username: req.session.username,
+                        tag: tag
+                    });
+                });
+            }
+        });
+    }
+
+ 
 }
 

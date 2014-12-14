@@ -1,6 +1,5 @@
 <div class="box box-portrait">
     <img src="<%= url %>"/>
-
     <div class="hashtags">
         <div>
             <h4>Tags</h4>
@@ -19,8 +18,8 @@
             <form method="post" action="/hashtags/add">
                 <label for="enter-hashtag">Add Hashtag</label>
                 <input id="enter-hashtag" type="text" name="tag" maxlength="20" value="#"></input>
-                <input type="hidden" name="type" maxlength="20" value="Photo"></input>
-                <input type="hidden" name="mid" maxlength="20" value="<%= pid %>"></input>
+                <input type="hidden" name="type" maxlength="20" value="Destination"></input>
+                <input type="hidden" name="mid" maxlength="20" value="<%= did %>"></input>
 
                 <input class="input-submit-hashtag" type="submit" value="Add"></input>
             </form>

@@ -3,6 +3,21 @@ var db = require('../../config/db'),
     _ = require('underscore'),
 	oracle = require('oracle');
 
+
+exports.getOwner = function (mid, cb) { 
+    var stmt =  " SELECT O.username " +
+                " FROM Owns O " + 
+                " WHERE O.mid = :1 AND O.type = \'Destination\' ";
+
+	db.connection.execute(stmt, [mid], function (err, results) {
+        if (err) { 
+            cb(err, null);
+        } else { 
+            cb(err, results[0].USERNAME);
+        }
+    });
+}
+
 exports.load = function(did, cb) {
 	var stmt = 'SELECT * FROM Destination D ' +
 		'INNER JOIN Media M ON D.did = M.mid AND D.type = M.type ' +
@@ -83,3 +98,4 @@ exports.forUser = function(username, curUser, cb) {
 		}
 	});
 }
+
