@@ -12,7 +12,7 @@
             <% } %>
 
             <div class="col-md-3">
-                <a href="<%= photos[i].URL %>"><img src="<%= photos[i].URL %>"/></a>
+                <a href="/photos/<%= photos[i].PID %>"<%= photos[i].URL %>"><img src="<%= photos[i].URL %>"/></a>
             </div>
 
             <% if ((i % 4 == 3) || (i == photos.length -1)) { %>
