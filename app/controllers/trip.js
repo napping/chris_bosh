@@ -83,9 +83,8 @@ exports.show = function(req, res) {
                                                 partials: {
                                                     destination: 'partials/trips'
                                                 },
-                                                albums: albums,
                                                 albumsTrip: albumsTrip,
-                                                albumsUser: albumsUser,
+                                                albumsUser: [],   // template will see this and not render a select option 
                                             });
                                         }
                                     }

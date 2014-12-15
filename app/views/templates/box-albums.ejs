@@ -12,20 +12,22 @@
                     <% } %>
                 </ul>
             </div>
-        <div>
-           <form role="form" action="/trips/album" method="post">
-                <h3>Add album to trip:</h3>
-                <input name="tid" value="<%= tid %>" type="hidden"></input>
-                <select name="aid">
-                    <% for (var i = 0; i < albumsUser.length; i++) { %>
-                        <option value="<%= albumsUser[i].AID %>"><%= albumsUser[i].NAME %></option>
-                    <% } %>
-                </select>
-                  <div class="submit-credentials">
-                    <a id="submit-album-to-trip"><button type="submit" name="submit" value="Submit">Add</button></a>
-                 </div>
-            </form>
-        </div>
+        <% if (typeof(albumsUser) != "undefined" && albumsUser.length > 0) { %>
+            <div>
+               <form role="form" action="/trips/album" method="post">
+                    <h3>Add album to trip:</h3>
+                    <input name="tid" value="<%= tid %>" type="hidden"></input>
+                    <select name="aid">
+                        <% for (var i = 0; i < albumsUser.length; i++) { %>
+                            <option value="<%= albumsUser[i].AID %>"><%= albumsUser[i].NAME %></option>
+                        <% } %>
+                    </select>
+                      <div class="submit-credentials">
+                        <a id="submit-album-to-trip"><button type="submit" name="submit" value="Submit">Add</button></a>
+                     </div>
+                </form>
+            </div>
+        <% } %>
     </div>
 </div>
 
