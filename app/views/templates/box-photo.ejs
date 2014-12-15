@@ -1,5 +1,8 @@
 <div class="box box-portrait">
-    <img src="<%= url %>"/>
+    <img src="<%= url %>"/> <br />
+    <% if (authUser) { %>
+        <a href="/photos/<%= pid %>/comment">Leave a Comment</a>
+    <% } %>
 
     <div class="hashtags">
         <div>

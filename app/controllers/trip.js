@@ -365,7 +365,8 @@ exports.addComment = function(req, res) {
 	var username = req.session.username.toLowerCase();
 	var tid = req.params.id;
 	var review = req.body.review;
-	comment.create(username, tid, 'Trip', review, function(wasSuccessful) {
+	var rating = req.body.rating;
+	comment.create(username, tid, 'Trip', review, rating, function(wasSuccessful) {
 		if (!wasSuccessful) {
 			console.log(username + ' could not leave comment for trip ' + tid + '.');
 		}
