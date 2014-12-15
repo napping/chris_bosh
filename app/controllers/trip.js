@@ -6,96 +6,98 @@ var album = require('../models/album');
 var _ = require('underscore');
 
 exports.show = function(req, res) {
-	trip.load(req.params.id, function(err, currTrip) {
-		if (err || !currTrip) {
-			console.log('Trip ' + req.params.id + ' not found.', err);
-			return res.redirect('/');
-		}
-		trip.usersOnTrip(currTrip.TID, function(err, attendees) {
-			if (err || !attendees) {
-				console.log('Could not load users attending '+
-					currTrip.TID + '.', err);
-				return res.redirect('/');
-			}
-			trip.destinationsOnTrip(currTrip.TID, function(err, destinations) {
-				if (err || !destinations) {
-					console.log('Could not load destinations on ' +
-						currTrip.TID + '.', err);
-					return res.redirect('/');
-				}
-				trip.tripRequests(currTrip.TID, function(err, requests) {
-					if (err || !requests) {
-						console.log('Could not load trip requests on ' +
-							currTrip.TID + '.', err);
-						return res.redirect('/');
-					}
-					comment.forTrip(currTrip.TID, function(err, comments) {
-						if (err || !comments) {
-							console.log('Could not load comments and ratings for trip ' +
-								currTrip.TID + '.', err);
-							return res.redirect('/');
-						}
-                        var albumsUser = [];
-                        album.forUser(req.session.username, function(err, foundAlbumsUser) { 
-                            if (err) { 
-                                return res.redirect('/');
-                            } else { 
-                                albumsUser = foundAlbumsUser;
-                                var albumsTrip = [];
-                                album.forTrip(currTrip.TID, function(err, foundAlbumsTrip) { 
-                                    if (err) { 
-                                        console.log("error getting trip albums : ", err);
-                                        return res.redirect('/');
-                                    } else { 
-                                        albumsTrip = foundAlbumsTrip;
-                                        if (req.session.username && currTrip.OWNER == req.session.username.toLowerCase()) {
-                                            user.friends(currTrip.OWNER, function(err, friends) {
-                                                if (err || !friends) {
-                                                    console.log('Could not load invitation candidates on ' +
-                                                        currTrip.TID + '.' + err);
-                                                    return res.render('/');
-                                                } else {
-                                                    var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
-                                                    return res.render('trips', {
-                                                        trip: currTrip,
-                                                        tid: currTrip.TID,
-                                                        attendees: attendeeNames,
-                                                        destinations: destinations,
-                                                        invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
-                                                        requests: requests,
-                                                        comments: comments,
-                                                        partials: {
-                                                            destination: 'partials/trips'
-                                                        },
-                                                        albumsTrip: albumsTrip,
-                                                        albumsUser: albumsUser,
-                                                    });
-                                                }
-                                            });
-                                        } else {
-                                            return res.render('trips', {
-                                                trip: currTrip,
-                                                tid: currTrip.TID,
-                                                attendees: _.map(attendees, function(f) { return f.USERNAME; }),
-                                                destinations: destinations,
-                                                requests: requests,
-                                                comments: comments,
-                                                partials: {
-                                                    destination: 'partials/trips'
-                                                },
-                                                albumsTrip: albumsTrip,
-                                                albumsUser: [],   // template will see this and not render a select option 
-                                            });
+    trip.load(req.params.id, function(err, currTrip) {
+        if (err || !currTrip) {
+            console.log('Trip ' + req.params.id + ' not found.', err);
+            return res.redirect('/');
+        }
+        trip.usersOnTrip(currTrip.TID, function(err, attendees) {
+            if (err || !attendees) {
+                console.log('Could not load users attending '+
+                            currTrip.TID + '.', err);
+                return res.redirect('/');
+            }
+            trip.destinationsOnTrip(currTrip.TID, function(err, destinations) {
+                if (err || !destinations) {
+                    console.log('Could not load destinations on ' +
+                                currTrip.TID + '.', err);
+                    return res.redirect('/');
+                }
+                trip.tripRequests(currTrip.TID, function(err, requests) {
+                    if (err || !requests) {
+                        console.log('Could not load trip requests on ' +
+                                    currTrip.TID + '.', err);
+                        return res.redirect('/');
+                    }
+                    comment.forTrip(currTrip.TID, function(err, comments) {
+                        if (err || !comments) {
+                            console.log('Could not load comments and ratings for trip ' +
+                                        currTrip.TID + '.', err);
+                            return res.redirect('/');
+                        } else {
+                            user.friends(currTrip.OWNER, function(err, friends) {
+                                if (err || !friends) {
+                                    console.log('Could not load invitation candidates on ' +
+                                                currTrip.TID + '.' + err);
+                                    return res.render('/');
+                                } else {
+                                    var albumsTrip = [];
+                                    album.forTrip(currTrip.TID, function(err, foundAlbumsTrip) { 
+                                        if (err) { 
+                                            console.log("error getting trip albums : ", err);
+                                            return res.redirect('/');
+                                        } else { 
+                                            albumsTrip = foundAlbumsTrip;
+                                            if (typeof(req.session.username) != "undefined" && currTrip.OWNER == req.session.username.toLowerCase()) {
+
+                                                var albumsUser = [];
+                                                album.forUser(req.session.username, function(err, foundAlbumsUser) { 
+                                                    if (err) { 
+                                                        return res.redirect('/');
+                                                    } else { 
+                                                        albumsUser = foundAlbumsUser;
+                                                        var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
+                                                        return res.render('trips', {
+                                                            trip: currTrip,
+                                                            tid: currTrip.TID,
+                                                            attendees: attendeeNames,
+                                                            destinations: destinations,
+                                                            invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
+                                                            requests: requests,
+                                                            comments: comments,
+                                                            partials: {
+                                                                destination: 'partials/trips'
+                                                            },
+                                                            albumsTrip: albumsTrip,
+                                                            albumsUser: albumsUser,
+                                                        });
+                                                    }
+                                                });
+                                            } else {
+                                                return res.render('trips', {
+                                                    trip: currTrip,
+                                                    tid: currTrip.TID,
+                                                    attendees: _.map(attendees, function(f) { return f.USERNAME; }),
+                                                    destinations: destinations,
+                                                    requests: requests,
+                                                    comments: comments,
+                                                    partials: {
+                                                        destination: 'partials/trips'
+                                                    },
+                                                    albumsTrip: albumsTrip,
+                                                    albumsUser: [],   // template will see this and not render a select option 
+                                                });
+                                            }
                                         }
-                                    }
-                                });
-                            }
-                        });
-					});
-				});
-			});
-		});
-	});
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    });
 };
 
 exports.edit = function(req, res) {

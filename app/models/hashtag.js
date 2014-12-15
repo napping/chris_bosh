@@ -13,8 +13,18 @@ exports.addTag = function (tag, type, mid, cb) {
             console.log("Could not add hashtag", err);
             cb(err);
         } else { 
-            console.log(exists);
-            if (!exists || exists[0]["1"] != 1) { 
+            if (exists.length != 0 && exists[0]["1"] == 1) { 
+                var stmt2 = ' INSERT INTO Describes (tag, mid, type) ' + 
+                            ' VALUES (:1, :2, :3) ';
+                db.connection.execute(stmt2, [ tag, mid, type ], function(err, results) {
+                    if (err) { 
+                        console.log("Could not add hashtag to describes", err);
+                        cb(err);
+                    } else { 
+                        cb(null);
+                    }
+                });
+           } else {
                 var stmt1 = ' INSERT INTO Hashtag (tag)' +
                             ' VALUES (:1) ';
 
@@ -34,17 +44,6 @@ exports.addTag = function (tag, type, mid, cb) {
                                 cb(null);
                             }
                         });
-                    }
-                });
-            } else {
-                var stmt2 = ' INSERT INTO Describes (tag, mid, type) ' + 
-                            ' VALUES (:1, :2, :3) ';
-                db.connection.execute(stmt2, [ tag, mid, type ], function(err, results) {
-                    if (err) { 
-                        console.log("Could not add hashtag to describes", err);
-                        cb(err);
-                    } else { 
-                        cb(null);
                     }
                 });
             }
