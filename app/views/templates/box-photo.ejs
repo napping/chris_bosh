@@ -10,9 +10,9 @@
             <p>
                 <% if (typeof(hashtags) != "undefined" && hashtags.length != 0) { %>
                         <% for (var i = 0; i < hashtags.length - 1; i++) { %>
-                            <a href="/hashtags/<%= hashtags[i].TAG %>">#<%= hashtags[i].TAG %></a>, 
+                            <a href="/hashtags/search">#<%= hashtags[i].TAG %></a>, 
                         <% } %>
-                        <a href="/hashtags/<%= hashtags[hashtags.length - 1].TAG %>">#<%= hashtags[hashtags.length - 1].TAG %></a>
+                        <a href="/hashtags/search">#<%= hashtags[hashtags.length - 1].TAG %></a>
                 <% } else { %>
                     Currently no hashtags.
                 <% } %>
