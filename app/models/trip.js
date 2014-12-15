@@ -215,6 +215,18 @@ exports.onTrip = function(tid, username, cb) {
 	});	
 }
 
+exports.addDestination = function(tid, did, order, cb) {
+	var stmt = 'INSERT INTO PartOf (tid, did, order_in_trip) VALUES (:1, :2, :3)';
+	db.connection.execute(stmt, [tid, did, order], function(err, results) {
+		if (err) {
+			console.log(err);
+			cb(true);
+		} else {
+			cb(false);
+		}
+	});	
+}
+
 exports.forDestination = function(curDest, curUser, cb) {
 	var stmt = 'SELECT DISTINCT T.tid, T.name, M.privacy FROM Trip T ' + 
 			   'INNER JOIN PartOf P on P.tid = T.tid ' +
