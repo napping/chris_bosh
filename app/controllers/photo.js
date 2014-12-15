@@ -65,6 +65,11 @@ exports.new = function(req, res) {
 
 exports.create = function(req, res) {
 	var url = req.body.url;
+    if (!url || url.length == 0) {
+        req.flash('error', 'Could not create photo.');
+        console.log('Photo url cannot be null or empty.');
+        return res.redirect(req.header('Referer') || '/');
+    }
 	photo.create(url, req.session.username, function(err, pid, url) {
 		if (err || !pid) {
 			console.log('Could not create photo.', err);
