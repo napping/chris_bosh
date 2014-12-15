@@ -183,8 +183,10 @@ exports.fromCache = function (pid, cb) {
 	collection.findOne({pid: pid}, function(err, photo) {
 		if (err) {
 			cb(err, null);
-		} else {
+		} else if (photo && photo.image) {
 			cb(null, photo.image.buffer);
+		} else {
+			cb(null, '');
 		}
 	});
 }
