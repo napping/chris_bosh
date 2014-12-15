@@ -18,7 +18,6 @@ exports.addTag = function (tag, type, mid, cb) {
                             ' VALUES (:1, :2, :3) ';
                 db.connection.execute(stmt2, [ tag, mid, type ], function(err, results) {
                     if (err) { 
-                        console.log("Could not add hashtag to describes", err);
                         cb(err);
                     } else { 
                         cb(null);
