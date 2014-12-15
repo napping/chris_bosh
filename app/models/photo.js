@@ -1,6 +1,7 @@
 var db = require('../../config/db'),
     user = require('./user'),
-	oracle = require('oracle');
+	oracle = require('oracle'),
+	request = require('request');
 
 exports.create = function(url, username, cb) {
 	var stmt = 'INSERT INTO Media (type, privacy) ' + 
@@ -127,7 +128,6 @@ exports.getUserProfile = function (username, cb) {
 		if (err) {
 			cb(err, null);
 		} else {
-            console.log( "Found profile photo for user " + username + ".");
             cb(null, results[0]);
 		}
 	});
@@ -147,9 +147,44 @@ exports.getOwner = function (pid, cb) {
     });
 }
 
+exports.view = function(pid, cb) {
+	var stmt = "UPDATE Photo SET hits = hits + 1 WHERE pid=:1";
 
+	db.connection.execute(stmt, [pid], function (err, results) {
+		if (err) {
+			cb(err, false);
+		}
+		var stmt2 = "SELECT hits, url FROM Photo WHERE pid=:1";
 
+		db.connection.execute(stmt2, [pid], function (err, results) {
+			if (err) {
+				cb(err, false);
+			} else if (results.length === 1 && results[0].HITS === 5) {
+				request({url: results[0].URL, encoding: null}, function (err, resp, body) {
+					var collection = db.cache.collection('photos');
+					collection.insert({pid: pid, image: body}, function(err) {
+						if (err) {
+							cb(err, false);
+						} else {
+							console.log('Cache entry added for photo ' + pid + '.');
+							cb(null, true);
+						}
+					});
+				});
+			} else {
+				cb(err, results.length === 1 && results[0].HITS >= 5);
+			}
+		});
+	});
+}
 
-
-
-
+exports.fromCache = function (pid, cb) {
+	var collection = db.cache.collection('photos');
+	collection.findOne({pid: pid}, function(err, photo) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(null, photo.image.buffer);
+		}
+	});
+}

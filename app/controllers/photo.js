@@ -8,42 +8,50 @@ var _ = require('underscore');
 
 exports.show = function (req, res) {
     var mid = req.params.pid;
-    photo.getUrlByID(mid, function (err, url) {
-		if (err || !url) {
-			console.log('Could not find photo.', err);
-			req.flash('error', 'Could not find photo.');
-			return res.redirect('/');
-		}
-        photo.getOwner(mid, function (err, owner) {
-            if (err || !owner) { 
-                console.log('Could not get owner', err);
-                req.flash('error', 'Could not get owner.');
-                return res.redirect('/');
-            }
-            comment.forPhoto(mid, function(err, comments) {
-                if (err || !comments) {
-                    console.log('Could not load comments and ratings for photo ' +
-                        mid + '.', err);
+    // register that the photo was hit, for caching purposes
+    photo.view(mid, function(err, isCached) {
+        if (err) {
+            console.log('Could not load photo. ', err);
+            return res.redirect('/');
+        }
+        photo.getUrlByID(mid, function (err, url) {
+    		if (err || !url) {
+    			console.log('Could not find photo.', err);
+    			req.flash('error', 'Could not find photo.');
+    			return res.redirect('/');
+    		}
+            photo.getOwner(mid, function (err, owner) {
+                if (err || !owner) { 
+                    console.log('Could not get owner', err);
+                    req.flash('error', 'Could not get owner.');
                     return res.redirect('/');
                 }
-
-                var hashtags = [];
-                hashtag.getAllByMedia(mid, function (err, receivedHashtags) { 
-                    if (err) { 
-                        console.log("Could not get hashtags", mid);
+                comment.forPhoto(mid, function(err, comments) {
+                    if (err || !comments) {
+                        console.log('Could not load comments and ratings for photo ' +
+                            mid + '.', err);
                         return res.redirect('/');
-                    } 
-
-                    if (receivedHashtags && receivedHashtags.length > 0) { 
-                        hashtags = receivedHashtags;
                     }
 
-                    return res.render( "photo", { 
-                        url: url, 
-                        pid: req.params.pid, 
-                        isOwner: owner == req.session.username,
-                        hashtags: hashtags,
-                        comments: comments
+                    var hashtags = [];
+                    hashtag.getAllByMedia(mid, function (err, receivedHashtags) { 
+                        if (err) { 
+                            console.log("Could not get hashtags", mid);
+                            return res.redirect('/');
+                        } 
+
+                        if (receivedHashtags && receivedHashtags.length > 0) { 
+                            hashtags = receivedHashtags;
+                        }
+
+                        return res.render( "photo", { 
+                            url: url,
+                            isCached: isCached,
+                            pid: req.params.pid, 
+                            isOwner: owner == req.session.username,
+                            hashtags: hashtags,
+                            comments: comments
+                        });
                     });
                 });
             });
@@ -103,5 +111,17 @@ exports.addComment = function(req, res) {
             console.log(username + ' could not leave comment for photo ' + pid + '.');
         }
         return res.redirect('/photos/' + pid);
+    });
+};
+
+exports.cached = function(req, res) {
+    var pid = req.params.id;
+    photo.fromCache(pid, function (err, photo) {
+        if (err) {
+            console.log('Could not load cached photo ' + pid + '.', err);
+            return res.redirect('/');
+        }
+        res.writeHead(200, {'Content-Type': 'image/gif' });
+        res.end(photo, 'binary');
     });
 }

@@ -59,6 +59,7 @@ module.exports = function(app) {
     app.get('/photos/:pid', photo.show);
     app.get('/photos/:id/comment', auth.requireLogin, photo.comment);
     app.post('/photos/:id/comment', auth.requireLogin, photo.addComment);
+    app.get('/photos/:id/cache', photo.cached);
 
     app.get('/about', page.about);
 

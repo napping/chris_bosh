@@ -1,5 +1,9 @@
 <div class="box box-portrait">
-    <img src="<%= url %>"/> <br />
+    <% if (isCached) { %>
+        <img src="/photos/<%= pid %>/cache"/> <br />
+    <% } else { %>
+        <img src="<%= url %>"/> <br />
+    <% } %>
     <% if (authUser) { %>
         <a href="/photos/<%= pid %>/comment">Leave a Comment</a>
     <% } %>

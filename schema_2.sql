@@ -83,6 +83,7 @@ CREATE TABLE Photo
     source          VARCHAR(64) DEFAULT 'default',
     url             VARCHAR(512),
     type            VARCHAR(64) DEFAULT 'Photo',
+    hits            INT DEFAULT 0 NOT NULL,
     CONSTRAINT pk_photo PRIMARY KEY (pid, source),
     CONSTRAINT type_photo CHECK (type = 'Photo'),
     FOREIGN KEY (pid, source, type) REFERENCES Media(mid, source, type)
