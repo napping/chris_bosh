@@ -103,10 +103,12 @@ exports.verifyUser = function(username, aid, cb) {
     var stmt =  " SELECT A.privacy, A.username " + 
                 " FROM ALBUM A " +  
                 " WHERE A.aid = :1 ";
+
     db.connection.execute(stmt, [aid], function (err, results) { 
         if (err) { 
             cb(err, null);
         } else { 
+            console.log("in verfiy",results);
             var privacy = results[0].PRIVACY;
             var owner = results[0].USERNAME;
             switch (privacy) { 
@@ -126,20 +128,24 @@ exports.verifyUser = function(username, aid, cb) {
                                 " INNER JOIN GoesOn GO ON GO.username = U.username " +  
                                 " INNER JOIN AlbumOfTrip AOT ON AOT.tid = GO.tid " +  
                                 " WHERE AOT.aid = :1 ";
+                    if (owner == username) { 
+                        console.log("owner == username", owner, username);
+                        cb(null, true);
+                        break;
+                    }
                     db.connection.execute(stmt2, [aid], function (err, results) { 
                         if (err) { 
                             cb(err, null);
                         } else {
-                            allowedUsernames = [];
-                            console.log("Allowed usernames : ", results);
-                            for (tripUser in results) { 
-                                allowedUsernames.push(tripUser.USERNAME);
+                            var allowed = false;
+                            for (var i = 0; i < results.length; i++) { 
+                                if (results[i].USERNAME == username) { 
+                                    allowed = true;
+                                    break;
+                                }
                             }
-                            if (allowedUsernames.indexOf(username)) { 
-                                cb(null, true);
-                            } else { 
-                                cb(null, false);
-                            }
+                            console.log("not in allowUsernames");
+                            cb(null, allowed);
                         }
                     });
                     break;
