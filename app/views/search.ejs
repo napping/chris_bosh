@@ -1,12 +1,23 @@
 <% include templates/header %>
 <div class="overall">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-3">
+        	<h3>EIGHT Results</h3>
             <ul>
               <% for (var i = 0; i < results.length; i++) { %>
                 <li><a href="/<% if (results[i].TYPE==='Trip') { %>trips<% } if (results[i].TYPE==='Destination') {%>destinations<% } %>/<%= results[i].MID %> "><%= results[i].NAME %></a></li>
               <% } %>
             </ul>
+       </div>
+       <div class="col-md-9">
+       	<h3>Relevant Images</h3>
+       	<ul>
+       		<% for (var i = 0; i < bingImages.length; i++) { %>
+       			<li>
+       				<img src="<%= bingImages[i] %>" style="max-width:400px"> <br />
+       			</li>
+       		<% } %>
+       	</ul>
        </div>
     </div>
 

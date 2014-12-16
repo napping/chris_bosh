@@ -1,0 +1,1 @@
+exports.Bing = require('node-bing-api')({accKey: "C/6jO09B7xMh6EY9qw2C1/FMuz80vDEO0X9pPdejrwU" });

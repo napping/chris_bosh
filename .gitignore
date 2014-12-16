@@ -2,6 +2,8 @@
 *.jar
 node_modules
 script.sh
+*.aux
+*.synctex.gz
 *.log
 *.swp
 *.swo

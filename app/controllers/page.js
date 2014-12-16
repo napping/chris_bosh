@@ -1,7 +1,8 @@
 var db = require('../../config/db'),
     user = require('../models/user'),
     photo = require('../models/photo'),
-    utils = require('./utils');
+    utils = require('./utils'),
+    Bing = require('../../config/bing').Bing;
 
 var _ = require('underscore'),
     ld = require('damerau-levenshtein');
@@ -110,9 +111,14 @@ exports.search = function(req, res) {
             var searchResults = _.first(_.sortBy(visibleResults, function(r) {return -ld(query, 
                 r.NAME.toLowerCase()).similarity}), 10);
 
-            return res.render('search', {
-                results: searchResults
-            });
+            Bing.images(query, function(err, resp, body) {
+                return res.render('search', {
+                    results: searchResults,
+                    bingImages: _.map(body.d.results, function(result) {
+                        return result.MediaUrl;
+                    })
+                });
+            }, { top: 5 });
         });
     });
 }
