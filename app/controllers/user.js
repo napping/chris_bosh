@@ -170,6 +170,8 @@ exports.profile = function(req, res) {
                                                                                 else {
                                                                                     var friendNames = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
                                                                                     var cotravelerNames = _.map(cotravelers, function(f) { return f.USERNAME.toLowerCase(); });
+                                                                                    var recommendedDestinations = _.filter(friendDestinations, function(f) { return destinations.indexOf(f) === -1 });
+																					var recommendedFriends = _.filter(cotravelerNames, function(f) { return friendNames.indexOf(f) === -1});
                                                                                     return res.render('user', {
                                                                                         user: userObj,
                                                                                         // convert from object array to string array
@@ -182,8 +184,8 @@ exports.profile = function(req, res) {
                                                                                         invitations: invitations,
                                                                                         profile: profilePhoto,
                                                                                         upload: 1,
-                                                                                        recommendedFriends: _.filter(cotravelerNames, function(f) { return friendNames.indexOf(f) === -1}),
-                                                                                        recommendedDestinations: _.filter(friendDestinations, function(f) { return destinations.indexOf(f) === -1 })
+                                                                                        recommendedFriends: _.uniq(recommendedFriends, function(f) { return f.USERNAME; }),
+                                                                                        recommendedDestinations: _.uniq(recommendedDestinations, function(f) { return f.DID; })
                                                                                     });
                                                                                 }
                                                                             });

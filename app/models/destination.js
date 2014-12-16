@@ -63,6 +63,38 @@ exports.create = function(name, username, cb) {
 	});
 }
 
+exports.forTrip = function(curUser, cb) {
+	var stmt = 'SELECT DISTINCT D.did, D.name, O.username AS owner, M.privacy FROM Destination D ' +
+			   'INNER JOIN Media M ON M.mid = D.did AND M.type = D.type AND M.source = D.source ' +
+			   'INNER JOIN Owns O ON O.mid = M.mid AND M.source = O.source AND M.type = O.type ';
+
+	db.connection.execute(stmt, [], function (err, results) {
+		if (err) {
+			cb(err, null);
+		} else {
+			user.friends(curUser, function(err, friends) {
+				if (err) {
+					cb(err, null);
+				} else {
+					var destinations = [];
+					friends = _.map(friends, function(f) { return f.USERNAME.toLowerCase(); });
+					for (var i = 0; i < results.length; i++) {
+						if (results[i].PRIVACY === 'public') {
+							destinations.push(results[i]);
+						} else if (results[i].PRIVACY === 'sharedWithTripMembers' && 
+							(friends.indexOf(curUser) !== -1 || curUser === results[i].OWNER)) {
+							destinations.push(results[i]);
+						} else if (results[i].PRIVACY === 'private' && curUser === results[i].OWNER) {
+							destinations.push(results[i]);
+						}
+					}
+				}
+				cb(null, destinations);
+			});
+		}
+	});
+}
+
 exports.forUser = function(username, curUser, cb) {
 	var stmt = 'SELECT DISTINCT D.did, D.name, O.username AS owner, M.privacy FROM Destination D ' +
 			   'INNER JOIN PartOf P ON P.did = D.did ' +

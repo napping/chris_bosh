@@ -30,6 +30,19 @@
                         <a id="submit-credentials"><button type="submit" name="submit" value="Submit">Invite</button></a>
                      </div>
                   </form>
+                  <h3>Add destinations</h3>
+                  <div class="list-destinations">
+                    <form id="add_destinations_form" role="form" action="/trips/<%= trip.TID %>/addDestination" method="post">
+                      <select form="add_destinations_form" name="did">
+                      <% for (var i = 0; i < destinationsNotOnTrip.length; i++) { %>
+                        <option value="<%= destinationsNotOnTrip[i].DID %>"><%= destinationsNotOnTrip[i].NAME %></option>
+                      <% } %>
+                      </select>
+                      <div class="submit-destinations">
+                        <a id="submit-destinations"><button type="submit" name="submit-dest" value="Submit">Add</button></a>
+                     </div>
+                  </form>
+                  </div>
                 <% } %>
             </div>
           </div>

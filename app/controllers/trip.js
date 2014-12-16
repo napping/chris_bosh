@@ -2,6 +2,7 @@ var trip = require('../models/trip');
 var comment = require('../models/comment');
 var user = require('../models/user');
 var album = require('../models/album');
+var destination = require('../models/destination')
 
 var _ = require('underscore');
 
@@ -55,22 +56,30 @@ exports.show = function(req, res) {
                                                     if (err) { 
                                                         return res.redirect('/');
                                                     } else { 
-                                                        albumsUser = foundAlbumsUser;
-                                                        var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
-                                                        return res.render('trips', {
-                                                            trip: currTrip,
-                                                            tid: currTrip.TID,
-                                                            attendees: attendeeNames,
-                                                            destinations: destinations,
-                                                            invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
-                                                            requests: requests,
-                                                            comments: comments,
-                                                            partials: {
-                                                                destination: 'partials/trips'
-                                                            },
-                                                            albumsTrip: albumsTrip,
-                                                            albumsUser: albumsUser,
-                                                        });
+                                                    	destination.forTrip(req.session.username, function(err, allDestinations) {
+                                                    		if (err) {
+                                                    			return res.redirect('/');
+                                                    		} else {
+																albumsUser = foundAlbumsUser;
+		                                                        var attendeeNames = _.map(attendees, function(f) { return f.USERNAME; });
+		                                                        var destinationIds = _.map(destinations, function(f) { return f.did; });
+		                                                        return res.render('trips', {
+		                                                            trip: currTrip,
+		                                                            tid: currTrip.TID,
+		                                                            attendees: attendeeNames,
+		                                                            destinations: destinations,
+		                                                            destinationsNotOnTrip: _.filter(allDestinations, function(f) { return destinationIds.indexOf(f.DID) === -1; }),
+		                                                            invitationCandidates: _.filter(friends, function(f) { return attendeeNames.indexOf(f.USERNAME) === -1; }),
+		                                                            requests: requests,
+		                                                            comments: comments,
+		                                                            partials: {
+		                                                                destination: 'partials/trips'
+		                                                            },
+		                                                            albumsTrip: albumsTrip,
+		                                                            albumsUser: albumsUser,
+		                                                        });
+                                                    		}
+                                                    	})
                                                     }
                                                 });
                                             } else {
@@ -367,7 +376,8 @@ exports.addComment = function(req, res) {
 	var username = req.session.username.toLowerCase();
 	var tid = req.params.id;
 	var review = req.body.review;
-	comment.create(username, tid, 'Trip', review, function(wasSuccessful) {
+	var rating = req.body.rating;
+	comment.create(username, tid, 'Trip', review, rating, function(wasSuccessful) {
 		if (!wasSuccessful) {
 			console.log(username + ' could not leave comment for trip ' + tid + '.');
 		}
@@ -383,6 +393,42 @@ exports.addAlbum = function(req, res) {
             console.log("Could not add album ", aid, " to trip ", tid, ".");
         }
 		return res.redirect('/trips/' + tid);
+	});
+}
+
+exports.addDestination = function(req, res) {
+	var tid = req.params.id;
+	var did = req.body.did;
+	var currUser = req.session.username.toLowerCase();
+
+	console.log(req.body);
+
+	trip.load(tid, function(err, tripObj) {
+		if (err || !tripObj || tripObj.length === 0) {
+			console.log('Trip ' + tid + ' could not be loaded.');
+			return res.redirect('/');
+		}
+		if (tripObj.OWNER != currUser) {
+			console.log('Could not add destination ' + did + ' to trip ' + tid + '.');
+			return res.redirect('/trips/' + tid);
+		}
+		trip.destinationsOnTrip(tid, function(err, destinations) {
+			if (err || !destinations) {
+				console.log('Could not load destinations on ' +
+					tid + '.', err);
+				return res.redirect('/trips/' + tid);
+			}
+			trip.addDestination(tid, did, destinations.length, function(err) {
+				if (err) {
+					console.log('Could not add destination ' + did + ' to trip ' + tid + '.');
+					return res.redirect('/trips/' + tid);
+				}
+				else {
+					console.log('Added destination ' + did + ' to trip ' + tid + '.');
+					return res.redirect('/trips/' + tid);
+				}
+			});
+		});
 	});
 }
 

@@ -5,10 +5,10 @@
         	<% for (var i = 0; i < newsfeed.length; i++) { %>
             	<li>
             		<% if (newsfeed[i].TYPE === 'Trip') { %>
-            			<b><a href="/users/newsfeed[i].OWNER %>"><%= newsfeed[i].OWNER %></a></b> 
+            			<b><a href="/users/<%= newsfeed[i].OWNER %>"><%= newsfeed[i].OWNER %></a></b> 
             			went on a trip, <a href="/trips/<%= newsfeed[i].ID %>"><%= newsfeed[i].NAME %></a>.
             		<% } else if (newsfeed[i].TYPE === 'Photo') { %>
-            			<b><a href="/users/newsfeed[i].OWNER %>"><%= newsfeed[i].OWNER %></a></b> 
+            			<b><a href="/users/<%= newsfeed[i].OWNER %>"><%= newsfeed[i].OWNER %></a></b> 
             			took a <a href="/photos/<%= newsfeed[i].ID %>">new photo</a>.
             		<% } %>
             	</li>
