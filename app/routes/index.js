@@ -74,4 +74,6 @@ module.exports = function(app) {
     app.get('/hashtags/search', auth.requireLogin, hashtag.search);
     app.post('/hashtags/search', auth.requireLogin, hashtag.query);
     // app.get('/hashtags/:tag', auth.requireLogin, hashtag.show);
+
+    app.get('/videos/:id', auth.requireLogin, video.load);
 };

@@ -1,7 +1,7 @@
 var photo       = require('../models/photo'),
 	user        = require('../models/user'),
 	hashtag     = require('../models/hashtag'),
-	trip        = require('../models/trip'),
+	trip        = require('../models/trip');
     comment     = require('../models/comment');
 
 var _ = require('underscore');

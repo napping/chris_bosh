@@ -13,7 +13,6 @@ exports.add = function(req, res) {
 
         hashtag.addTag(tag, type, mid, function(err) {   // Will add to both Hashtag and Describes
             if (err) {
-                console.log('Could not create/add hashtag', tag, ": ", err);
                 req.flash('error', 'Could not create/add hashtag.');
             } else { 
                 console.log('Created hashtag', tag, '.');
