@@ -49,4 +49,77 @@ new relationship under this implementation. Instead, we decided to have one cent
 every entry in each of our specific media tables. The media table was indexed by a primary key which was a composite
 of the relevant media's type and its pid in its own table. For example, if we had a photo with primary key 12 in the Photo table, its corresponding primary key in the Media table would be (`Photo', 12). The ratings, likes, and comments tables then simply used the primary key of the entry in the Media table that it referred to, minimizing duplication.
 
+\section{Performance Evaluation}
+We used Apachebench to benchmark our application. We hypothesized that the main bottleneck of our
+application was the constant calls to Oracle - we assumed we were IO-bound on the server's end,
+rather than IO-bound at the client's end (i.e. network latency) or CPU-bound. We therefore conducted
+several tests to determine whether our hypothesis was correct.
+
+\subsection{Local versus EC2}
+We first attempted to control for running our application on {\tt localhost} versus hosting it on
+Amazon. We therefore ran 100 sequential requests to load the profile of username {\tt rigel},
+who had a lot of photos and trips. \\
+
+\begin{tabular}{|c|c|c|}
+  \hline {\bf Description} & {\bf Mean (sec.)} & {\bf SD (sec.)} \\
+  \hline {\tt localhost} & 3593 & 705 \\
+  \hline EC2 & 408 & 199 \\
+  \hline
+\end{tabular} \\
+
+From this, we saw an interesting effect of spatial locality. We would have expected the
+{\tt localhost} calls to be quicker. However, the fact that the Oracle database and EC2 instance
+are both on us-west, combined with the simple nature of the EC2 server being beefy, made the
+cloud calls much quicker. This surprised us, but it makes sense in retrospect.
+
+\subsection{CPU versus IO}
+We next attempted to discern whether our latency was CPU-bound or IO-bound. We therefore ran 100 
+sequential requests to load the profile of username {\tt max}, who had few photos and trips, and the profile of username {\tt rigel}, who had a lot of photos and trips. \\
+
+\begin{tabular}{|c|c|c|}
+  \hline {\bf Description} & {\bf Mean (sec.)} & {\bf SD (sec.)} \\
+  \hline {\tt localhost}, {\tt max} & 1017 & 102 \\
+  \hline EC2, {\tt max} & 283 & 60.6 \\
+  \hline {\tt localhost}, {\tt rigel} & 3593 & 705 \\
+  \hline EC2, {\tt rigel} & 408 & 199 \\
+  \hline
+\end{tabular} \\
+
+From this, we can infer that a lot of latency comes from the Oracle database. Loading all 42 of
+{\tt rigel}'s photos added a quarter of a second to the page load time on average. This is also
+likely the reason that {\tt rigel} had a higher deviation on page load times.
+
+\subsection{Sequential versus concurrent}
+{\em Note}: This section is for extra credit, as delineated by the writeup. \\
+
+Let us explore the time needed to load {\tt rigel}'s profile as a function of concurrent requests. \\
+
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline {\bf Concurrency} & {\bf Min (sec.)} & {\bf Mean (sec.)} & {\bf SD (sec.)} & 
+    {\bf Median (sec.)} & {\bf Max (sec.)} \\
+  \hline 1 & 311 & 408 & 199 & 338 & 1843 \\
+  \hline 2 & 312 & 427 & 201 & 372 & 2075 \\
+  \hline 3 & 316 & 500 & 233 & 429 & 2600 \\
+  \hline 5 & 327 & 688 & 492 & 578 & 6925 \\
+  \hline 10 & 351 & 744 & 313 & 672 & 3586 \\
+  \hline 15 & 416 & 1154 & 626 & 968 & 6492 \\
+  \hline 25 & 555 & 1773 & 806 & 1601 & 9173 \\
+  \hline
+\end{tabular} \\
+
+{\em Methodology}: We made requests like {\tt ab -n 1000 -c 10 [url]}, where we kept the number of
+total requests ten times the number of concurrent requests. \\
+
+Our application can handle concurrency reasonably well; it handles up to 10 simultaneously heavy
+requests with reasonable latency. Node's event-driven nature facilitates this. We conjecture that
+Oracle is not able to handle more than ten simultaneously requests gracefully; we do not have
+hard evidence of this, but judging by our server's logs, Oracle started clumping together similar
+database calls at this point. For example, the logs would have seven or eight consecutive
+responses from the {\tt Photo} table, even though we also made subsequent calls to the {\tt Trip}
+table (among others). \\
+
+We finally noticed the long tail on these statistics. Our application will every now and then take
+a preposterous amount of time to load a page. We aren't positive why this is, but speculate that it
+may be because of quirks in the OS scheduler on the server or database. \\
+
 \end{document}
