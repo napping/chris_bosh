@@ -36,10 +36,20 @@ that it would be a different and refreshing experience to have to write raw SQL 
 
 \section{Application Details}
 \subsection{Architecture}
-The project was build as a Node application on the Express framework, and used the Model View Controller 
-architectural pattern. Our models contained the functions to directly interact with the database,
-including the prepared queries that were run. Our controllers combined our model functions in order to 
-send the information to the views, which displayed the necessary pages to the user. 
+The project was build as a Node application on the Express framework, and used the Model-View-Controller 
+architectural pattern. We used strict separation of concerns and loose coupling for our models. Like
+how other applications will place ORMs and ODMs in their models, we used our models as a convenient
+wrapper interface to the database. We used embedded JavaScript (EJS) for our views, and generally tried
+to keep them stateless, with the exception of some checks to see if the visitor is logged in. We
+definitely used the fat controller paradigm, placing a lot of application logic in our controllers. \\
+
+We availed ourselves of several useful APIs for terseness. We used Underscore.js to write JavaScript
+with functional paradigms, the request library for programmatically downloading images into our
+cache, and the MongoDB library to give simple bindings to Mongo. \\
+
+The client and server communicate through RESTful HTTP calls. Our website is not extremely dynamic,
+but it would have been straightforward to use AJAX or web sockets to achieve this.
+
 \subsection{Implementation}
 \subsubsection{Photos and Videos}
 Uploading photos and videos was fairly straightforward. The url referring to the photo or video was given by
