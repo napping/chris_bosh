@@ -36,12 +36,18 @@ exports.index = function(req, res) {
                                 if (err) {
                                     console.log('Could not load ' + username + '\'s newsfeed.', err);
                                 }
-                                return res.render('home', {
-                                    user: userObj,
-                                    friends: _.map(friends, function(f) {return f.USERNAME}),
-                                    requests: [],
-                                    profile: profilePicture,
-                                    newsfeed: newsfeed || [],
+                                user.friendRequests(username, function(err, requests) {
+                                    if (err) {
+                                        console.log('Error loading friend requests for ' + username + '.', err);
+                                        return res.redirect('/');
+                                    }
+                                    return res.render('home', {
+                                        user: userObj,
+                                        friends: _.map(friends, function(f) {return f.USERNAME}),
+                                        requests: requests,
+                                        profile: profilePicture,
+                                        newsfeed: newsfeed || [],
+                                    });
                                 });
                             });
                         }

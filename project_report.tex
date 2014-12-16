@@ -21,6 +21,61 @@
 
 \begin{document}
 \maketitle
+\section{Introduction}
+We built {\bf EIGHT}, a travel planning website and social network. The name was inspired by an
+inside joke among CIS 121 TAs and all too much box wine.
+
+\section{Project Goals}
+We had three goals for this project. One was to build a scalable application at both the
+database level and the server level. We wanted to design a schema that was easy to build more
+features on top of, and we also wanted our application to have good performance (i.e. not just
+be another class project). Next, we wanted to learn more about Node.js. Max had done some
+consulting work in Node, but it was pretty new to both Brian and Rigel. Finally, we had
+traditionally used ORMs or ODMs when writing web applications in the past, so we figured
+that it would be a different and refreshing experience to have to write raw SQL this time around.
+
+\section{Application Details}
+\subsection{Architecture}
+The project was build as a Node application on the Express framework, and used the Model View Controller 
+architectural pattern. Our models contained the functions to directly interact with the database,
+including the prepared queries that were run. Our controllers combined our model functions in order to 
+send the information to the views, which displayed the necessary pages to the user. 
+\subsection{Implementation}
+\subsubsection{Photos and Videos}
+Uploading photos and videos was fairly straightforward. The url referring to the photo or video was given by
+the user in one of the views, which is then passed into the database to create a new row in its respective table.
+A corresponding entry is created in Media, which contains the privacy information, and in Owns, which contains
+the relation to the user that uploaded the photo or video.\\
+
+Implementing privacy restrictions was done serverside. When loading photos or videos, if the setting is `private,'
+it will only display if the current user is the owner. If the setting is `sharedWithTripMembers,' then it only displays
+if the current user is a member of the trip that the media is associated with.
+\subsubsection{Recommendations} We used a very simple algorithm to determine recommendations. First, we look at all of the
+trips that a user is on, and if any of the trips include destinations that are not part of the user's profile, the destination
+is recommended. Similarly, if there are any members of those trips that the user is not already friends with, then they are
+recommended as friends.
+\subsubsection{Search}
+We use a simple search algorithm based on Damerau-Levenshtein distance. This is
+obviously not the most intelligent search algorithm - we get some weird results
+toward the bottom of the search page - but it generally works for catching typos
+and immediatlely relevant results. It would have been better to use some sort of
+PageRank algorithm to group together relevant destinations on a trip, as one
+possible improvement.
+\subsubsection{Caching, NoSQL}
+We did our caching in MongoDB, hosted on Amazon in the same region (us-west) as
+the rest of our stack. We move popular photos to our cache by tracking their
+view count. After being moved to the cache, we obviously read the binary data
+from there instead of loading from the URL. We do not currently purge the cache
+due to the artificial nature of the project, but we could easily implement a
+least recently used (LRU) strategy if we needed to.
+\subsubsection{Additional Extra Credit Features}
+We implemented searchable hashtags for classifying media on the website - specifically, photos,
+trips, and destinations. Unlike standard search, these are evaluated strictly (like Twitter)
+and are useful for viewing relationships between disparate sets of user-created here. \\
+
+We also implemented Bing image search integration. When you perform a search on our website,
+we also show five relevant images from Bing search. This works extremely well.
+
 \section{Technical Challenges}
 Throughout the course of the project, we encountered several technical challenges. The first of such 
 challenges was deploying our web application to the cloud. Although all members of our team had 
