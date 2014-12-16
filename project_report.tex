@@ -22,10 +22,31 @@
 \begin{document}
 \maketitle
 \section{Technical Challenges}
+Throughout the course of the project, we encountered several technical challenges. The first of such 
+challenges was deploying our web application to the cloud. Although all members of our team had 
+worked on developing web applications in the past, none of us had used platforms similar to Amazon EC2.
+Figuring out how to set up the account properly with the correct security and firewall settings proved
+to be a bit of a challenge, but after carefully following the instructions provided through the course
+we were able to successfully log in to a server. Finally, once we set up the proper software on the server
+such as Node and Git, we were able to start the Node server and access our application.\\
 
+In addition, connecting to Oracle from our web application proved to be fairly difficult. Although there are
+commonly used, well maintained Node packages to connect to most database systems like PostgreSQL, MongoDB,
+Redis and more, there is not much support for connecting to an Oracle database. Thankfully, we were able to find
+one package, but installing it turned out to be fairly difficult. The package required software that had to be
+separately downloaded from Oracle in order to work, and configuring it took several tries both on our local machines
+and on the server. Once it was finally set up, however, using the interface to interact with the database was
+relatively straightforward.\\
 
-Deploy to cloud
-Oracle struggles
-Schema design
+Finally, we had some trouble creating a schema for the database that suited our requirements. We wanted to have
+one common interface to go between our different media types, such as trips, destinations and photos, and user posted
+content regarding those media types, such as ratings and comments. Additionally, we wanted to avoid having multiple 
+likes, commments, and ratings tables for each type of media (eg. photo likes, trip likes, etc), and instead
+have one common set of tables among all of them. However, that would require a relationship from every media
+table to the ratings, likes, and comments tables, which still seemed wasteful. Additionally, if we were to implement
+another type of user created content, such as hashtags, it would require changing every table to include a
+new relationship under this implementation. Instead, we decided to have one central Media table, which had references to
+every entry in each of our specific media tables. The media table was indexed by a primary key which was a composite
+of the relevant media's type and its pid in its own table. For example, if we had a photo with primary key 12 in the Photo table, its corresponding primary key in the Media table would be (`Photo', 12). The ratings, likes, and comments tables then simply used the primary key of the entry in the Media table that it referred to, minimizing duplication.
 
 \end{document}
