@@ -1,15 +1,15 @@
 var video       = require('../models/video');
 
 exports.show = function (req, res) {
-    if (typeof(req.session.username) == "undefined") { 
+    if (!req.session.username) { 
         return res.redirect('/');
     }
 
     console.log("Params: ", req.params);
     videos = [];
-	video.forUser(username, function(err, foundVideos) {
+	video.forUser(req.session.username, function(err, foundVideos) {
 		if (err || !videos) {
-			console.log("Could not load videos for user", username, err);
+			console.log("Could not load videos for user", req.session.username, err);
 			return res.redirect('/');
 		}
         for (var i = 0; i < foundVideos.length; i++) { 
