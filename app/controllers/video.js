@@ -1,7 +1,9 @@
 var video       = require('../models/video');
 
 exports.show = function (req, res) {
-    var username = req.session.username;
+    if (typeof(req.session.username) == "undefined") { 
+        return res.redirect('/');
+    }
 
     console.log("Params: ", req.params);
     videos = [];
