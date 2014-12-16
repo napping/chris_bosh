@@ -1,65 +1,24 @@
 <% include templates/header %>
 
 <div class="overall">
-    <div class="row box-row">
-        <div class="col-md-4">
-          <% include templates/box-trip %>
-        </div>
-        <div class="col-md-4">
-          <% include templates/box-destinations %>
-        </div>
-        <div class="col-md-4">
-          <div class="box box-friends">
-            <div class="list-friends">
-                <h3>Attendees</h3>
-                <ul>
-                  <% for (var i = 0; i < attendees.length; i++) { %>
-                      <li><div><img src="/images/filler.jpg"/><a href="/users/<%= attendees[i] %>">
-                        <strong><%= attendees[i] %></strong></a></div></li>
-                    <% } %>
-                </ul>
-                <% if (authUser && authUser == trip.OWNER && trip.PRIVACY !== 'private') { %>
-                  <h3>Invite</h3>
-                  <form id="invite_form" role="form" action="/trips/<%= trip.TID %>/invite" method="post">
-                      <select form="invite_form" name="username">
-                      <% for (var i = 0; i < invitationCandidates.length; i++) { %>
-                        <option value="<%= invitationCandidates[i].USERNAME %>"><%= invitationCandidates[i].USERNAME %></option>
-                      <% } %>
-                      </select>
-                      <div class="submit-credentials">
-                        <a id="submit-credentials"><button type="submit" name="submit" value="Submit">Invite</button></a>
-                     </div>
-                  </form>
-                  <h3>Add destinations</h3>
-                  <div class="list-destinations">
-                    <form id="add_destinations_form" role="form" action="/trips/<%= trip.TID %>/addDestination" method="post">
-                      <select form="add_destinations_form" name="did">
-                      <% for (var i = 0; i < destinationsNotOnTrip.length; i++) { %>
-                        <option value="<%= destinationsNotOnTrip[i].DID %>"><%= destinationsNotOnTrip[i].NAME %></option>
-                      <% } %>
-                      </select>
-                      <div class="submit-destinations">
-                        <a id="submit-destinations"><button type="submit" name="submit-dest" value="Submit">Add</button></a>
-                     </div>
-                  </form>
-                  </div>
+    <div class="display-videos">
+        <h2>Your Videos</h2>
+        <ul>
+            <% if (typeof(videos) != "undefined") { %>
+                <% for (var i = 0; i < videos.length; i++) { %>
+                   <iframe width="854" height="510" src="<%= videos[i].url %>" frameborder="0" allowfullscreen></iframe> 
                 <% } %>
-            </div>
-          </div>
+            <% } %>
+        </ul>
+        <div>
+            <h3>Add Video</h3>
+            <form role="form" action="/videos/" method="post">
+                <label for="input-video-url">Enter URL</label>
+                <input id="input-video-url" type="text" name="url"></input>
+                <button type="submit" name="submit" value="Submit">Submit</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="row box-row">
-        <div class="col-md-4">
-            <% include templates/box-albums %>
-        </div>
-
-        <div class="col-md-4">
-            <% include templates/box-comments %>
-        </div>
-
-        <div class="col-md-4"></div>
-        </div>
-
-    </div>
 <% include templates/footer %>

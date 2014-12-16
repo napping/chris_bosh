@@ -412,3 +412,10 @@ ul {
     width: 10em;
     height: auto;
 }
+
+.display-videos { 
+    text-align: center;
+    width: 100%;
+    margin-left: auto
+    margin-right: auto;
+}
