@@ -126,7 +126,7 @@ exports.verifyUser = function(username, aid, cb) {
                                 " INNER JOIN GoesOn GO ON GO.username = U.username " +  
                                 " INNER JOIN AlbumOfTrip AOT ON AOT.tid = GO.tid " +  
                                 " WHERE AOT.aid = :1 ";
-                    db.console.execute(stmt2, [aid], function (err, results) { 
+                    db.connection.execute(stmt2, [aid], function (err, results) { 
                         if (err) { 
                             cb(err, null);
                         } else {
@@ -136,9 +136,9 @@ exports.verifyUser = function(username, aid, cb) {
                                 allowedUsernames.push(tripUser.USERNAME);
                             }
                             if (allowedUsernames.indexOf(username)) { 
-                                err(null, true);
+                                cb(null, true);
                             } else { 
-                                err(null, false);
+                                cb(null, false);
                             }
                         }
                     });
