@@ -81,21 +81,6 @@ exports.create = function(req, res) {
 	});
 };
 
-// Not used, method was moved to controller/user.js
-exports.showUserPhotos = function (req, res) {
-    console.log("Params: ", req.params);
-	photo.forUser(req.params.username, function(err, photos) {
-		if (err || !destination || destination.length === 0) {
-			console.log('Destination ' + req.params.id + ' not found.', err);
-			return res.redirect('/');
-		}
-
-        return res.render('destination', {
-            photos: photos
-        });
-	});
-}
-
 exports.comment = function(req, res) {
     if (req.session.username) {
         return res.render('photo_comment', {

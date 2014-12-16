@@ -5,6 +5,7 @@ var page = require('../controllers/page'),
     auth = require('../middlewares/auth'),
     photo = require('../controllers/photo'),
     album = require('../controllers/album'),
+    video = require('../controllers/video'),
     hashtag = require('../controllers/hashtag');
 
 module.exports = function(app) {
@@ -75,5 +76,6 @@ module.exports = function(app) {
     app.post('/hashtags/search', auth.requireLogin, hashtag.query);
     // app.get('/hashtags/:tag', auth.requireLogin, hashtag.show);
 
-    // app.get('/videos/:id', auth.requireLogin, video.show);
+    app.get('/videos', auth.requireLogin, video.show);
+    app.post('/videos', auth.requireLogin, video.create);
 };
